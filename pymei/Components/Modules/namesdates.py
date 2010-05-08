@@ -1,33 +1,33 @@
 from pymei.Components.MeiElement import MeiElement
 from pymei.Components.MeiAttribute import MeiAttribute
 
-class corpname(MeiElement):
+class corpname_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"corpname", value=value, parent=parent)
-        for k,v in attrs.iteritems():
-            self.setattributes(MeiAttribute(name=k, value=v))
+        if attrs:
+            self.setattributes(attrs)
 
-class geogname(MeiElement):
+class geogname_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"geogname", value=value, parent=parent)
-        for k,v in attrs.iteritems():
-            self.setattributes(MeiAttribute(name=k, value=v))
+        if attrs:
+            self.setattributes(attrs)
 
-class periodname(MeiElement):
+class periodname_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"periodname", value=value, parent=parent)
-        for k,v in attrs.iteritems():
-            self.setattributes(MeiAttribute(name=k, value=v))
+        if attrs:
+            self.setattributes(attrs)
 
-class persname(MeiElement):
+class persname_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"persname", value=value, parent=parent)
-        for k,v in attrs.iteritems():
-            self.setattributes(MeiAttribute(name=k, value=v))
+        if attrs:
+            self.setattributes(attrs)
 
-class stylename(MeiElement):
+class stylename_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"stylename", value=value, parent=parent)
-        for k,v in attrs.iteritems():
-            self.setattributes(MeiAttribute(name=k, value=v))
+        if attrs:
+            self.setattributes(attrs)
 

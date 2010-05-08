@@ -1,45 +1,45 @@
 from pymei.Components.MeiElement import MeiElement
 from pymei.Components.MeiAttribute import MeiAttribute
 
-class fig(MeiElement):
+class fig_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"fig", value=value, parent=parent)
-        for k,v in attrs.iteritems():
-            self.setattributes(MeiAttribute(name=k, value=v))
+        if attrs:
+            self.setattributes(attrs)
 
-class figdesc(MeiElement):
+class figdesc_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"figdesc", value=value, parent=parent)
-        for k,v in attrs.iteritems():
-            self.setattributes(MeiAttribute(name=k, value=v))
+        if attrs:
+            self.setattributes(attrs)
 
-class graphic(MeiElement):
+class graphic_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"graphic", value=value, parent=parent)
-        for k,v in attrs.iteritems():
-            self.setattributes(MeiAttribute(name=k, value=v))
+        if attrs:
+            self.setattributes(attrs)
 
-class table(MeiElement):
+class table_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"table", value=value, parent=parent)
-        for k,v in attrs.iteritems():
-            self.setattributes(MeiAttribute(name=k, value=v))
+        if attrs:
+            self.setattributes(attrs)
 
-class td(MeiElement):
+class td_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"td", value=value, parent=parent)
-        for k,v in attrs.iteritems():
-            self.setattributes(MeiAttribute(name=k, value=v))
+        if attrs:
+            self.setattributes(attrs)
 
-class th(MeiElement):
+class th_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"th", value=value, parent=parent)
-        for k,v in attrs.iteritems():
-            self.setattributes(MeiAttribute(name=k, value=v))
+        if attrs:
+            self.setattributes(attrs)
 
-class tr(MeiElement):
+class tr_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"tr", value=value, parent=parent)
-        for k,v in attrs.iteritems():
-            self.setattributes(MeiAttribute(name=k, value=v))
+        if attrs:
+            self.setattributes(attrs)
 

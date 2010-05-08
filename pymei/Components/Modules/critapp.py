@@ -1,21 +1,21 @@
 from pymei.Components.MeiElement import MeiElement
 from pymei.Components.MeiAttribute import MeiAttribute
 
-class app(MeiElement):
+class app_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"app", value=value, parent=parent)
-        for k,v in attrs.iteritems():
-            self.setattributes(MeiAttribute(name=k, value=v))
+        if attrs:
+            self.setattributes(attrs)
 
-class lem(MeiElement):
+class lem_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"lem", value=value, parent=parent)
-        for k,v in attrs.iteritems():
-            self.setattributes(MeiAttribute(name=k, value=v))
+        if attrs:
+            self.setattributes(attrs)
 
-class rdg(MeiElement):
+class rdg_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"rdg", value=value, parent=parent)
-        for k,v in attrs.iteritems():
-            self.setattributes(MeiAttribute(name=k, value=v))
+        if attrs:
+            self.setattributes(attrs)
 

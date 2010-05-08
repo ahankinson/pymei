@@ -1,61 +1,61 @@
 from pymei.Components.MeiElement import MeiElement
 from pymei.Components.MeiAttribute import MeiAttribute
 
-class back(MeiElement):
+class back_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"back", value=value, parent=parent)
-        for k,v in attrs.iteritems():
-            self.setattributes(MeiAttribute(name=k, value=v))
+        if attrs:
+            self.setattributes(attrs)
 
-class blockquote(MeiElement):
+class blockquote_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"blockquote", value=value, parent=parent)
-        for k,v in attrs.iteritems():
-            self.setattributes(MeiAttribute(name=k, value=v))
+        if attrs:
+            self.setattributes(attrs)
 
-class div(MeiElement):
+class div_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"div", value=value, parent=parent)
-        for k,v in attrs.iteritems():
-            self.setattributes(MeiAttribute(name=k, value=v))
+        if attrs:
+            self.setattributes(attrs)
 
-class front(MeiElement):
+class front_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"front", value=value, parent=parent)
-        for k,v in attrs.iteritems():
-            self.setattributes(MeiAttribute(name=k, value=v))
+        if attrs:
+            self.setattributes(attrs)
 
-class ftrem(MeiElement):
+class ftrem_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"ftrem", value=value, parent=parent)
-        for k,v in attrs.iteritems():
-            self.setattributes(MeiAttribute(name=k, value=v))
+        if attrs:
+            self.setattributes(attrs)
 
-class head(MeiElement):
+class head_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"head", value=value, parent=parent)
-        for k,v in attrs.iteritems():
-            self.setattributes(MeiAttribute(name=k, value=v))
+        if attrs:
+            self.setattributes(attrs)
 
-class item(MeiElement):
+class item_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"item", value=value, parent=parent)
-        for k,v in attrs.iteritems():
-            self.setattributes(MeiAttribute(name=k, value=v))
+        if attrs:
+            self.setattributes(attrs)
 
-class l(MeiElement):
+class l_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"l", value=value, parent=parent)
-        for k,v in attrs.iteritems():
-            self.setattributes(MeiAttribute(name=k, value=v))
+        if attrs:
+            self.setattributes(attrs)
 
-class lg(MeiElement):
+class lg_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"lg", value=value, parent=parent)
-        for k,v in attrs.iteritems():
-            self.setattributes(MeiAttribute(name=k, value=v))
+        if attrs:
+            self.setattributes(attrs)
 
-class list(MeiElement):
+class list_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"list", value=value, parent=parent)
         for k,v in attrs.iteritems():

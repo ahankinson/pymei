@@ -1,4 +1,5 @@
 from pymei import MEI_NS, MEI_PREFIX
+from pymei.Components.MeiAttribute import MeiAttribute
 
 # An abstract class representing a very basic MEI element.
 # This will most often be used to subclass a "real" element.
@@ -42,7 +43,8 @@ class MeiElement(object):
         return self.__attributes
         
     def setattributes(self, value):
-        self.__attributes.append(value)
+        for k,v in value.iteritems():
+            MeiAttribute(name=k, value=v, element=self) # passing in 'self' will automatically add it to this element's __attributes list
         
     attributes = property(getattributes, setattributes, doc="Get the element attributes")
     
