@@ -10,7 +10,7 @@ class MeiDocument(object):
         self.elements = []
     
     def addelement(self, element):
-        self.elements.append(value)
+        self.elements.append(element)
     
     def delelement(self, element):
         del element

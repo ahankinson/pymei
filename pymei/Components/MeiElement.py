@@ -16,8 +16,7 @@ class MeiElement(object):
         self.__attributes = []
     
     def __repr__(self):
-        prefix = self.prefix
-        xmlns = self.xmlns
+        return "{0}:{1}".format(self.__name, self.__value)
     
     def __unicode__(self):
         return self.value
@@ -36,8 +35,9 @@ class MeiElement(object):
         return self.__children
     children = property(getchildren, doc="Get the direct children of this element")
     
-    def addchild(self, child):
-        self.__children.append(child)
+    def addchildren(self, children):
+        for c in children:
+            self.__children.append(c)
     
     def getattributes(self):
         return self.__attributes

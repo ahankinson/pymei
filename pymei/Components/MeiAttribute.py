@@ -11,7 +11,10 @@ class MeiAttribute(object):
         # automatically add this object to the parent's attribute list.
         if element:
             element.attributes.append(self)
-        
+    
+    def __repr__(self):
+        return "{0}:{1}".format(self.__name, self.__value)
+    
     def getname(self):
         return self.__name
     
