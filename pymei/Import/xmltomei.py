@@ -5,13 +5,14 @@ from pymei.Components import MeiDocument, MeiElement
 from pymei.Components import Modules as mod
 
 
-def meixml_import(meifile):
+def xmltomei(meifile):
     """ Open and parse a MEI XML file to a MeiDocument object. """
     f = open(meifile, 'r')
     t = etree.parse(f)
     r = t.getroot()
     d = _xml_to_mei(r)
-    return d
+    doc = MeiDocument()
+    return doc.addelement(d)
     
 def _xml_to_mei(el):
     ns_tag = el.tag.split('}')

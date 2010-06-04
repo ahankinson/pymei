@@ -1,6 +1,5 @@
-from pymei.Import.meixml import meixml_import
-from pymei.Import.meijson import meijson_import
-from pymei.Components.MeiDocument import MeiDocument
+from pymei.Import.xmltomei import xmltomei
+from pymei.Import.jsontomei import jsontomei
 
 from pymei.exceptions import MeiXMLParsingError
 
@@ -14,10 +13,8 @@ def load(meifile, parse="meixml"):
     if parse == "meixml":
         # import using the meixml library. return
         try:
-            meiobj = meixml_import(meifile)
-            doc = MeiDocument()
-            doc.addelement(meiobj)
-            return doc
+            meidoc = xmltomei(meifile)
+            return meidoc
         except Exception, e:
             raise MeiXMLParsingError("Problem parsing the MEIXML file: {0}".format(e))
             return
