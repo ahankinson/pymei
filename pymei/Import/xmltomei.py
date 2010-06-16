@@ -9,6 +9,7 @@ from pymei.Components import Modules as mod
 def xmltomei(meifile):
     """ Open and parse a MEI XML file to a MeiDocument object. """
     f = open(meifile, 'r')
+    p = etree.XMLParser(remove_comments = True)
     t = etree.parse(f)
     r = t.getroot()
     d = _xml_to_mei(r)
@@ -24,9 +25,9 @@ def _xml_to_mei(el):
     if el.items():
         attrs = dict(el.items())
         obj.setattributes(attrs)
-
-    if el.getchildren():
-        c = el.getchildren()
+        
+    c = list(el)
+    if c is True:
         m = map(_xml_to_mei, c)
         obj.addchildren(m)
     else:
