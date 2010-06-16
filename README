@@ -71,7 +71,49 @@ meidocument = xmltomei(xmlstring)
 
 Having the module structured this way means you can simply substitute "meitoxml" or "xmltomei" with similar calls to "meitojson" and "jsontomei" and have it function the exact same way. This makes it easy to write converters to input and output other types of documents.
 
+Currently, though, we're focusing just on the XML functionality.
 
+==============
+
+TO DO
+
+Internal representation:
+
+There are plenty of to-dos, but the biggest things are making sure that the Python representations are exactly the same as the XML representations. This is especially critical for maintaining ordering. For example, if you have a sequence of notes
+
+C D E F G A Bb C
+
+And the Python representation doesn't know how to maintain the ordering, you may get
+
+C Bb A G F E D C
+
+as the sequence, or they may be completely out of order. Therefore we need to make sure that we either store the entities in order, or we write some methods to make sure they are output in order. 
+
+Document creation:
+
+Importing already-created MEI files should be fairly straightforward, but a significant part of this library is to help create new, well-formed MEI files. Thus, we'll need to write some functions that allow us to do things like set up an empty MEI document, e.g.
+
+from pymei.Helpers import MeiSkeleton
+meidoc = MeiSkeleton()
+
+"meidoc" then becomes a basic MeiDocument, with pre-added sections for the head & body, some basic metadata, etc. We'll also need methods for easily creating common elements, e.g.
+
+meidoc.addelement("note", params)
+
+etc...
+
+Unit Tests:
+
+A big part of this will be writing unit tests, making sure that everything functions according to the way we want it to. A big part of unit testing is just to make sure that, given an input, a method will return an expected output. So, given a very simple method:
+
+def adder(num):
+  return num + 1
+  
+We would write a unit test that calls the adder method with the number 3, and assert that it returns a 4.
+
+Python has a very good unit testing module, http://docs.python.org/library/unittest.html
+
+I can give you a better overview of this in person.
 
 
 

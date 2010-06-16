@@ -1,7 +1,7 @@
 from pymei.Import.xmltomei import xmltomei
 from pymei.Import.jsontomei import jsontomei
 
-from pymei.exceptions import MeiXMLParsingError
+from pymei.exceptions import MeiXMLParsingError, MeiNotYetImplementedError
 
 def load(meifile, parse="meixml"):
     """ 

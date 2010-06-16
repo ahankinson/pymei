@@ -26,10 +26,12 @@
       </langusage>
     </profiledesc>
   </meihead>
+
   <music>
     <body>
       <mdiv>
         <score>
+	
           <scoredef>
             <staffgrp>
               <staffdef n="1" xml:id="P1" lines="5" label.full="Voice"

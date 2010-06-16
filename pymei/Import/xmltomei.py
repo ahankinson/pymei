@@ -1,5 +1,6 @@
-from lxml import etree
-from lxml import objectify
+#import lxml #GVM
+from lxml import etree #AH
+from lxml import objectify #AH
 
 from pymei.Components import MeiDocument, MeiElement
 from pymei.Components import Modules as mod
@@ -11,7 +12,7 @@ def xmltomei(meifile):
     t = etree.parse(f)
     r = t.getroot()
     d = _xml_to_mei(r)
-    doc = MeiDocument()
+    doc = MeiDocument.MeiDocument()
     return doc.addelement(d)
     
 def _xml_to_mei(el):
@@ -24,12 +25,12 @@ def _xml_to_mei(el):
         attrs = dict(el.items())
         obj.setattributes(attrs)
 
-    if el.text:
-        obj.setvalue(el.text)
-    elif el.getchildren():
+    if el.getchildren():
         c = el.getchildren()
-        m = map(xml_to_mei, c)
+        m = map(_xml_to_mei, c)
         obj.addchildren(m)
+    else:
+        obj.setvalue(el.text)
     return obj
 
     

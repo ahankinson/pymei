@@ -1,9 +1,13 @@
-from lxml import etree
+from lxml import etree #AH   
+# import lxml #GVM
+
 import os
 
-from pymei.exceptions import MeiSchemaNotValidError, MeiSchemaNotFoundError
+from pymei.exceptions import MeiSchemaNotValidError, MeiSchemaNotFoundError #AH
+#from exceptions import MeiSchemaNotValidError, MeiSchemaNotFoundError #GVM
 
 # Library stuff.
+
 
 __version__ = u"0.1a"
 __authors__ = u"Andrew Hankinson"
@@ -24,9 +28,12 @@ XHTML_PREFIX = u"xhtml"
 
 ENCODING = "UTF-8"
 
+
+
 # SCHEMAS
 SCHEMA_TYPE = "relaxng" # This may change. For now we'll specify XSD, but we could change it to another schema languages
-SCHEMA_PATH = "/Users/ahankins/Documents/code/mei/branches/mei19.1/ModularizationTesting"
+#SCHEMA_PATH = "/Users/ahankins/Documents/code/mei/branches/mei19.1/ModularizationTesting" #AH
+SCHEMA_PATH = "/Users/gabriel/Documents/code/mei/mei/branches/mei19.1/ModularizationTesting" #GVM
 AVAILABLE_SCHEMAS = ["mei-all.rng",]
 
 def load_schema(schema="mei-all.rng"):
