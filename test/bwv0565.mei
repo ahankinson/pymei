@@ -13,7 +13,7 @@
     <encodingdesc>
       <projectdesc>
         <p>Transcoded from a MusicXML version 1.0 file on
-            <date>2009-02-11</date> using an XSLT stylesheet (2mei v.
+            <date><year>2009</year>-<month>02</month>-<day>11</day></date> using an <abbr>XSLT</abbr> stylesheet (2mei v.
           2.0).</p>
         <p>The MusicXML file was generated using SharpEye Music Reader
           2.</p>
