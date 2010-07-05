@@ -5,16 +5,21 @@ from lxml import objectify #AH
 from pymei.Components import MeiDocument, MeiElement
 from pymei.Components import Modules as mod
 
+import logging
+lg = logging.getLogger('pymei')
+
 
 def xmltomei(meifile):
     """ Open and parse a MEI XML file to a MeiDocument object. """
     f = open(meifile, 'r')
-    p = etree.XMLParser(remove_comments = True)
-    t = etree.parse(f)
+    p = etree.XMLParser(remove_comments=True)
+    t = etree.parse(f, p)
     r = t.getroot()
     d = _xml_to_mei(r)
-    doc = MeiDocument.MeiDocument(f.name)
-    return doc.addelement(d)
+    doc = MeiDocument.MeiDocument()
+    doc.addelement(d)
+    lg.debug(doc)
+    return doc
     
 def _xml_to_mei(el):
     """ Helper function for converting etree-parsed XML objects to a nested set of
@@ -31,7 +36,7 @@ def _xml_to_mei(el):
     objname = "{0}_".format(tagname)
     obj = getattr(mod, objname)(namespace=ns)
     
-    if el.text.strip() != '':
+    if el.text and el.text.strip() != '':
         # if we strip the blanklines and line endings and do not end up with an
         # empty string, we have inline text that we need to deal with.
         # For now, we will strip out *any* child tags to set the text value. We'll 
@@ -50,7 +55,7 @@ def _xml_to_mei(el):
     
     # add any children.
     c = list(el)
-    if c is True:
+    if len(c) > 0:
         # loopdy-loopdy!
         m = map(_xml_to_mei, c)
         obj.addchildren(m)

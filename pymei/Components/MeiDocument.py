@@ -1,14 +1,18 @@
 from pymei import ENCODING, MEI_PREFIX, MEI_NS
 
+import logging
+lg = logging.getLogger('pymei')
+
 # A class representing an MEI document.
 # Provides an interface for accessing and adding elements.
 class MeiDocument(object):
-    def __init__(self, docname, encoding=ENCODING):
+    def __init__(self, docname="MeiDocument", encoding=ENCODING):
         self.__encoding = ENCODING
         self.__default_prefix = MEI_PREFIX
         self.__default_namespace = MEI_NS
         self.__name = docname
         self.elements = []
+        self.__flattened_elements = None
     
     def __repr__(self):
         return u"{0}".format(self.__name)
@@ -33,6 +37,9 @@ class MeiDocument(object):
         
     encoding = property(getencoding, setencoding, doc="Get and set a document's encoding")
     
+    def gettoplevel(self):
+        return self.elements[0]
+    
     def getdefaultnamespace(self):
         return self.__default_namespace
     
@@ -48,3 +55,37 @@ class MeiDocument(object):
         self.__default_prefix = value
     
     default_prefix = property(getdefaultprefix, setdefaultprefix, doc = "Get and set a document's default namespace")
+    
+    
+    def search(self, searchterm, **kwargs):
+        """ Searches an MEI Document for an object name that matches the search term.
+            
+            Passing in KW args will narrow down the search by only retrieving objects
+            with given attribute values.
+        """
+        # there should only be one toplevel element
+        if not self.__flattened_elements:
+            searchspace = self._flatten()
+            
+        result = filter(lambda x: x.getname() == searchterm, self.__flattened_elements)
+        return result
+    
+    def _flatten(self):
+        """ Flattens the nested elements into a single list.
+            Caches the result in the object for future lookups.
+        """
+        rootl = self.gettoplevel()
+        
+        def __fl(ls):            
+            for ch in ls.getchildren():
+                if len(ch.getchildren()) > 0:
+                    for cd in __fl(ch):
+                        yield cd
+                yield ch
+        flattened = set(__fl(rootl))
+        self.__flattened_elements = flattened
+        
+        
+        
+        
+        

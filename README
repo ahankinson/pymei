@@ -1,5 +1,11 @@
 PyMEI README
 
+*************** WARNING ***************
+This software is so Alpha it's not even funny. 
+
+Don't expect it to work at all right now.
+*************** WARNING ***************
+
 This is a Python library to read/write Music Encoding Initiative (MEI) files. While MEI is usually expressed in XML, this library abstracts the XML representation, parsing the MEI entities into Python objects. This is to allow for alternative representations to be output, e.g., a MEIXML file can be read in and converted to a JSON representation, or vice-versa.
 
 The structure of this module is fairly straightforward. Here is a very brief introduction to the content of the files/folders.

@@ -39,9 +39,7 @@ class MeiElement(object):
     children = property(getchildren, doc="Get the direct children of this element")
     
     def addchildren(self, children):
-        lg.debug(children)
         for c in children:
-            lg.debug('adding {0} to children'.format(c))
             self.__children.append(c)
     
     def getattributes(self):
@@ -53,6 +51,9 @@ class MeiElement(object):
         
     attributes = property(getattributes, setattributes, doc="Get the element attributes")
     
+    def getname(self):
+        return self.__name
+        
     def getprefix(self):
         return self.__prefix
     
