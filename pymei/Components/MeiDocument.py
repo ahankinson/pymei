@@ -3,11 +3,21 @@ from pymei import ENCODING, MEI_PREFIX, MEI_NS
 # A class representing an MEI document.
 # Provides an interface for accessing and adding elements.
 class MeiDocument(object):
-    def __init__(self, encoding=ENCODING):
+    def __init__(self, docname, encoding=ENCODING):
         self.__encoding = ENCODING
         self.__default_prefix = MEI_PREFIX
         self.__default_namespace = MEI_NS
+        self.__name = docname
         self.elements = []
+    
+    def __repr__(self):
+        return u"{0}".format(self.__name)
+        
+    def __str__(self):
+        return "{0}".format(self.__name)
+    
+    def __unicode__(self):
+        return u"{0}".format(self.__name)
     
     def addelement(self, element):
         self.elements.append(element)

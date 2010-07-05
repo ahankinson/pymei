@@ -1,6 +1,9 @@
 from pymei import MEI_NS, MEI_PREFIX
 from pymei.Components.MeiAttribute import MeiAttribute
 
+import logging
+lg = logging.getLogger('pymei')
+
 # An abstract class representing a very basic MEI element.
 # This will most often be used to subclass a "real" element.
 # This is inspired by the atomixlib atom library at http://trac.defuze.org/browser/oss/atomixlib/
@@ -16,13 +19,13 @@ class MeiElement(object):
         self.__attributes = []
     
     def __repr__(self):
-        return "{0}:{1}".format(self.__name, self.__value)
+        return u"{0}:{1}".format(self.__xmlns, self.__name)
     
     def __unicode__(self):
-        return self.value
+        return u"{0}:{1}".format(self.__xmlns, self.__name)
     
     def __str__(self):
-        return self.value
+        return "{0}:{1}".format(self.__xmlns, self.__name)
     
     def getvalue(self):
         return self.__value
@@ -36,7 +39,9 @@ class MeiElement(object):
     children = property(getchildren, doc="Get the direct children of this element")
     
     def addchildren(self, children):
+        lg.debug(children)
         for c in children:
+            lg.debug('adding {0} to children'.format(c))
             self.__children.append(c)
     
     def getattributes(self):

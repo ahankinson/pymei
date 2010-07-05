@@ -1,7 +1,6 @@
 #import lxml #GVM
 from lxml import etree #AH
 from lxml import objectify #AH
-import type
 
 from pymei.Components import MeiDocument, MeiElement
 from pymei.Components import Modules as mod
@@ -14,13 +13,21 @@ def xmltomei(meifile):
     t = etree.parse(f)
     r = t.getroot()
     d = _xml_to_mei(r)
-    doc = MeiDocument.MeiDocument()
+    doc = MeiDocument.MeiDocument(f.name)
     return doc.addelement(d)
     
 def _xml_to_mei(el):
+    """ Helper function for converting etree-parsed XML objects to a nested set of
+        MeiElements.
+    """
+    
+    # etree automatically appends the namespace to every element. We need to 
+    # strip that off.
     ns_tag = el.tag.split('}')
-    tagname = ns_tag[-1] # strip the ns off the tagname.
+    tagname = ns_tag[-1]
     ns = ns_tag[0].strip('{')
+    
+    # create the object name.
     objname = "{0}_".format(tagname)
     obj = getattr(mod, objname)(namespace=ns)
     
@@ -36,12 +43,15 @@ def _xml_to_mei(el):
             tx += " "
         obj.setvalue(tx)
         
+    # set the attributes
     if el.items():
         attrs = dict(el.items())
         obj.setattributes(attrs)
     
+    # add any children.
     c = list(el)
     if c is True:
+        # loopdy-loopdy!
         m = map(_xml_to_mei, c)
         obj.addchildren(m)
         

@@ -7,11 +7,20 @@ from pymei.exceptions import MeiSchemaNotValidError, MeiSchemaNotFoundError #AH
 #from exceptions import MeiSchemaNotValidError, MeiSchemaNotFoundError #GVM
 
 # Library stuff.
+import logging
+lg = logging.getLogger('pymei')
+f = logging.Formatter("%(levelname)s %(asctime)s On Line: %(lineno)d %(message)s")
+h = logging.StreamHandler()
+h.setFormatter(f)
 
+lg.setLevel(logging.DEBUG)
+lg.addHandler(h)
 
 __version__ = u"0.1a"
 __authors__ = u"Andrew Hankinson"
 __copyright__ = u""
+
+lg.debug('Initializing PyMEI Library.')
 
 # Namespaces
 MEI_NS = u"http://www.music-encoding.org/ns/mei"
@@ -28,8 +37,6 @@ XHTML_PREFIX = u"xhtml"
 
 ENCODING = "UTF-8"
 
-
-
 # SCHEMAS
 SCHEMA_TYPE = "relaxng" # This may change. For now we'll specify XSD, but we could change it to another schema languages
 #SCHEMA_PATH = "/Users/ahankins/Documents/code/mei/branches/mei19.1/ModularizationTesting" #AH
@@ -45,3 +52,4 @@ def load_schema(schema="mei-all.rng"):
         
     s = open(os.path.join(SCHEMA_PATH, schema), 'r')
     return etree.parse(s)
+    
