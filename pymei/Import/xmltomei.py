@@ -5,6 +5,8 @@ from lxml import objectify #AH
 from pymei.Components import MeiDocument, MeiElement
 from pymei.Components import Modules as mod
 
+from pymei import NS_TO_PREFIX
+
 import logging
 lg = logging.getLogger('pymei')
 
@@ -12,7 +14,7 @@ lg = logging.getLogger('pymei')
 def xmltomei(meifile):
     """ Open and parse a MEI XML file to a MeiDocument object. """
     f = open(meifile, 'r')
-    p = etree.XMLParser(remove_comments=True)
+    p = etree.XMLParser(ns_clean=True, remove_comments=True)
     t = etree.parse(f, p)
     r = t.getroot()
     d = _xml_to_mei(r)

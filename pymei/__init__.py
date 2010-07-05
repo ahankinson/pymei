@@ -28,12 +28,25 @@ XLINK_NS = u"http://www.w3.org/1999/xlink"
 DATATYPE_NS = u"http://www.w3.org/2001/XMLSchema-datatypes"
 XHTML_NS = u"http://www.w3.org/1999/xhtml"
 TEI_NS = u"http://www.tei-c.org/ns/1.0"
+XML_NS = u"http://www.w3.org/XML/1998/namespace"
 
 # NS Prefixes
 MEI_PREFIX = u"mei"
 TEI_PREFIX = u"tei"
 XLINK_PREFIX = u"xlink"
 XHTML_PREFIX = u"xhtml"
+XML_PREFIX =u"xml"
+
+# A small lookup table so we can resolve Namespaces to Prefixes
+NS_TO_PREFIX = {
+    XML_NS: XML_PREFIX,
+    TEI_NS: TEI_PREFIX,
+    XHTML_NS: XHTML_PREFIX,
+    DATATYPE_NS: DATATYPE_PREFIX
+    XLINK_NS: XLINK_PREFIX
+    MEI_NS: MEI_PREFIX
+}
+
 
 ENCODING = "UTF-8"
 

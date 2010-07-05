@@ -6,13 +6,6 @@ lg = logging.getLogger('pymei')
 from pymei.Components import MeiDocument, MeiElement
 from pymei.Components import Modules as mod
 
-
-
-
-
-
-
-
 def create(docname):
     doc = MeiDocument.MeiDocument(docname)
     
