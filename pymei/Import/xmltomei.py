@@ -52,7 +52,15 @@ def _xml_to_mei(el):
         
     # set the attributes
     if el.items():
+        def __attfilt(att):
+            if att[0].startswith("{"):
+                full = att.split("}")
+                a = full[-1]
+                n = NS_TO_PREFIX[full[0].strip("{")]
+                return "{0}:{1}".format(n,a)
+                
         attrs = dict(el.items())
+        
         obj.setattributes(attrs)
     
     # add any children.

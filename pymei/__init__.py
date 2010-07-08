@@ -38,14 +38,13 @@ XHTML_PREFIX = u"xhtml"
 XML_PREFIX =u"xml"
 
 # A small lookup table so we can resolve Namespaces to Prefixes
-NS_TO_PREFIX = {
-    XML_NS: XML_PREFIX,
-    TEI_NS: TEI_PREFIX,
-    XHTML_NS: XHTML_PREFIX,
-    DATATYPE_NS: DATATYPE_PREFIX
-    XLINK_NS: XLINK_PREFIX
-    MEI_NS: MEI_PREFIX
-}
+NS_TO_PREFIX = {XML_NS: XML_PREFIX, 
+                    TEI_NS: TEI_PREFIX, 
+                    XHTML_NS: XHTML_PREFIX,
+                    #DATATYPE_NS: DATATYPE_PREFIX, 
+                    XLINK_NS: XLINK_PREFIX, 
+                    MEI_NS: MEI_PREFIX
+                }
 
 
 ENCODING = "UTF-8"
