@@ -4,8 +4,9 @@ from lxml import objectify #AH
 
 from pymei.Components import MeiDocument, MeiElement
 from pymei.Components import Modules as mod
+from pymei.Helpers import attfilt as af
 
-from pymei import NS_TO_PREFIX
+#from pymei import NS_TO_PREFIX
 
 import logging
 lg = logging.getLogger('pymei')
@@ -52,21 +53,17 @@ def _xml_to_mei(el):
         
     # set the attributes
     if el.items():
-        def __attfilt(att):
-            if att[0].startswith("{"):
-                full = att.split("}")
-                a = full[-1]
-                n = NS_TO_PREFIX[full[0].strip("{")]
-                return "{0}:{1}".format(n,a)
-                
-        attrs = dict(el.items())
-        
-        obj.setattributes(attrs)
+        d = {}
+        for k,v in el.items():
+            # if the attribute has a namespace, be sure to convert it to its
+            # prefix
+            d[af.attfilt(k)] = v
+        obj.setattributes(d)
     
     # add any children.
     c = list(el)
     if len(c) > 0:
-        # loopdy-loopdy!
+        # loopdy-loopdy! This calls itself for any children components found.
         m = map(_xml_to_mei, c)
         obj.addchildren(m)
         
