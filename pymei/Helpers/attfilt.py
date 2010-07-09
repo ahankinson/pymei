@@ -14,6 +14,6 @@ def prefix_to_ns(att):
     if len(att.split(":")) > 1:
         p = PREFIX_TO_NS[att.split(":")[0]]
         a = "{{{0}}}{1}".format(p, att.split(":")[-1])
-        return a
+        return str(a)
     else:
-        return att
+        return str(att)

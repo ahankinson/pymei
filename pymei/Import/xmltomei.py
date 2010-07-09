@@ -49,8 +49,14 @@ def _xml_to_mei(el):
         for n in el.itertext():
             tx += " ".join(n.split())
             tx += " "
-        obj.setvalue(tx)
-        
+        obj.setsvalue(tx)
+    
+    if el.text is not None:
+        obj.setvalue(el.text)
+    
+    if el.tail is not None:
+        obj.settail(el.tail)
+    
     # set the attributes
     if el.items():
         d = {}

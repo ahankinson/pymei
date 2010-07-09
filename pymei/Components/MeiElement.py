@@ -15,8 +15,10 @@ class MeiElement(object):
         self.__xmlns = namespace
         self.__name = name
         self.__value = value
+        self.__tail = None
         self.__children = []
         self.__attributes = []
+        self.__svalue = None
     
     def __repr__(self):
         return u"{0}:{1}".format(self.__xmlns, self.__name)
@@ -33,6 +35,20 @@ class MeiElement(object):
     def setvalue(self, value):
         self.__value = value
     value = property(getvalue, setvalue, doc="Get and set the text value for the element")
+    
+    def getsvalue(self):
+        return self.__svalue
+        
+    def setsvalue(self, value):
+        self.__svalue = value
+    svalue = property(getsvalue, setsvalue, doc="Get and set the full stripped value for the element. The stripped value is the text value with any inline tags stripped out.")
+    
+    def gettail(self):
+        return self.__tail
+        
+    def settail(self, value):
+        self.__tail = value
+    tail = property(gettail, settail, doc="Get and set the text tail for the element.")
     
     def getchildren(self):
         return self.__children
