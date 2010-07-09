@@ -111,7 +111,7 @@ class dot_(MeiElement):
 
 class dynam_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"dynamic", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"dynam", value=value, parent=parent)
         if attrs:
             self.setattributes(attrs)
 
