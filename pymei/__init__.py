@@ -46,6 +46,8 @@ NS_TO_PREFIX = {XML_NS: XML_PREFIX,
                     MEI_NS: MEI_PREFIX
                 }
 
+PREFIX_TO_NS = dict([v,k] for k,v in NS_TO_PREFIX.iteritems())
+
 
 ENCODING = "UTF-8"
 

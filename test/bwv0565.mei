@@ -29,18 +29,11 @@
     <body>
       <mdiv>
         <score>
-          <scoredef meter.count="4" meter.unit="4" meter.sym="common"
-            key.sig="1f">
+          <scoredef meter.count="4" meter.unit="4" meter.sym="common" key.sig="1f">
             <staffgrp>
-              <staffdef n="1" xml:id="P1" lines="5"
-                label.full="Part_1" clef.line="2" clef.shape="G"
-                ppq="48" key.sig="1f"/>
-              <staffdef n="2" xml:id="P2" lines="5"
-                label.full="Part_2" clef.line="4" clef.shape="F"
-                ppq="48" key.sig="1f"/>
-              <staffdef n="3" xml:id="P3" lines="5"
-                label.full="Part_3" clef.line="4" clef.shape="F"
-                ppq="48" key.sig="1f"/>
+              <staffdef n="1" xml:id="P1" lines="5" label.full="Part_1" clef.line="2" clef.shape="G" ppq="48" key.sig="1f"/>
+              <staffdef n="2" xml:id="P2" lines="5" label.full="Part_2" clef.line="4" clef.shape="F" ppq="48" key.sig="1f"/>
+              <staffdef n="3" xml:id="P3" lines="5" label.full="Part_3" clef.line="4" clef.shape="F" ppq="48" key.sig="1f"/>
             </staffgrp>
           </scoredef>
           <section>
@@ -49,21 +42,14 @@
             <measure n="1" xml:id="d1e18">
               <staff n="1">
                 <layer n="1">
-                  <note xml:id="d1e40" pname="a" oct="5" dur="8"
-                    dur.ges="24" stem.dir="up"/>
+                  <note xml:id="d1e40" pname="a" oct="5" dur="8" dur.ges="24" stem.dir="up"/>
                   <rest vo="4" xml:id="d1e58" dur="32" dur.ges="6"/>
                   <beam>
-                    <note xml:id="d1e71" pname="g" oct="5" dur="64"
-                      dur.ges="3" stem.dir="up"/>
-                    <note xml:id="d1e94" pname="f" oct="5" dur="64"
-                      dur.ges="3" stem.dir="up"/>
-                    <note xml:id="d1e117" pname="e" oct="5" dur="64"
-                      dur.ges="3" stem.dir="up"/>
-                    <note xml:id="d1e140" pname="d" oct="5" dur="64"
-                      dur.ges="3" stem.dir="up"/>
-                    <note xml:id="d1e163" pname="c" accid="s" oct="5"
-                      dur="32" dur.ges="6" stem.dir="up" accid.ges="s"
-                    />
+                    <note xml:id="d1e71" pname="g" oct="5" dur="64" dur.ges="3" stem.dir="up"/>
+                    <note xml:id="d1e94" pname="f" oct="5" dur="64" dur.ges="3" stem.dir="up"/>
+                    <note xml:id="d1e117" pname="e" oct="5" dur="64" dur.ges="3" stem.dir="up"/>
+                    <note xml:id="d1e140" pname="d" oct="5" dur="64" dur.ges="3" stem.dir="up"/>
+                    <note xml:id="d1e163" pname="c" accid="s" oct="5" dur="32" dur.ges="6" stem.dir="up" accid.ges="s"/>
                   </beam>
                   <note xml:id="d1e188" pname="d" oct="5" dur="16"
                     dur.ges="12" stem.dir="up"/>

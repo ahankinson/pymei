@@ -57,7 +57,7 @@ def _xml_to_mei(el):
         for k,v in el.items():
             # if the attribute has a namespace, be sure to convert it to its
             # prefix
-            d[af.attfilt(k)] = v
+            d[af.ns_to_prefix(k)] = v
         obj.setattributes(d)
     
     # add any children.

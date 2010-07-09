@@ -109,7 +109,7 @@ class dot_(MeiElement):
         if attrs:
             self.setattributes(attrs)
 
-class dynamic_(MeiElement):
+class dynam_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"dynamic", value=value, parent=parent)
         if attrs:

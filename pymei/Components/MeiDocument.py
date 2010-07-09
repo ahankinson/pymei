@@ -10,6 +10,8 @@ class MeiDocument(object):
         self.__encoding = ENCODING
         self.__default_prefix = MEI_PREFIX
         self.__default_namespace = MEI_NS
+        self.__standalone = False
+        self.__xml_version = "1.0"
         self.__name = docname
         self.elements = []
         self.__flattened_elements = None
@@ -53,9 +55,13 @@ class MeiDocument(object):
     
     def setdefaultprefix(self, value):
         self.__default_prefix = value
-    
     default_prefix = property(getdefaultprefix, setdefaultprefix, doc = "Get and set a document's default namespace")
     
+    def getstandalone(self):
+        return self.__standalone
+    
+    def getxmlversion(self):
+        return self.__xml_version
     
     def search(self, searchterm, **kwargs):
         """ Searches an MEI Document for an object name that matches the search term.
