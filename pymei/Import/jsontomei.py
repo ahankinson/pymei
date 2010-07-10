@@ -29,8 +29,6 @@ def _json_to_mei(el):
         
         See test/meijson.py for an example of how JSON-structured MEI looks.
     """
-    lg.debug(el)
-    
     # Strings are interpreted as values.
     if isinstance(el, types.StringType) or isinstance(el, types.UnicodeType):
         return el
@@ -59,26 +57,18 @@ def _json_to_mei(el):
         
         # loopdy-loopdy!
         m = map(_json_to_mei, el[tagname])
-        lg.debug("M is {0}".format(m))
         # our map operation will return a number of things. Depending on what 
         # is in our map result, we put that it the MeiElement object accordingly.
-        for d in m:
-            if isinstance(d, types.DictType):
-                lg.debug("Keys: {0}".format(d.keys()))
-                
+        for d in m:                
             if isinstance(d, types.DictType) and "@attributes" in d.keys():
-                lg.debug("Setting Attributes")
                 obj.setattributes(d['@attributes'])
             
             elif isinstance(d, types.DictType) and "@tail" in d.keys():
-                lg.debug("Setting Tail Text {0}".format(d['@tail']))
                 obj.settail(d['@tail'])
             
             elif isinstance(d, types.DictType) and "@value" in d.keys():
-                lg.debug("Setting Value text {0}".format(d['@value']))
                 obj.setvalue(d['@value'])
                 
             else:
                 obj.addchildren([d])
-    lg.debug(obj)
     return obj

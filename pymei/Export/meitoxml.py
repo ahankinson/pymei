@@ -20,7 +20,6 @@ def meitoxml(meidocument, filename):
             standalone=meidocument.getstandalone())
 
 def _mei_to_xml(el):
-    lg.debug('el {0}'.format(el))
     a = {}
     el_attb = el.getattributes()
     for it in el_attb:
@@ -38,11 +37,7 @@ def _mei_to_xml(el):
     
     el_name = el.getname()
     el_value = el.getvalue()
-    el_tail = el.gettail()
-    
-    lg.debug("Element Name: {0}".format(el_name))
-    lg.debug("Element type: {0}".format(type(el_name)))
-    lg.debug('Attributes: {0}'.format(a))
+    el_tail = el.gettail()    
     el_x = etree.Element(el_name, **a)
     
     if el_value is not None:
@@ -54,7 +49,6 @@ def _mei_to_xml(el):
     if len(el.getchildren()) > 0:
         children = map(_mei_to_xml, el.getchildren())
         
-        lg.debug('children {0}'.format(children))
         for child in children:
             el_x.append(child)
             

@@ -58,5 +58,5 @@ class lg_(MeiElement):
 class list_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"list", value=value, parent=parent)
-        for k,v in attrs.iteritems():
-            self.setattributes(MeiAttribute(name=k, value=v))
+        if attrs:
+            self.setattributes(attrs)

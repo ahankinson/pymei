@@ -20,7 +20,7 @@ __version__ = u"0.1a"
 __authors__ = u"Andrew Hankinson"
 __copyright__ = u""
 
-lg.debug('Initializing PyMEI Library.')
+#lg.debug('Initializing PyMEI Library.')
 
 # Namespaces
 MEI_NS = u"http://www.music-encoding.org/ns/mei"

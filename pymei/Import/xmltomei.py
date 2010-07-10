@@ -15,13 +15,12 @@ lg = logging.getLogger('pymei')
 def xmltomei(meifile):
     """ Open and parse a MEI XML file to a MeiDocument object. """
     f = open(meifile, 'r')
-    p = etree.XMLParser(ns_clean=True, remove_comments=True)
+    p = etree.XMLParser(ns_clean=True, remove_comments=True, no_network=False)
     t = etree.parse(f, p)
     r = t.getroot()
     d = _xml_to_mei(r)
     doc = MeiDocument.MeiDocument()
     doc.addelement(d)
-    lg.debug(doc)
     return doc
     
 def _xml_to_mei(el):

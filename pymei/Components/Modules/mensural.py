@@ -7,9 +7,9 @@ class ligature_(MeiElement):
         if attrs:
             self.setattributes(attrs)
 
-class mensuration_(MeiElement):
+class mensur_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"mensuration", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"mensur", value=value, parent=parent)
         if attrs:
             self.setattributes(attrs)
 
