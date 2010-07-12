@@ -28,10 +28,10 @@ if __name__ == "__main__":
             x = xmltomei.xmltomei(os.path.join(options.folder, f))
             del x
         except Exception, e:
-            lg.debug("*** OH NOES! Failz. ***")
-            lg.debug("The filename was: {0}".format(f))
-            lg.debug("The error was {0}: {1}".format(Exception, e))
-            lg.debug("(((((((((((((((())))))))))))))))")
+            lg.debug("********************************************")
+            lg.debug("*** Failure on {0} ***".format(f))
+            lg.debug("The error was: {0}".format(e))
+            lg.debug("********************************************")
             if options.stop:
                 lg.debug("Stopping!")
                 sys.exit()

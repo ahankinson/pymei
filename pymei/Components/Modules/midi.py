@@ -37,11 +37,24 @@ class lyrics_(MeiElement):
         if attrs:
             self.setattributes(attrs)
 
+class marker_(MeiElement):
+    def __init__(self, value=None, parent=None, **attrs):
+        MeiElement.__init__(self, name=u"marker", value=value, parent=parent)
+        if attrs:
+            self.setattributes(attrs)
+
 class metatext_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"metatext", value=value, parent=parent)
         if attrs:
             self.setattributes(attrs)
+
+class midi_(MeiElement):
+    def __init__(self, value=None, parent=None, **attrs):
+        MeiElement.__init__(self, name=u"midi", value=value, parent=parent)
+        if attrs:
+            self.setattributes(attrs)
+
 
 class noteoff_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):

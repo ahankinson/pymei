@@ -27,7 +27,7 @@ class chordtable_(MeiElement):
 
 class harm_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"harmony", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"harm", value=value, parent=parent)
         if attrs:
             self.setattributes(attrs)
 
