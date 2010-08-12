@@ -17,6 +17,7 @@ def xmltomei(meifile):
     f = open(meifile, 'r')
     p = etree.XMLParser(ns_clean=True, remove_comments=True, no_network=False)
     t = etree.parse(f, p)
+    f.close()
     r = t.getroot()
     d = _xml_to_mei(r)
     doc = MeiDocument.MeiDocument()

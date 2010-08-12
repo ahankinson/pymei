@@ -11,13 +11,15 @@ import logging
 
 lg = logging.getLogger('pymei')
 
-def jsontomei(js, docname):
+def jsontomei(meifile):
     """ Takes an incoming JSON stream and returns a MeiDocument object.
         
         Requires that you pass it a name.
     """
-    
-    jsn = json.loads(js)
+    f = open(meifile, 'r')
+    js = f.read()
+    f.close()
+    jsn = json.loads(js) # convert the JSON to python dicts/arrays.
     doc = MeiDocument.MeiDocument('jsonstream')
     j = _json_to_mei(jsn)
     doc.addelement(j)
