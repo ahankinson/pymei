@@ -19,7 +19,7 @@ import pymei.Components.Modules as mod
 
 
 if __name__ == "__main__":
-    usage = "usage: %prog [options] path_to_rng_modules"
+    usage = "usage: %prog -f path_to_rng_modules"
     desc = """ This test script runs against the defined RelaxNG modules and verifies that 
                 a defined python class exists for each element defined in the modules."""
     p = OptionParser(usage=usage, description=desc, version="%prog 0.1a")
@@ -35,6 +35,7 @@ if __name__ == "__main__":
     # get XML module files
     m = [r for r in os.listdir(options.folder) if os.path.splitext(r)[-1] == ".rng" and r != "mei-all.rng"]
     for fl in m:
+        print "Processing {0}".format(fl)
         f = open(os.path.join(options.folder, fl), 'r')
         t = etree.parse(f)
         f.close()
