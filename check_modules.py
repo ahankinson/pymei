@@ -1,3 +1,15 @@
+# ================================================================
+#   check_modules.py
+#
+#   Checks the current pymei modules against those defined
+#   in a RelaxNG MEI schema and alerts the user if there
+#   are any discrepancies. Mostly used for debugging purposes
+#
+#   Author:     Andrew Hankinson
+#   License:    BSD
+#
+# ================================================================
+
 import os
 import sys
 from optparse import OptionParser
@@ -26,7 +38,11 @@ if __name__ == "__main__":
         f = open(os.path.join(options.folder, fl), 'r')
         t = etree.parse(f)
         f.close()
+        
+        # construct a set of all the elements defined in the RNG file.
         els = set([dict(e.items()).values()[0] for e in t.xpath("/r:grammar//r:element", namespaces={'r':'http://relaxng.org/ns/structure/1.0'})])
+        
+        # check if the els in the RNG file are a subset of the objects defined in python.
         if not els.issubset(v):
             problems = True
             print "In file {0}: ".format(fl)
