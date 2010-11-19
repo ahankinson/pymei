@@ -246,6 +246,48 @@ class note_(MeiElement):
         MeiElement.__init__(self, name=u"note", value=value, parent=parent)
         if attrs:
             self.setattributes(attrs)
+    
+    def getduration(self):
+        pass
+    
+    def setduration(self):
+        pass
+    
+    duration = property(getduration, setduration, doc="Gets and sets the duration value")
+    
+    def getoct(self):
+        pass
+    
+    def setoct(self, oct):
+        pass
+    
+    oct = property(getoct, setoct, doc="Gets and sets the octave value")
+    
+    def getpname(self):
+        pass
+    
+    def setpname(self, pname):
+        pass
+    
+    pname = property(getpname, setpname, doc="Gets and sets the pitch name")
+    
+    def getnoteval(self):
+        """ [Pitch name][Octave](s/f/n)"""
+        pass
+    
+    def setnoteval(self, note):
+        pass
+    
+    noteval = property(getnoteval, setnoteval, doc="Gets and Sets the full note signature: [Pitchname][Octave](accidentals)")
+    
+    def getstemdir(self):
+        pass
+    
+    def setstemdir(self, dir):
+        pass
+    
+    stemdir = property(getstemdir, setstemdir, doc="Gets and Sets the stem direction")
+    
 
 class num_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):

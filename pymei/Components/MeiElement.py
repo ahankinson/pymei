@@ -19,6 +19,7 @@ class MeiElement(object):
         self.__children = []
         self.__attributes = []
         self.__svalue = None
+        self.__id = None
     
     def __repr__(self):
         return u"{0}:{1}".format(self.__xmlns, self.__name)
