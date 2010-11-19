@@ -247,7 +247,8 @@ class note_(MeiElement):
         if attrs:
             self.setattributes(attrs)
     
-<<<<<<< HEAD
+    
+    #### TODO: merge these two sets together. 
     # some convenience methods specific to notes.
     def get_pitch(self):
         pname = filter(lambda p: p.getname() == 'pname', self.getattributes())
@@ -266,7 +267,6 @@ class note_(MeiElement):
         stmdir = filter(lambda s: s.getname() == 'stem.dir', self.getattributes())
         return stmdir[0]
         
-=======
     def getduration(self):
         pass
     
