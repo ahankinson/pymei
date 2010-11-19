@@ -1,5 +1,12 @@
-# An abstract class representing an MEI attribute. This will subclassed for MEI-specific
-# attributes.
+# ================================================================
+#   MeiDocument.py
+#
+#   An abstract class representing an MEI attribute.
+#
+#   Author:     Andrew Hankinson
+#   License:    BSD
+#
+# ================================================================
 
 class MeiAttribute(object):
     def __init__(self, name=None, value=None, element=None, prefix=None):

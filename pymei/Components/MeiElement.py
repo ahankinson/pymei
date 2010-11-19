@@ -1,12 +1,21 @@
+# ================================================================
+#   MeiElement.py
+#
+#   An abstract class representing a very basic MEI element.
+#   This will most often be used to subclass a "real" element.
+#   Some of this is inspired by the atomixlib atom library at 
+#   http://trac.defuze.org/browser/oss/atomixlib/
+#
+#   Author:     Andrew Hankinson
+#   License:    BSD
+#
+# ================================================================
+
 from pymei import MEI_NS, MEI_PREFIX
 from pymei.Components.MeiAttribute import MeiAttribute
 
 import logging
 lg = logging.getLogger('pymei')
-
-# An abstract class representing a very basic MEI element.
-# This will most often be used to subclass a "real" element.
-# This is inspired by the atomixlib atom library at http://trac.defuze.org/browser/oss/atomixlib/
 
 class MeiElement(object):
     def __init__(self, name=None, value=None, prefix=MEI_PREFIX, namespace=MEI_NS, parent=None):
@@ -63,7 +72,7 @@ class MeiElement(object):
         
     def setattributes(self, value):
         for k,v in value.iteritems():
-            MeiAttribute(name=k, value=v, element=self) # passing in 'self' will automatically add it to this element's __attributes list
+            MeiAttribute(name=k, value=v, element=self) # passing in 'self' will automatically add it to this element's __attributes list. See the __init__ statement in the MeiAttribute base class to see how this works.
         
     attributes = property(getattributes, setattributes, doc="Get the element attributes")
     

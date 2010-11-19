@@ -52,7 +52,7 @@ PREFIX_TO_NS = dict([v,k] for k,v in NS_TO_PREFIX.iteritems())
 ENCODING = "UTF-8"
 
 # SCHEMAS
-SCHEMA_TYPE = "relaxng" # This may change. For now we'll specify XSD, but we could change it to another schema languages
+SCHEMA_TYPE = "relaxng" # This may change. For now we'll specify RNG, but we could change it to another schema languages
 #SCHEMA_PATH = "/Users/ahankins/Documents/code/mei/branches/mei19.1/ModularizationTesting" #AH
 SCHEMA_PATH = "/Users/gabriel/Documents/code/mei/mei/branches/mei19.1/ModularizationTesting" #GVM
 AVAILABLE_SCHEMAS = ["mei-all.rng",]

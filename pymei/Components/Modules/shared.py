@@ -246,6 +246,25 @@ class note_(MeiElement):
         MeiElement.__init__(self, name=u"note", value=value, parent=parent)
         if attrs:
             self.setattributes(attrs)
+    
+    # some convenience methods specific to notes.
+    def get_pitch(self):
+        pname = filter(lambda p: p.getname() == 'pname', self.getattributes())
+        # there should only every be one pitch name per note, but the filter() method returns a list.
+        return pname[0]
+    
+    def get_duration(self):
+        dur = filter(lambda d: d.getname() == 'dur', self.getattributes())
+        return dur[0]
+        
+    def get_octave(self):
+        octv = filter(lambda o: o.getname() == 'oct', self.getattributes())
+        return octv[0]
+    
+    def get_stemdir(self):
+        stmdir = filter(lambda s: s.getname() == 'stem.dir', self.getattributes())
+        return stmdir[0]
+        
 
 class num_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
@@ -384,6 +403,17 @@ class staffdef_(MeiElement):
         MeiElement.__init__(self, name=u"staffdef", value=value, parent=parent)
         if attrs:
             self.setattributes(attrs)
+    
+    def get_clef_array(self):
+        # returns an array of clef-related attributes.
+        clf = filter(lambda c: c.getname().startswith('clef.'), self.getattributes())
+        return clf
+    
+    def get_ppq(self):
+        ppq = filter(lambda p: p.getname() == 'ppq', self.getattributes())
+        return ppq[0]
+    
+    
 
 class staffgrp_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):

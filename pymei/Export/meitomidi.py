@@ -43,7 +43,7 @@ def _pname_to_note(ksig, pname, octave, accidental=None):
         These will raise or lower the final pitch by the appropriate amount.
         
     """
-    # the default mapping. We define a C Major scale with the appropriate numerical values.
+    # the default mapping. We define the appropriate pitch classes.
     pnum = { 'c': 0, 'd': 2, 'e': 4, 'f': 5, 'g': 7, 'a': 9, 'b': 11 }
     
     # If the key signature has sharps or flats, modify the scale according to the Circle of 5ths.
@@ -55,7 +55,15 @@ def _pname_to_note(ksig, pname, octave, accidental=None):
             for n in Mlts.circ5[ksig]:
                 pnum[n] = pnum[n] + 1
     
-    midi_pitch = pnum[pname] + (int(octave) + 1) * 12
+    # calculate the midi pitch
+    #  Since midi values don't start at 0 but instead at 21 (A0)
+    #   we need to work with some magick numbers
+    #  e.g.:
+    #    A4 becomes 9 + ((4 + 1) * 12) = 69
+    #    D6 becomes 2 + ((6 + 1) * 12) = 86
+    #    B0 becomes 11 + ((0 + 1) * 12) = 23
+    
+    midi_pitch = pnum[pname] + ((int(octave) + 1) * 12)
     
     if accidental is not None:
         midi_pitch = midi_pitch + Mlts.acc[accidental]

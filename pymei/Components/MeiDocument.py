@@ -1,10 +1,20 @@
+# ================================================================
+#   MeiDocument.py
+#
+#   An abstract class representing a complete MEI Document.
+#   Contains a child MeiElement that has all other MeiElement
+#   objects as children.
+#
+#   Author:     Andrew Hankinson
+#   License:    BSD
+#
+# ================================================================
+
 from pymei import ENCODING, MEI_PREFIX, MEI_NS
 
 import logging
 lg = logging.getLogger('pymei')
 
-# A class representing an MEI document.
-# Provides an interface for accessing and adding elements.
 class MeiDocument(object):
     def __init__(self, docname="MeiDocument", encoding=ENCODING):
         self.__encoding = ENCODING
