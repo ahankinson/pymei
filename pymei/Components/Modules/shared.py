@@ -308,8 +308,6 @@ class note_(MeiElement):
     
     stemdir = property(getstemdir, setstemdir, doc="Gets and Sets the stem direction")
     
->>>>>>> 49a65cf120ddc724adbe041bd1e070fb78a59d7c
-
 class num_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"num", value=value, parent=parent)
