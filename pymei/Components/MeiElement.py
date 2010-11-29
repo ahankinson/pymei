@@ -11,6 +11,8 @@
 #
 # ================================================================
 
+import types
+
 from pymei import MEI_NS, MEI_PREFIX
 from pymei.Components.MeiAttribute import MeiAttribute
 
@@ -64,16 +66,22 @@ class MeiElement(object):
         return self.__children
     children = property(getchildren, doc="Get the direct children of this element")
     
-    def addchildren(self, children):
+    def addchildren(self, children, pnt=None):
+        """ Adds the child elements and, if necessary, the parent. """
         for c in children:
             self.__children.append(c)
+            if not isinstance(pnt, types.NoneType):
+                c.parent = pnt
     
     def getattributes(self):
         return self.__attributes
         
     def setattributes(self, value):
         for k,v in value.iteritems():
-            MeiAttribute(name=k, value=v, element=self) # passing in 'self' will automatically add it to this element's __attributes list. See the __init__ statement in the MeiAttribute base class to see how this works.
+            # passing in 'self' will automatically add it to this element's 
+            # __attributes list. See the __init__ statement in the 
+            # MeiAttribute base class to see how this works.
+            MeiAttribute(name=k, value=v, element=self) 
         
     attributes = property(getattributes, setattributes, doc="Get the element attributes")
     
@@ -99,6 +107,7 @@ class MeiElement(object):
     
     def setparent(self, value):
         self.__parent = value
+        
     parent = property(getparent, setparent, doc="Get and set the parent element for this element")
     
     

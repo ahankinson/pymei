@@ -1,15 +1,24 @@
 import json
+import types
 
 import logging
 lg = logging.getLogger('pymei')
 
-def meitojson(meidocument, filename):
+def meitojson(meidocument, filename=None, prettyprint=True):
     r = meidocument.gettoplevel()
     d = _mei_to_json(r)
-    j = json.dumps(d)
-    f = open(filename, 'w')
-    f.write(j)
-    f.close()
+
+    if prettyprint is True:
+        j = json.dumps(d, sort_keys=True, indent=2)
+    else:
+        j = json.dumps(d)
+        
+    if not isinstance(filename, types.NoneType):
+        f = open(filename, 'w')
+        f.write(j)
+        f.close()
+    else:
+        print(j)
 
 def _mei_to_json(el):
     el_name = el.getname()

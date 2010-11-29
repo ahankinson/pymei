@@ -74,10 +74,12 @@ class MeiDocument(object):
         return self.__xml_version
     
     def search(self, searchterm, **kwargs):
-        """ Searches an MEI Document for an object name that matches the search term.
+        """ 
+            Searches an MEI Document for an object name that matches the
+            search term.
             
-            Passing in KW args will narrow down the search by only retrieving objects
-            with given attribute values.
+            Passing in KW args will narrow down the search by only retrieving
+            objects with given attribute values.
         """
         # there should only be one toplevel element
         if not self.__flattened_elements:

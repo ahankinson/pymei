@@ -25,8 +25,8 @@ def xmltomei(meifile):
     return doc
     
 def _xml_to_mei(el):
-    """ Helper function for converting etree-parsed XML objects to a nested set of
-        MeiElements.
+    """ Helper function for converting etree-parsed XML objects to a nested 
+        set of MeiElements.
     """
     
     # etree automatically appends the namespace to every element. We need to 
@@ -40,11 +40,6 @@ def _xml_to_mei(el):
     obj = getattr(mod, objname)(namespace=ns)
     
     if el.text and el.text.strip() != '':
-        # if we strip the blanklines and line endings and do not end up with an
-        # empty string, we have inline text that we need to deal with.
-        # For now, we will strip out *any* child tags to set the text value. We'll 
-        # still store them as children tags elements, but they will be taken 
-        # out of context. It's the best we can do for now.
         tx = ""
         for n in el.itertext():
             tx += " ".join(n.split())
@@ -71,7 +66,8 @@ def _xml_to_mei(el):
     if len(c) > 0:
         # loopdy-loopdy! This calls itself for any children components found.
         m = map(_xml_to_mei, c)
-        obj.addchildren(m)
+        #lg.debug('Object: {0}; children {1}'.format(obj, m))
+        obj.addchildren(m, obj)
         
     return obj
 
