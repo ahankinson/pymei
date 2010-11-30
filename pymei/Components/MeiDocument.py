@@ -11,6 +11,7 @@
 # ================================================================
 
 from pymei import ENCODING, MEI_PREFIX, MEI_NS
+from pymei.Helpers import flatten
 
 import logging
 lg = logging.getLogger('pymei')
@@ -84,25 +85,25 @@ class MeiDocument(object):
         """
         # there should only be one toplevel element
         if not self.__flattened_elements:
-            searchspace = self._flatten()
+            self.__flattened_elements = flatten.flatten(self)
             
         result = filter(lambda x: x.getname() == searchterm, self.__flattened_elements)
         return result
     
-    def _flatten(self):
-        """ Flattens the nested elements into a single list.
-            Caches the result in the object for future lookups.
-        """
-        rootl = self.gettoplevel()
-        
-        def __fl(ls):            
-            for ch in ls.getchildren():
-                if len(ch.getchildren()) > 0:
-                    for cd in __fl(ch):
-                        yield cd
-                yield ch
-        flattened = list(__fl(rootl))
-        self.__flattened_elements = flattened
+    # def _flatten(self):
+    #     """ Flattens the nested elements into a single list.
+    #         Caches the result in the object for future lookups.
+    #     """
+    #     rootl = self.gettoplevel()
+    #     
+    #     def __fl(ls):            
+    #         for ch in ls.getchildren():
+    #             if len(ch.getchildren()) > 0:
+    #                 for cd in __fl(ch):
+    #                     yield cd
+    #             yield ch
+    #     flattened = list(__fl(rootl))
+    #     self.__flattened_elements = flattened
         
         
         

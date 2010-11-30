@@ -75,6 +75,19 @@ class MeiElement(object):
             if not isinstance(pnt, types.NoneType):
                 c.parent = pnt
     
+    def descendents_by_name(self, desc_name):
+        """ Gets all sub-elements that match a query name """
+        def __desc(obj, desc_name):
+            res = []
+            for ch in obj.getchildren():
+                if ch.name == desc_name:
+                    res.append(ch)
+                if len(ch.getchildren()) > 0:
+                    
+                    
+        
+        return filter(lambda c: c.name == childname, self.getchildren())
+    
     def getattributes(self):
         return self.__attributes
         
@@ -105,6 +118,8 @@ class MeiElement(object):
     def getname(self):
         return self.__name
         
+    name = property(getname, doc = "Gets the name. Read-only, please!")
+    
     def getprefix(self):
         return self.__prefix
     
