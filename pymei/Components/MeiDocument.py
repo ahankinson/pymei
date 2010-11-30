@@ -16,7 +16,7 @@ import logging
 lg = logging.getLogger('pymei')
 
 class MeiDocument(object):
-    def __init__(self, docname="MeiDocument", encoding=ENCODING):
+    def __init__(self, docname="Untitled", encoding=ENCODING):
         self.__encoding = ENCODING
         self.__default_prefix = MEI_PREFIX
         self.__default_namespace = MEI_NS
@@ -27,13 +27,13 @@ class MeiDocument(object):
         self.__flattened_elements = None
     
     def __repr__(self):
-        return u"{0}".format(self.__name)
+        return u"<MeiDocument {0}>".format(self.__name)
         
     def __str__(self):
-        return "{0}".format(self.__name)
+        return "<MeiDocument {0}>".format(self.__name)
     
     def __unicode__(self):
-        return u"{0}".format(self.__name)
+        return u"<MeiDocument {0}>".format(self.__name)
     
     def addelement(self, element):
         self.elements.append(element)
@@ -78,6 +78,7 @@ class MeiDocument(object):
             Searches an MEI Document for an object name that matches the
             search term.
             
+            @TODO:
             Passing in KW args will narrow down the search by only retrieving
             objects with given attribute values.
         """
@@ -100,7 +101,7 @@ class MeiDocument(object):
                     for cd in __fl(ch):
                         yield cd
                 yield ch
-        flattened = set(__fl(rootl))
+        flattened = list(__fl(rootl))
         self.__flattened_elements = flattened
         
         

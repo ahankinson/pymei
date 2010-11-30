@@ -3,7 +3,7 @@ from lxml import etree #AH
 
 import os
 
-from pymei.exceptions import MeiSchemaNotValidError, MeiSchemaNotFoundError #AH
+from pymei.Components.MeiExceptions import MeiSchemaNotValidError, MeiSchemaNotFoundError #AH
 #from exceptions import MeiSchemaNotValidError, MeiSchemaNotFoundError #GVM
 
 # Library stuff.

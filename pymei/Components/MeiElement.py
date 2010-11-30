@@ -12,9 +12,11 @@
 # ================================================================
 
 import types
+import uuid
 
 from pymei import MEI_NS, MEI_PREFIX
 from pymei.Components.MeiAttribute import MeiAttribute
+from pymei.Components.MeiExceptions import MeiAttributeError
 
 import logging
 lg = logging.getLogger('pymei')
@@ -30,16 +32,16 @@ class MeiElement(object):
         self.__children = []
         self.__attributes = []
         self.__svalue = None
-        self.__id = None
+        self.__id = None        
     
     def __repr__(self):
-        return u"{0}:{1}".format(self.__xmlns, self.__name)
+        return u"<MeiElement {0}:{1}>".format(self.__name, self.__id)
     
     def __unicode__(self):
-        return u"{0}:{1}".format(self.__xmlns, self.__name)
+        return u"<MeiElement {0}:{1}>".format(self.__name, self.__id)
     
     def __str__(self):
-        return "{0}:{1}".format(self.__xmlns, self.__name)
+        return "<MeiElement {0}:{1}>".format(self.__name, self.__id)
     
     def getvalue(self):
         return self.__value
@@ -77,14 +79,29 @@ class MeiElement(object):
         return self.__attributes
         
     def setattributes(self, value):
+        if not isinstance(value, types.DictType):
+            raise MeiAttributeError("You must supply a dictionary of attributes.")
+            
         for k,v in value.iteritems():
             # passing in 'self' will automatically add it to this element's 
             # __attributes list. See the __init__ statement in the 
             # MeiAttribute base class to see how this works.
-            MeiAttribute(name=k, value=v, element=self) 
-        
+            MeiAttribute(name=k, value=v, element=self)
+            if str(k) == "xml:id":
+                self.__id = v
     attributes = property(getattributes, setattributes, doc="Get the element attributes")
     
+    def attribute_by_name(self, attribute):
+        """ Gets the value of an element attribute by name. """
+        res = filter(lambda a: a.getname() == attribute, self.attributes)
+        if len(res) == 0:
+            return None
+        elif len(res) > 1:
+            raise MeiAttributeError("More than one attribute has that name. That's unpossible!")
+            return None
+        else:
+            return res[0]
+        
     def getname(self):
         return self.__name
         
@@ -107,7 +124,12 @@ class MeiElement(object):
     
     def setparent(self, value):
         self.__parent = value
-        
     parent = property(getparent, setparent, doc="Get and set the parent element for this element")
     
-    
+    def getid(self):
+        return self.__id
+        
+    def setid(self, value):
+        self.__id = value
+    id = property(getid, setid, doc="Get and set the id for this element.")
+        

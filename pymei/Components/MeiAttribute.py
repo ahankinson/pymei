@@ -20,7 +20,7 @@ class MeiAttribute(object):
             element.attributes.append(self)
     
     def __repr__(self):
-        return "{0}:{1}".format(self.__name, self.__value)
+        return "<MeiAttribute {0}:{1}>".format(self.__name, self.__value)
     
     def getname(self):
         return self.__name

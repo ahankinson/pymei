@@ -1,6 +1,8 @@
 #import lxml #GVM
 from lxml import etree #AH
 from lxml import objectify #AH
+import uuid
+
 
 from pymei.Components import MeiDocument, MeiElement
 from pymei.Components import Modules as mod
@@ -53,13 +55,21 @@ def _xml_to_mei(el):
         obj.settail(el.tail)
     
     # set the attributes
+    d = {}
     if el.items():
-        d = {}
         for k,v in el.items():
             # if the attribute has a namespace, be sure to convert it to its
             # prefix
-            d[af.ns_to_prefix(k)] = v
-        obj.setattributes(d)
+            d[af.ns_to_prefix(k)] = v        
+    
+    # importing should *always* implement something like this.
+    # This preserves existing XML:IDs, but also supplies them if they do not exist.
+    # We set them as an attribute to support their existence as an XML attribute, but
+    # the MeiElement catches this and also sets it to that item's ID.
+    if "xml:id" not in d.keys():
+        d['xml:id'] = str(uuid.uuid4())
+        
+    obj.setattributes(d)
     
     # add any children.
     c = list(el)

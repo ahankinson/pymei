@@ -1,6 +1,7 @@
 from lxml import etree #AH
 from lxml import objectify #AH
 import json
+import uuid
 # import lxml #GVM
 
 from pymei.Components import MeiAttribute, MeiElement, MeiDocument
@@ -63,6 +64,8 @@ def _json_to_mei(el):
         # is in our map result, we put that it the MeiElement object accordingly.
         for d in m:                
             if isinstance(d, types.DictType) and "@attributes" in d.keys():
+                if u"xml:id" not in d['@attributes'].keys():
+                    d['@attributes'][u'xml:id'] = str(uuid.uuid4())
                 obj.setattributes(d['@attributes'])
             
             elif isinstance(d, types.DictType) and "@tail" in d.keys():

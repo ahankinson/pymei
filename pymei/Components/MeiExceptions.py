@@ -5,7 +5,9 @@ class MeiError(Exception):
         return repr(self.message)
 
 class MeiUnknownModuleError(MeiError): pass
+class MeiAttributeError(MeiError): pass
 class MeiSchemaNotFoundError(MeiError): pass
 class MeiSchemaNotValidError(MeiError): pass
 class MeiNotYetImplementedError(MeiError): pass
 class MeiXMLParsingError(MeiError): pass
+class MeiInvalidDataTypeError(MeiError): pass

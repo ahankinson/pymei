@@ -1,6 +1,6 @@
 from lxml import etree #AH
 from lxml import objectify #AH
-from pymei.exceptions import MeiNotYetImplementedError
+from pymei.Components.MeiExceptions import MeiNotYetImplementedError
 from pymei.Components import MeiDocument, MeiElement
 from pymei.Components import Modules as mod
 from pymei.Helpers import attfilt as af
