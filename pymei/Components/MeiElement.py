@@ -77,15 +77,9 @@ class MeiElement(object):
     
     def descendents_by_name(self, desc_name):
         """ Gets all sub-elements that match a query name """
-        def __desc(obj, desc_name):
-            res = []
-            for ch in obj.getchildren():
-                if ch.name == desc_name:
-                    res.append(ch)
-                if len(ch.getchildren()) > 0:
-                    
-                    
-        
+        def __desc(obj):
+            
+            
         return filter(lambda c: c.name == childname, self.getchildren())
     
     def getattributes(self):
