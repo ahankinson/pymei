@@ -69,6 +69,18 @@ class MeiElement(object):
         return self.__children
     children = property(getchildren, doc="Get the direct children of this element")
     
+    def has_child(self, childname):
+        if [c for c in self.children if c.name == childname]:
+            return True
+        else:
+            return False
+    
+    def children_by_name(self, child_name):
+        res = filter(lambda c: c.name == child_name, children)
+        if not res:
+            return None
+        return res
+    
     def addchildren(self, children, pnt=None):
         """ Adds the child elements and, if necessary, the parent. """
         for c in children:
@@ -78,7 +90,10 @@ class MeiElement(object):
     
     def descendents_by_name(self, desc_name):
         """ Gets all sub-elements that match a query name """
-        return filter(lambda d: d.name == desc_name, flatten(self))
+        res = filter(lambda d: d.name == desc_name, flatten(self))
+        if not res:
+            return None
+        return res
         
     def descendent_by_id(self, desc_id):
         """ Get a descendent element by that element's unique id """
@@ -117,6 +132,14 @@ class MeiElement(object):
             return None
         else:
             return res[0]
+    
+    def has_attribute(self, attribute):
+        """ Returns True if the element has the attribute; False if it doesn't. """
+        if [a for a in self.attributes if a.name == attribute]:
+            return True
+        else:
+            return False
+        
         
     def getname(self):
         return self.__name

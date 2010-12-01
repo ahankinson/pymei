@@ -246,31 +246,117 @@ class note_(MeiElement):
         MeiElement.__init__(self, name=u"note", value=value, parent=parent)
         if attrs:
             self.setattributes(attrs)
+        self.__pitchname = None
+        self.__pitch = None
+        self.__duration = None
+        self.__octave = None
+        self.__stemdir = None
+        # a note may have multiple accidentals. This is *not* the same as
+        # double-sharps, etc. The MEI spec allows for multiple <accid> child
+        # elements on a note.
+        self.__accidentals = []
+        
+        # initialize the note attributes
+        self._pitchname
+        self._pitch
+        self._duration
+        self._octave
+        self._stemdir
+        self._accidentals
     
-    #### TODO: merge these two sets together. 
-    # some convenience methods specific to notes.
+    # some convenience methods specific to notes. Caches the value for nominally 
+    # faster subsequent lookups.
+    def get_pitchname(self):
+        return self.__pitchname
+    pitchname = property(get_pitchname, doc = "Gets the note's pitch name.")
+    
     def get_pitch(self):
-        pname = filter(lambda p: p.getname() == 'pname', self.getattributes())
-        # there should only every be one pitch name per note, but the filter() method returns a list.
-        return pname[0]
-
-	def set_pitch(self, value):
-		
-		pass
-		
-	pitch = property(get_pitch, set_pitch, doc = "Gets and sets the note's pitch values.")
+        return self.__pitch
+    pitch = property(get_pitch, doc = "Gets the note's pitch value")
+    
+    def get_accidentals(self):
+        """ Gets a note's accidental value. Stores it as a native MEI accidental
+            value, e.g., "f", "ss", "ds", etc.
+            
+            Note: A note may have multiple accidentals! Thus, this returns a list,
+            and not just a single accidental. More often than not, this list 
+            will only contain one element, but we're better safe than sorry.
+            
+         """
+         return self.__accidentals
+    accidentals = property(get_accidentals, doc = "A note's accidental list.")
+    
+    def has_accidentals(self):
+        """ Returns True if the note has an accidental; False otherwise"""
+        # accidentals can be attributes or child attributes.
+        if self.has_attribute('accid') or self.has_child('accid'):
+            return True
+        else:
+            # no accidental.
+            return False
     
     def get_duration(self):
-        dur = filter(lambda d: d.getname() == 'dur', self.getattributes())
-        return dur[0]
-        
+        return self.__duration
+    duration = property(get_duration, doc = "Get's the note's duration")
+    
     def get_octave(self):
-        octv = filter(lambda o: o.getname() == 'oct', self.getattributes())
-        return octv[0]
+        return self.__octave
+    octave = property(get_octave, doc = "Get's the note's octave.")
     
     def get_stemdir(self):
-        stmdir = filter(lambda s: s.getname() == 'stem.dir', self.getattributes())
-        return stmdir[0]
+        return self.__stemdir
+    stemdir = property(get_stemdir, doc = "Get's the note's stem direction")
+    
+    def get_pitch_octave(self):
+        """ 
+            Returns the sounding pitch and octave representation, e.g. C4, F#2, B-5.
+            Sets a default "B" pitch and "4" octave if neither are present, chosen
+            simply because this is the middle line on the treble clef.
+        """
+        pass
+    pitch_octave = property(get_pitch_octave, doc = "Gets the pitch and octave representation")
+
+
+    ## protected 
+    def _pitchname(self):
+        pname = filter(lambda p: p.name == 'pname', self.attributes)
+        # there should only every be one pitch name per note, but the filter() method returns a list.
+        if len(pname) > 0:
+            self.__pitchname = pname[0].value
+
+    def _pitch(self):
+        """ Get's a note's pitch *value*. This is the actual value of the pitch,
+            and is returned as a list, containing the pitch name and any accidentals.
+        """
+        self.__pitch = [self.__pitchname]
+    
+    def _accidentals(self):
+        if self.has_accidentals():
+            if self.has_attribute('accid'):
+                self.__accidentals = [self.attribute_by_name('accid').value]
+            elif self.has_child('accid'):
+                a = []
+                children = self.children_by_name('accid')
+                for child in children:
+                    a.append(c.attribute_by_name('accid').value)
+                self.__accidentals = a
+        
+    def _duration(self):
+        dur = filter(lambda d: d.getname() == 'dur', self.attributes)
+        if len(dur) > 0:
+            self.__duration = dur[0].value
+
+    def _octave(self):
+        octv = filter(lambda o: o.getname() == 'oct', self.attributes)
+        if len(octv) == 0:
+            self.__octave = octv[0].value
+    
+    
+    def _stemdir(self):
+        stmdir = filter(lambda s: s.getname() == 'stem.dir', self.attributes)
+        if len(stmdir) == 0:
+            self.__stemdir = stmdir[0].value
+    
     
 class num_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
