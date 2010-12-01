@@ -85,7 +85,7 @@ class MeiDocument(object):
         """
         # there should only be one toplevel element
         if not self.__flattened_elements:
-            self.__flattened_elements = flatten.flatten(self)
+            self.__flattened_elements = flatten(self.gettoplevel())
             
         result = filter(lambda x: x.getname() == searchterm, self.__flattened_elements)
         return result

@@ -17,6 +17,7 @@ import uuid
 from pymei import MEI_NS, MEI_PREFIX
 from pymei.Components.MeiAttribute import MeiAttribute
 from pymei.Components.MeiExceptions import MeiAttributeError
+from pymei.Helpers import flatten
 
 import logging
 lg = logging.getLogger('pymei')
@@ -77,10 +78,18 @@ class MeiElement(object):
     
     def descendents_by_name(self, desc_name):
         """ Gets all sub-elements that match a query name """
-        def __desc(obj):
-            
-            
-        return filter(lambda c: c.name == childname, self.getchildren())
+        return filter(lambda d: d.name == desc_name, flatten(self))
+        
+    def descendent_by_id(self, desc_id):
+        """ Get a descendent element by that element's unique id """
+        res = filter(lambda d: d.id == desc_id, flatten(self))
+        if not res:
+            return None
+        elif len(res) > 1:
+            raise MeiError("There is more than one element with that ID. Someone screwed up.")
+            return None
+        else:
+            return res[0]
     
     def getattributes(self):
         return self.__attributes
@@ -141,4 +150,10 @@ class MeiElement(object):
     def setid(self, value):
         self.__id = value
     id = property(getid, setid, doc="Get and set the id for this element.")
+    
+    def getpeers(self):
+        return self.getparent().getchildren()
+    peers = property(getpeers, doc="Get adjacent elements.")
+    
+    
         

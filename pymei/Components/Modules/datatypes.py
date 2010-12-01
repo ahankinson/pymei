@@ -259,8 +259,7 @@ class data_CLEFLINE(MeiDataType):
     validation = r'^([0-9]+)(?!\.)'
 
 class data_CLEFSHAPE(MeiDataType):
-    """ Clef shape attribute values (Read,
-      p.53-56)"""
+    """ Clef shape attribute values (Read, p.53-56)"""
     validation = r'^(G|GG|F|C|perc|TAB)$'
 
 class data_CLUSTER(MeiDataType):
