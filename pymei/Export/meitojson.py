@@ -21,33 +21,34 @@ def meitojson(meidocument, filename=None, prettyprint=True):
         print(j)
 
 def _mei_to_json(el):
-    el_name = el.getname()
-    el_j = {el_name: []}
-
-    if el.getattributes() is not None:
-        attb = el.getattributes()
-        el_attb = {"@attributes": {}}
-        for it in attb:
-            if it.getname() is "namespace":
-                continue
-            el_attb['@attributes'][it.getname()] = it.getvalue()
-        
-        # add a little check here. We don't want to add it if our attributes are empty.
-        if el_attb['@attributes'].values():
-            el_j[el_name].append(el_attb)
+    # el_name = el.getname()
+    # el_j = {el_name: []}
+    # 
+    # if el.getattributes() is not None:
+    #     attb = el.getattributes()
+    #     el_attb = {"@attributes": {}}
+    #     for it in attb:
+    #         if it.getname() is "namespace":
+    #             continue
+    #         el_attb['@attributes'][it.getname()] = it.getvalue()
+    #     
+    #     # add a little check here. We don't want to add it if our attributes are empty.
+    #     if el_attb['@attributes'].values():
+    #         el_j[el_name].append(el_attb)
+    # 
+    # if el.getvalue() is not None:
+    #     if el.getvalue().strip() != "":
+    #         el_j[el_name].append({"@value": el.getvalue()})
+    # if el.gettail() is not None:
+    #     if el.gettail().strip() != "":
+    #         el_j[el_name].append({"@tail": el.gettail()})
     
-    if el.getvalue() is not None:
-        if el.getvalue().strip() != "":
-            el_j[el_name].append({"@value": el.getvalue()})
-    if el.gettail() is not None:
-        if el.gettail().strip() != "":
-            el_j[el_name].append({"@tail": el.gettail()})
-    
-    if len(el.getchildren()) > 0:
-        children = map(_mei_to_json, el.getchildren())
-        for child in children:
-            el_j[el_name].append(child)
-    
+    # at this point we're still working on a python dictionary.
+    el_j = el.as_dictionary()
+    if len(el.children) > 0:
+        c = map(_mei_to_json, el.children)
+        for child in c:
+            el_j[el.name].append(child)
     return el_j
     
     

@@ -1,12 +1,11 @@
 #import lxml #GVM
 from lxml import etree #AH
-from lxml import objectify #AH
+#from lxml import objectify #AH
 import uuid
-
 
 from pymei.Components import MeiDocument, MeiElement
 from pymei.Components import Modules as mod
-from pymei.Helpers import attfilt as af
+from pymei.Helpers import ns_to_prefix
 
 #from pymei import NS_TO_PREFIX
 
@@ -60,7 +59,7 @@ def _xml_to_mei(el):
         for k,v in el.items():
             # if the attribute has a namespace, be sure to convert it to its
             # prefix
-            d[af.ns_to_prefix(k)] = v        
+            d[ns_to_prefix(k)] = v        
     
     # importing should *always* implement something like this.
     # This preserves existing XML:IDs, but also supplies them if they do not exist.

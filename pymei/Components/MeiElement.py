@@ -17,7 +17,7 @@ import uuid
 from pymei import MEI_NS, MEI_PREFIX
 from pymei.Components.MeiAttribute import MeiAttribute
 from pymei.Components.MeiExceptions import MeiAttributeError
-from pymei.Helpers import flatten
+from pymei.Helpers import flatten, prefix_to_ns
 
 import logging
 lg = logging.getLogger('pymei')
@@ -33,7 +33,11 @@ class MeiElement(object):
         self.__children = []
         self.__attributes = []
         self.__svalue = None
-        self.__id = None        
+        self.__id = None
+        self.__xml_obj = None
+        self.__xml_str = None
+        self.__json_str = None
+        self.__dictionary = None
     
     def __repr__(self):
         return u"<MeiElement {0}:{1}>".format(self.__name, self.__id)
@@ -48,6 +52,7 @@ class MeiElement(object):
         return self.__value
     
     def setvalue(self, value):
+        value = value.strip()
         self.__value = value
     value = property(getvalue, setvalue, doc="Get and set the text value for the element")
     
@@ -62,6 +67,9 @@ class MeiElement(object):
         return self.__tail
         
     def settail(self, value):
+        # get rid of any pesky newlines. XML shouldn't be newline or white
+        # space sensitive anyway.
+        value = value.strip()
         self.__tail = value
     tail = property(gettail, settail, doc="Get and set the text tail for the element.")
     
@@ -178,5 +186,65 @@ class MeiElement(object):
         return self.getparent().getchildren()
     peers = property(getpeers, doc="Get adjacent elements.")
     
+    def as_xml_object(self):
+        if not self.__xml_obj:
+            self._xml()
+        return self.__xml_obj
     
+    def as_xml_string(self):
+        if not self.__xml_str:
+            self._xml()
+        return self.__xml_str
         
+    def as_json(self):
+        if not self.__json_str:
+            # a dictionary is constructed for the JSON object. It just depends
+            # on how we spit it out.
+            self._dictionary()
+        return self.__json_str
+    
+    def as_dictionary(self):
+        """ Returns a representation as a python dictionary. """
+        if not self.__dictionary:
+            self._dictionary()
+        return self.__dictionary
+    
+    # protected
+    def _xml(self):
+        from lxml import etree
+        
+        a = {}
+        for at in self.attributes:
+            filtname = prefix_to_ns(at.name)
+            if filtname is "namespace":
+                continue
+            a[str(filtname)] = str(at.value)
+            
+        el = etree.Element(self.__name, **a)
+        if self.value is not None:
+            el.text = self.value
+        if self.tail is not None:
+            el.tail = self.tail
+        self.__xml_obj = el
+        self.__xml_str = etree.tostring(el)
+    
+    def _dictionary(self):
+        import json
+        
+        d = {self.name:[]}
+        if self.attributes is not None:
+            el_attb = {"@attributes": {}}
+            for at in self.attributes:
+                if at.name is "namespace":
+                    continue
+                el_attb["@attributes"][at.name] = at.value
+            if el_attb["@attributes"].values():
+                d[self.name].append(el_attb)
+        if self.value is not None:
+            if self.value.strip() != "":
+                d[self.name].append({"@value": self.value})
+        if self.tail is not None:
+            if self.tail.strip() != "":
+                d[self.name].append({"@tail": self.tail})
+        self.__dictionary = d
+        self.__json_str = json.dumps(d)
