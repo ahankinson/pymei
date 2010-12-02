@@ -176,6 +176,27 @@ class MeiElement(object):
         self.__parent = value
     parent = property(getparent, setparent, doc="Get and set the parent element for this element")
     
+    def ancestor_by_name(self, ancestor_name):
+        """ 
+            Looks for the existence of <ancestor_name> in the element's parents.
+            Returns the ancestor if found; otherwise returns None.
+        """
+        def __anc(nm, meiobj, lst):
+            if isinstance(meiobj.parent, types.NoneType):
+                return None
+            if str(meiobj.name) == str(nm):
+                lst.append(meiobj)
+            else:
+                __anc(nm, meiobj.parent, lst)
+        pnt = self.parent
+        plist = []
+        __anc(ancestor_name, pnt, plist)
+        
+        if plist:
+            return plist[0]
+        else:
+            return None
+            
     def getid(self):
         return self.__id
         
@@ -184,7 +205,7 @@ class MeiElement(object):
     id = property(getid, setid, doc="Get and set the id for this element.")
     
     def getpeers(self):
-        return self.getparent().getchildren()
+        return self.parent.children
     peers = property(getpeers, doc="Get adjacent elements.")
     
     def as_xml_object(self):

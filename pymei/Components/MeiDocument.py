@@ -90,6 +90,13 @@ class MeiDocument(object):
         result = filter(lambda x: x.getname() == searchterm, self.__flattened_elements)
         return result
     
+    def get_by_id(self, id):
+        """ Gets a document object by ID. """
+        if not self.__flattened_elements:
+            self.__flattened_elements = flatten(self.gettoplevel())
+        result = filter(lambda x: x.id == id, self.__flattened_elements)
+        return result
+    
     # def _flatten(self):
     #     """ Flattens the nested elements into a single list.
     #         Caches the result in the object for future lookups.
