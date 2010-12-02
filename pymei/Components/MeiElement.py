@@ -75,7 +75,14 @@ class MeiElement(object):
     
     def getchildren(self):
         return self.__children
-    children = property(getchildren, doc="Get the direct children of this element")
+        
+    def addchildren(self, children, pnt=None):
+        """ Adds the child elements and, if necessary, the parent. """
+        for c in children:
+            self.__children.append(c)
+            if not isinstance(pnt, types.NoneType):
+                c.parent = pnt
+    children = property(getchildren, addchildren, doc="Get the direct children of this element")
     
     def has_child(self, childname):
         if [c for c in self.children if c.name == childname]:
@@ -89,12 +96,6 @@ class MeiElement(object):
             return None
         return res
     
-    def addchildren(self, children, pnt=None):
-        """ Adds the child elements and, if necessary, the parent. """
-        for c in children:
-            self.__children.append(c)
-            if not isinstance(pnt, types.NoneType):
-                c.parent = pnt
     
     def descendents_by_name(self, desc_name):
         """ Gets all sub-elements that match a query name """
@@ -187,26 +188,22 @@ class MeiElement(object):
     peers = property(getpeers, doc="Get adjacent elements.")
     
     def as_xml_object(self):
-        if not self.__xml_obj:
-            self._xml()
+        self._xml()
         return self.__xml_obj
     
     def as_xml_string(self):
-        if not self.__xml_str:
-            self._xml()
+        self._xml()
         return self.__xml_str
         
     def as_json(self):
-        if not self.__json_str:
-            # a dictionary is constructed for the JSON object. It just depends
-            # on how we spit it out.
-            self._dictionary()
+        # a dictionary is constructed for the JSON object. It just depends
+        # on how we spit it out.
+        self._dictionary()
         return self.__json_str
     
     def as_dictionary(self):
         """ Returns a representation as a python dictionary. """
-        if not self.__dictionary:
-            self._dictionary()
+        self._dictionary()
         return self.__dictionary
     
     # protected
