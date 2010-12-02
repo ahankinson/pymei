@@ -76,7 +76,7 @@ class MeiElement(object):
             return False
     
     def children_by_name(self, child_name):
-        res = filter(lambda c: c.name == child_name, children)
+        res = filter(lambda c: c.name == child_name, self.children)
         if not res:
             return None
         return res

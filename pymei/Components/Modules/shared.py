@@ -1,6 +1,9 @@
 from pymei.Components.MeiElement import MeiElement
 from pymei.Components.MeiAttribute import MeiAttribute
 
+import logging
+lg = logging.getLogger('pymei')
+
 class abbr_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"abbr", value=value, parent=parent)
@@ -247,43 +250,35 @@ class note_(MeiElement):
         if attrs:
             self.setattributes(attrs)
         self.__pitchname = None
-        self.__pitch = None
-        self.__duration = None
+        self.__pitch = [] # [pitchname, accid...]
+        self.__duration = None # see also __is_dotted.
         self.__octave = None
         self.__stemdir = None
         # a note may have multiple accidentals. This is *not* the same as
         # double-sharps, etc. The MEI spec allows for multiple <accid> child
         # elements on a note.
         self.__accidentals = []
+        self.__is_dotted = False
+        self.__dots = None # 1-4 dots.
         
-        # initialize the note attributes
-        self._pitchname
-        self._pitch
-        self._duration
-        self._octave
-        self._stemdir
-        self._accidentals
-    
     # some convenience methods specific to notes. Caches the value for nominally 
     # faster subsequent lookups.
     def get_pitchname(self):
+        if not self.__pitchname:
+            self._pitchname()
         return self.__pitchname
     pitchname = property(get_pitchname, doc = "Gets the note's pitch name.")
     
     def get_pitch(self):
+        if not self.__pitch:
+            self._pitch()
         return self.__pitch
     pitch = property(get_pitch, doc = "Gets the note's pitch value")
     
     def get_accidentals(self):
-        """ Gets a note's accidental value. Stores it as a native MEI accidental
-            value, e.g., "f", "ss", "ds", etc.
-            
-            Note: A note may have multiple accidentals! Thus, this returns a list,
-            and not just a single accidental. More often than not, this list 
-            will only contain one element, but we're better safe than sorry.
-            
-         """
-         return self.__accidentals
+        if not self.__accidentals:
+            self._accidentals()
+        return self.__accidentals
     accidentals = property(get_accidentals, doc = "A note's accidental list.")
     
     def has_accidentals(self):
@@ -296,16 +291,38 @@ class note_(MeiElement):
             return False
     
     def get_duration(self):
+        if not self.__duration:
+            self._duration()
         return self.__duration
-    duration = property(get_duration, doc = "Get's the note's duration")
+    duration = property(get_duration, doc="Gets the base duration")
+    
+    def get_is_dotted(self):
+        """ Returns True if dotted; False if not"""
+        # the existence of dots is computed when we check the duration. 
+        # therefore, if there is no duration, we may also have not checked
+        # for dots yet. We'll double check now.
+        if not self.__duration:
+            self._duration()
+        return self.__is_dotted
+    is_dotted = property(get_is_dotted, doc="True if dotted; False if not")
+    
+    def get_dots(self):
+        if not self.__duration:
+            self._duration()
+        return self.__dots
+    dots = property(get_dots, doc = "Gets any dots attached to this note.")
     
     def get_octave(self):
+        if not self.__octave:
+            self._octave()
         return self.__octave
-    octave = property(get_octave, doc = "Get's the note's octave.")
+    octave = property(get_octave, doc = "Gets the note's octave.")
     
     def get_stemdir(self):
+        if not self.__stemdir:
+            self._stemdir()
         return self.__stemdir
-    stemdir = property(get_stemdir, doc = "Get's the note's stem direction")
+    stemdir = property(get_stemdir, doc = "Gets the note's stem direction")
     
     def get_pitch_octave(self):
         """ 
@@ -313,11 +330,16 @@ class note_(MeiElement):
             Sets a default "B" pitch and "4" octave if neither are present, chosen
             simply because this is the middle line on the treble clef.
         """
-        pass
+        if not self.__pitch:
+            self._pitch()
+        if not self.__octave:
+            self._octave()
+        # for now, we'll just grab the first accidental., 
+        return "{0}{1}".format("".join(self.__pitch[0:2]), self.__octave)
     pitch_octave = property(get_pitch_octave, doc = "Gets the pitch and octave representation")
 
-
     ## protected 
+    # These methods are responsible for setting the note's properties.
     def _pitchname(self):
         pname = filter(lambda p: p.name == 'pname', self.attributes)
         # there should only every be one pitch name per note, but the filter() method returns a list.
@@ -328,7 +350,14 @@ class note_(MeiElement):
         """ Get's a note's pitch *value*. This is the actual value of the pitch,
             and is returned as a list, containing the pitch name and any accidentals.
         """
+        # make sure we check for the required properties first!
+        if not self.__pitchname:
+            self._pitchname()
+        if not self.__accidentals:
+            self._accidentals()
+            
         self.__pitch = [self.__pitchname]
+        self.__pitch.extend(self.__accidentals)
     
     def _accidentals(self):
         if self.has_accidentals():
@@ -338,23 +367,30 @@ class note_(MeiElement):
                 a = []
                 children = self.children_by_name('accid')
                 for child in children:
-                    a.append(c.attribute_by_name('accid').value)
+                    a.append(child.attribute_by_name('accid').value)
                 self.__accidentals = a
-        
+    
     def _duration(self):
-        dur = filter(lambda d: d.getname() == 'dur', self.attributes)
+        dur = filter(lambda d: d.name == 'dur', self.attributes)
         if len(dur) > 0:
             self.__duration = dur[0].value
-
-    def _octave(self):
-        octv = filter(lambda o: o.getname() == 'oct', self.attributes)
-        if len(octv) == 0:
-            self.__octave = octv[0].value
+        # a dot can affect the duration. We won't compute the absolute duration,
+        # but rather we'll just set a flag that this note is dotted.
+        self._is_dotted()
     
+    def _is_dotted(self):
+        if self.has_attribute('dot'):
+            self.__is_dotted = True
+            self.__dots = self.attribute_by_name('dot').value
+    
+    def _octave(self):
+        octv = filter(lambda o: o.name == 'oct', self.attributes)
+        if len(octv) > 0:
+            self.__octave = octv[0].value
     
     def _stemdir(self):
         stmdir = filter(lambda s: s.getname() == 'stem.dir', self.attributes)
-        if len(stmdir) == 0:
+        if len(stmdir) > 0:
             self.__stemdir = stmdir[0].value
     
     
