@@ -1,4 +1,5 @@
 # helper functions to output to various representations.
+import types
 from lxml import etree
 
 from pymei import MEI_NS
@@ -7,17 +8,25 @@ from pymei.Helpers import prefix_to_ns
 import logging
 lg = logging.getLogger('pymei')
 
-def meitoxml(meidocument, filename):
+def meitoxml(meidocument, filename=None):
     """ Write out an MeiDocument object to a file."""
     r = meidocument.gettoplevel()
     d = _mei_to_xml(r)
     d.set('xmlns', MEI_NS)
     t = etree.ElementTree(d)
-    t.write(filename, 
-            pretty_print=True, 
-            xml_declaration=True,
-            encoding=meidocument.getencoding(),
-            standalone=meidocument.getstandalone())
+    
+    if not isinstance(filename, types.NoneType):
+        t.write(filename, 
+                pretty_print=True, 
+                xml_declaration=True,
+                encoding=meidocument.getencoding(),
+                standalone=meidocument.getstandalone())
+    else:
+        print(etree.tostring(t, 
+                pretty_print=True,
+                xml_declaration=True,
+                encoding=meidocument.getencoding(),
+                standalone=meidocument.getstandalone()))
 
 def _mei_to_xml(el):
     # a = {}
