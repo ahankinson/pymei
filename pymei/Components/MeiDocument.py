@@ -74,20 +74,23 @@ class MeiDocument(object):
     def getxmlversion(self):
         return self.__xml_version
     
-    def search(self, searchterm, **kwargs):
+    def search(self, searchterm, *args, **kwargs):
         """ 
             Searches an MEI Document for an object name that matches the
             search term.
             
             @TODO:
-            Passing in KW args will narrow down the search by only retrieving
-            objects with given attribute values.
+            Passing in args will narrow down the search by only retrieving
+            objects with that attribute.
+            
+            Passing in kwargs will narrow down the search by only retrieving
+            objects where k = v.
         """
         # there should only be one toplevel element
         if not self.__flattened_elements:
             self.__flattened_elements = flatten(self.gettoplevel())
-            
-        result = filter(lambda x: x.getname() == searchterm, self.__flattened_elements)
+        
+        result = filter(lambda x: x.name == searchterm, self.__flattened_elements)
         return result
     
     def get_by_id(self, id):
@@ -96,23 +99,4 @@ class MeiDocument(object):
             self.__flattened_elements = flatten(self.gettoplevel())
         result = filter(lambda x: x.id == id, self.__flattened_elements)
         return result
-    
-    # def _flatten(self):
-    #     """ Flattens the nested elements into a single list.
-    #         Caches the result in the object for future lookups.
-    #     """
-    #     rootl = self.gettoplevel()
-    #     
-    #     def __fl(ls):            
-    #         for ch in ls.getchildren():
-    #             if len(ch.getchildren()) > 0:
-    #                 for cd in __fl(ch):
-    #                     yield cd
-    #             yield ch
-    #     flattened = list(__fl(rootl))
-    #     self.__flattened_elements = flattened
-        
-        
-        
-        
-        
+            
