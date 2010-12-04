@@ -178,8 +178,10 @@ class MeiElement(object):
     
     def ancestor_by_name(self, ancestor_name):
         """ 
-            Looks for the existence of <ancestor_name> in the element's parents.
-            Returns the ancestor if found; otherwise returns None.
+            Looks for the existence of <ancestor_name> in the element's parents, and their parents parents, 
+            etc.
+            
+            Returns the first ancestor found that matches; otherwise returns None.
         """
         def __anc(nm, meiobj, lst):
             if isinstance(meiobj.parent, types.NoneType):
