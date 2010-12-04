@@ -13,6 +13,7 @@
 
 import types
 import uuid
+import itertools
 
 from pymei import MEI_NS, MEI_PREFIX
 from pymei.Components.MeiAttribute import MeiAttribute
@@ -91,7 +92,9 @@ class MeiElement(object):
             return False
     
     def children_by_name(self, child_name):
-        res = filter(lambda c: c.name == child_name, self.children)
+        #r = itertools.ifilter(lambda c: c.name == child_name, self.children)
+        r = (c for c in self.children if c.name == child_name)
+        res = list(r)
         if not res:
             return None
         return res
@@ -99,14 +102,18 @@ class MeiElement(object):
     
     def descendents_by_name(self, desc_name):
         """ Gets all sub-elements that match a query name """
-        res = filter(lambda d: d.name == desc_name, flatten(self))
+        #r = itertools.ifilter(lambda d: d.name == desc_name, flatten(self))
+        r = (d for d in flatten(self) if d.name == desc_name)
+        res = tuple(r)
         if not res:
             return None
         return res
         
     def descendent_by_id(self, desc_id):
         """ Get a descendent element by that element's unique id """
-        res = filter(lambda d: d.id == desc_id, flatten(self))
+        #r = itertools.ifilter(lambda d: d.id == desc_id, flatten(self))
+        r = (d for d in flatten(self) if d.id == desc_id)
+        res = tuple(r)
         if not res:
             return None
         elif len(res) > 1:
@@ -126,14 +133,25 @@ class MeiElement(object):
             # passing in 'self' will automatically add it to this element's 
             # __attributes list. See the __init__ statement in the 
             # MeiAttribute base class to see how this works.
-            MeiAttribute(name=k, value=v, element=self)
+            if self.attribute_by_name(k):
+                # we already have this attribute set. Since
+                # we can only have one attribute per name, we'll just update 
+                # the existing one.
+                self.attribute_by_name(k).value = str(v)
+            else:
+                MeiAttribute(name=str(k), value=str(v), element=self)
+            
+            # update this object's id if we have a xml:id attribute.
             if str(k) == "xml:id":
                 self.__id = v
     attributes = property(getattributes, setattributes, doc="Get the element attributes")
     
     def attribute_by_name(self, attribute):
         """ Gets the value of an element attribute by name. """
-        res = filter(lambda a: a.getname() == attribute, self.attributes)
+        # res = itertools.ifilter(lambda a: a.getname() == attribute, self.attributes)
+        r = (a for a in self.attributes if a.name == attribute)
+        res = tuple(r)
+        
         if len(res) == 0:
             return None
         elif len(res) > 1:
@@ -148,8 +166,7 @@ class MeiElement(object):
             return True
         else:
             return False
-        
-        
+            
     def getname(self):
         return self.__name
         

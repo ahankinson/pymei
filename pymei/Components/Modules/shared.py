@@ -310,7 +310,7 @@ class note_(MeiElement):
         if not self.__duration:
             self._duration()
         return self.__dots
-    dots = property(get_dots, doc = "Gets any dots attached to this note.")
+    dots = property(get_dots, doc = "Number of dots attached to this note.")
     
     def get_octave(self):
         if not self.__octave:
@@ -347,7 +347,7 @@ class note_(MeiElement):
             self.__pitchname = pname[0].value
 
     def _pitch(self):
-        """ Get's a note's pitch *value*. This is the actual value of the pitch,
+        """ Gets a note's pitch *value*. This is the actual value of the pitch,
             and is returned as a list, containing the pitch name and any accidentals.
         """
         # make sure we check for the required properties first!
@@ -379,9 +379,14 @@ class note_(MeiElement):
         self._is_dotted()
     
     def _is_dotted(self):
-        if self.has_attribute('dot'):
+        if self.has_attribute('dots') and self.attribute_by_name('dots').value is not '0':
             self.__is_dotted = True
-            self.__dots = self.attribute_by_name('dot').value
+            self.__dots = self.attribute_by_name('dots').value
+        else:
+            self.__is_dotted = False
+            self.__dots = None
+            if self.attribute_by_name('dots') in self.attributes:
+                self.attributes.remove(self.attribute_by_name('dots'))
     
     def _octave(self):
         octv = filter(lambda o: o.name == 'oct', self.attributes)
@@ -483,7 +488,56 @@ class rest_(MeiElement):
         MeiElement.__init__(self, name=u"rest", value=value, parent=parent)
         if attrs:
             self.setattributes(attrs)
-
+        self.__duration = None
+        self.__is_dotted = False
+        self.__dots = None
+        
+    # public
+    def get_duration(self):
+        if not self.__duration:
+            self._duration()
+        return self.__duration
+    def set_duration(self, duration):
+        self.attributes = {'dur': duration}
+        # update the duration state of this object.
+        self._duration()
+    duration = property(get_duration, set_duration, doc = "Gets and Sets a rest's duration.")
+    
+    def get_dots(self):
+        # we'll do the full duration update, instead of just the
+        # dot update.
+        if not self.__dots:
+            self._duration()
+        return self.__dots
+    def set_dots(self, dotnum):
+        self.attributes = {'dots': dotnum}
+        self._duration()
+    dots = property(get_dots, set_dots, doc = "Number of dots attached to this note.")
+    
+    def get_is_dotted(self):
+        if not self.__duration:
+            self._duration()
+        return self.__is_dotted
+    is_dotted = property(get_is_dotted, doc = "True if dotted; false if not.")
+    
+    #protected 
+    def _duration(self):
+        dur = [d for d in self.attributes if d.name == 'dur']
+        if len(dur) > 0:
+            self.__duration = dur[0].value
+        self._is_dotted()
+    
+    def _is_dotted(self):
+        if self.has_attribute('dots') and self.attribute_by_name('dots').value is not '0':
+            self.__is_dotted = True
+            self.__dots = self.attribute_by_name('dots').value
+        else:
+            self.__is_dotted = False
+            self.__dots = None
+            if self.attribute_by_name('dots') in self.attributes:
+                self.attributes.remove(self.attribute_by_name('dots'))
+            
+        
 class sb_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"sb", value=value, parent=parent)

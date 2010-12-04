@@ -21,7 +21,6 @@ def prefix_to_ns(att):
 def flatten(mei_obj):
     """ 
         Flattens the nested descendent elements into a single list.
-        Caches the result in the object for future lookups.
     """
     def __fl(ls):            
         for ch in ls.getchildren():
@@ -29,4 +28,4 @@ def flatten(mei_obj):
                 for cd in __fl(ch):
                     yield cd
             yield ch
-    return list(__fl(mei_obj))
+    return tuple(__fl(mei_obj))

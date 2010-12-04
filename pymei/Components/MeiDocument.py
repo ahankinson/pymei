@@ -10,6 +10,8 @@
 #
 # ================================================================
 
+import itertools
+
 from pymei import ENCODING, MEI_PREFIX, MEI_NS
 from pymei.Helpers import flatten
 
@@ -79,6 +81,10 @@ class MeiDocument(object):
             Searches an MEI Document for an object name that matches the
             search term.
             
+            Note: Returns a generator object, and not the actual list of elements,
+            with the assumption that you will either want to loop through all 
+            the things found in the search, or you can cast it to a list or tuple.
+            
             @TODO:
             Passing in args will narrow down the search by only retrieving
             objects with that attribute.
@@ -89,14 +95,11 @@ class MeiDocument(object):
         # there should only be one toplevel element
         if not self.__flattened_elements:
             self.__flattened_elements = flatten(self.gettoplevel())
-        
-        result = filter(lambda x: x.name == searchterm, self.__flattened_elements)
-        return result
+        return (o for o in self.__flattened_elements if o.name == searchterm)
     
     def get_by_id(self, id):
         """ Gets a document object by ID. """
         if not self.__flattened_elements:
             self.__flattened_elements = flatten(self.gettoplevel())
-        result = filter(lambda x: x.id == id, self.__flattened_elements)
-        return result
+        return (o for o in self.__flattened_elements if o.id == id)
             
