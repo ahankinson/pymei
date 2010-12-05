@@ -146,6 +146,16 @@ class MeiElement(object):
                 self.__id = v
     attributes = property(getattributes, setattributes, doc="Get the element attributes")
     
+    def remove_attribute(self, attr_name):
+        """
+            Given an attribute name, removes that from this element's attributes
+            
+            If it does not have that attribute, it returns None.
+        """
+        if not self.has_attribute(attr_name):
+            return None
+        self.attributes.remove(self.attribute_by_name(attr_name))
+        
     def attribute_by_name(self, attribute):
         """ Gets the value of an element attribute by name. """
         # res = itertools.ifilter(lambda a: a.getname() == attribute, self.attributes)

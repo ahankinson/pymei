@@ -1,5 +1,6 @@
 from pymei.Components.MeiElement import MeiElement
 from pymei.Components.MeiAttribute import MeiAttribute
+from pymei.Components.MeiExceptions import MeiAttributeError
 
 import logging
 lg = logging.getLogger('pymei')
@@ -260,24 +261,23 @@ class note_(MeiElement):
         self.__accidentals = []
         self.__is_dotted = False
         self.__dots = None # 1-4 dots.
+        self.__tie = None
+        self.__is_tied = False # is this note part of a tied group?
         
     # some convenience methods specific to notes. Caches the value for nominally 
     # faster subsequent lookups.
     def get_pitchname(self):
-        if not self.__pitchname:
-            self._pitchname()
+        self._pitchname()
         return self.__pitchname
     pitchname = property(get_pitchname, doc = "Gets the note's pitch name.")
     
     def get_pitch(self):
-        if not self.__pitch:
-            self._pitch()
+        self._pitch()
         return self.__pitch
     pitch = property(get_pitch, doc = "Gets the note's pitch value")
     
     def get_accidentals(self):
-        if not self.__accidentals:
-            self._accidentals()
+        self._accidentals()
         return self.__accidentals
     accidentals = property(get_accidentals, doc = "A note's accidental list.")
     
@@ -291,8 +291,7 @@ class note_(MeiElement):
             return False
     
     def get_duration(self):
-        if not self.__duration:
-            self._duration()
+        self._duration()
         return self.__duration
     duration = property(get_duration, doc="Gets the base duration")
     
@@ -301,28 +300,30 @@ class note_(MeiElement):
         # the existence of dots is computed when we check the duration. 
         # therefore, if there is no duration, we may also have not checked
         # for dots yet. We'll double check now.
-        if not self.__duration:
-            self._duration()
+        self._duration()
         return self.__is_dotted
     is_dotted = property(get_is_dotted, doc="True if dotted; False if not")
     
     def get_dots(self):
-        if not self.__duration:
-            self._duration()
+        self._duration()
         return self.__dots
-    dots = property(get_dots, doc = "Number of dots attached to this note.")
+    def set_dots(self, value):
+        self.attributes = {'dots': value}
+        self._duration()
+    dots = property(get_dots, set_dots, doc = "Number of dots attached to this note.")
     
     def get_octave(self):
-        if not self.__octave:
-            self._octave()
+        self._octave()
         return self.__octave
     octave = property(get_octave, doc = "Gets the note's octave.")
     
     def get_stemdir(self):
-        if not self.__stemdir:
-            self._stemdir()
+        self._stemdir()
         return self.__stemdir
-    stemdir = property(get_stemdir, doc = "Gets the note's stem direction")
+    def set_stemdir(self, value):
+        self.attributes = {'stem.dir': value}
+        self._stemdir()
+    stemdir = property(get_stemdir, set_stemdir, doc = "Gets the note's stem direction")
     
     def get_pitch_octave(self):
         """ 
@@ -330,31 +331,48 @@ class note_(MeiElement):
             Sets a default "B" pitch and "4" octave if neither are present, chosen
             simply because this is the middle line on the treble clef.
         """
-        if not self.__pitch:
-            self._pitch()
-        if not self.__octave:
-            self._octave()
+        self._pitch()
+        self._octave()
         # for now, we'll just grab the first accidental., 
         return "{0}{1}".format("".join(self.__pitch[0:2]), self.__octave)
     pitch_octave = property(get_pitch_octave, doc = "Gets the pitch and octave representation")
+    
+    # Return values for ties can be i(nitial), m(edial), and t(erminal). Note
+    # that this only works if the note has a tie attribute! Tie *elements* are
+    # dealt with separately.
+    def get_tie(self):
+        self._tie()
+        return self.__tie
+    def set_tie(self, val):
+        if val not in ('i', 'm', 't'):
+            raise MeiAttributeError("Tie values must be one of i, m or t.")
+        self.attributes = {'tie': val}
+        self._tie()
+    tie = property(get_tie, set_tie, doc="Gets and sets this note's tie values.")
+    
+    def get_is_tied(self):
+        self._tie() # make sure we have the latest update.
+        return self.__is_tied
+    is_tied = property(get_is_tied, doc="True if the note is part of a tied group.")
 
     ## protected 
     # These methods are responsible for setting the note's properties.
     def _pitchname(self):
-        pname = filter(lambda p: p.name == 'pname', self.attributes)
+        pname = [p for p in self.attributes if p.name == 'pname']
         # there should only every be one pitch name per note, but the filter() method returns a list.
         if len(pname) > 0:
             self.__pitchname = pname[0].value
+        else:
+            self.__pitchname = None
+            self.remove_attribute('pname')
 
     def _pitch(self):
         """ Gets a note's pitch *value*. This is the actual value of the pitch,
             and is returned as a list, containing the pitch name and any accidentals.
         """
         # make sure we check for the required properties first!
-        if not self.__pitchname:
-            self._pitchname()
-        if not self.__accidentals:
-            self._accidentals()
+        self._pitchname()
+        self._accidentals()
             
         self.__pitch = [self.__pitchname]
         self.__pitch.extend(self.__accidentals)
@@ -374,6 +392,9 @@ class note_(MeiElement):
         dur = filter(lambda d: d.name == 'dur', self.attributes)
         if len(dur) > 0:
             self.__duration = dur[0].value
+        else:
+            self.__duration = None
+            self.remove_attribute('dur')
         # a dot can affect the duration. We won't compute the absolute duration,
         # but rather we'll just set a flag that this note is dotted.
         self._is_dotted()
@@ -385,19 +406,33 @@ class note_(MeiElement):
         else:
             self.__is_dotted = False
             self.__dots = None
-            if self.attribute_by_name('dots') in self.attributes:
-                self.attributes.remove(self.attribute_by_name('dots'))
+            self.remove_attribute('dots')
     
     def _octave(self):
         octv = filter(lambda o: o.name == 'oct', self.attributes)
         if len(octv) > 0:
             self.__octave = octv[0].value
+        else:
+            self.__octave = None
+            self.remove_attribute('oct')
     
     def _stemdir(self):
         stmdir = filter(lambda s: s.getname() == 'stem.dir', self.attributes)
         if len(stmdir) > 0:
             self.__stemdir = stmdir[0].value
+        else:
+            self.__stemdir = None
+            self.remove_attribute('stem.dir')
     
+    def _tie(self):
+        tie = [t for t in self.attributes if t.name == 'tie']
+        if len(tie) > 0:
+            self.__tie = tie[0].value
+            self.__is_tied = True
+        else:
+            self.__tie = None
+            self.__is_tied = False
+            self.remove_attribute('tie')
     
 class num_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
@@ -494,8 +529,7 @@ class rest_(MeiElement):
         
     # public
     def get_duration(self):
-        if not self.__duration:
-            self._duration()
+        self._duration()
         return self.__duration
     def set_duration(self, duration):
         self.attributes = {'dur': duration}
@@ -506,8 +540,7 @@ class rest_(MeiElement):
     def get_dots(self):
         # we'll do the full duration update, instead of just the
         # dot update.
-        if not self.__dots:
-            self._duration()
+        self._duration()
         return self.__dots
     def set_dots(self, dotnum):
         self.attributes = {'dots': dotnum}
@@ -515,8 +548,7 @@ class rest_(MeiElement):
     dots = property(get_dots, set_dots, doc = "Number of dots attached to this note.")
     
     def get_is_dotted(self):
-        if not self.__duration:
-            self._duration()
+        self._duration()
         return self.__is_dotted
     is_dotted = property(get_is_dotted, doc = "True if dotted; false if not.")
     
@@ -525,6 +557,9 @@ class rest_(MeiElement):
         dur = [d for d in self.attributes if d.name == 'dur']
         if len(dur) > 0:
             self.__duration = dur[0].value
+        else:
+            self.__duration = None
+            self.remove_attribute('dur')
         self._is_dotted()
     
     def _is_dotted(self):
@@ -534,8 +569,7 @@ class rest_(MeiElement):
         else:
             self.__is_dotted = False
             self.__dots = None
-            if self.attribute_by_name('dots') in self.attributes:
-                self.attributes.remove(self.attribute_by_name('dots'))
+            self.remove_attribute('dots')
             
         
 class sb_(MeiElement):
