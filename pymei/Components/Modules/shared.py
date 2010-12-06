@@ -2,6 +2,9 @@ from pymei.Components.MeiElement import MeiElement
 from pymei.Components.MeiAttribute import MeiAttribute
 from pymei.Components.MeiExceptions import MeiAttributeError
 
+import types
+import uuid
+
 import logging
 lg = logging.getLogger('pymei')
 
@@ -46,7 +49,25 @@ class artic_(MeiElement):
         MeiElement.__init__(self, name=u"artic", value=value, parent=parent)
         if attrs:
             self.setattributes(attrs)
-
+        self.__articulation = None
+    
+    def get_articulation(self):
+        self._articulation()
+        return self.__articulation
+    def set_articulation(self, value):
+        self.attributes = {'artic': value}
+        self._articulation()
+    articulation = property(get_articulation, set_articulation, doc="Get and set the articulation value.")
+    
+    # protected
+    def _articulation(self):
+        artic = [a for a in self.attributes if a.name == "artic"]
+        if len(artic) > 0:
+            self.__articulation = artic[0].value
+        else:
+            self.__articulation = None
+            self.remove_attribute('artic')
+    
 class barline_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"barline", value=value, parent=parent)
@@ -263,18 +284,25 @@ class note_(MeiElement):
         self.__dots = None # 1-4 dots.
         self.__tie = None
         self.__is_tied = False # is this note part of a tied group?
+        self.__articulations = [] # may be many articulation on a single note.
         
-    # some convenience methods specific to notes. Caches the value for nominally 
-    # faster subsequent lookups.
-    def get_pitchname(self):
+    # some convenience methods specific to notes. 
+    @property
+    def pitchname(self):
         self._pitchname()
         return self.__pitchname
-    pitchname = property(get_pitchname, doc = "Gets the note's pitch name.")
+    @pitchname.setter
+    def pitchname(self, value):
+        self.__pitchname = value
+        self._pitchname()
+    @pitchname.deleter
+    def pitchname(self):
+        self.__pitchname = None
+        self._pitchname()
     
-    def get_pitch(self):
-        self._pitch()
+    @property
+    def pitch(self):
         return self.__pitch
-    pitch = property(get_pitch, doc = "Gets the note's pitch value")
     
     def get_accidentals(self):
         self._accidentals()
@@ -354,12 +382,34 @@ class note_(MeiElement):
         self._tie() # make sure we have the latest update.
         return self.__is_tied
     is_tied = property(get_is_tied, doc="True if the note is part of a tied group.")
-
+    
+    @property
+    def articulations(self):
+        self._articulations()
+        return self.__articulations
+    @articulations.setter
+    def articulations(self, value):
+        if value in self.__articulations:
+            return None # it's already set.
+        self.__articulations.append(value)
+        self._articulations()    
+    @articulations.deleter
+    def articulations(self):
+        self.__articulations = []
+        self._articulations()
+    
+    def remove_articulation(self, value):
+        if value not in self.__articulations:
+            return None
+        self.__articulations.remove(value)
+        self._articulations()
+        
+    
     ## protected 
     # These methods are responsible for setting the note's properties.
     def _pitchname(self):
         pname = [p for p in self.attributes if p.name == 'pname']
-        # there should only every be one pitch name per note, but the filter() method returns a list.
+        # there should only every be one pitch name per note
         if len(pname) > 0:
             self.__pitchname = pname[0].value
         else:
@@ -433,6 +483,30 @@ class note_(MeiElement):
             self.__tie = None
             self.__is_tied = False
             self.remove_attribute('tie')
+            
+    def _articulations(self):
+        if len(self.__articulations) > 1:
+            # create elements & clean up attributes
+            # remove all articulation children for safety
+            self.remove_children('artic')
+            self.remove_attribute('artic')
+            artc = []
+            for art in self.__articulations:
+                a = artic_()
+                a.id = uuid.uuid4() # give it an id.
+                a.attributes = {'artic': art}
+                artc.append(a)
+            self.addchildren(artc, self)
+        elif len(self.__articulations) == 1:
+            # create an attribute & clean up any children
+            self.attributes = {'artic': self.__articulations[0]}
+            self.remove_children('artic')
+        else:
+            # clean up everything to do with articulations.
+            self.remove_children('artic')
+            self.remove_attribute('artic')
+            self.__articulations = []
+            
     
 class num_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):

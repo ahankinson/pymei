@@ -49,32 +49,52 @@ class MeiElement(object):
     def __str__(self):
         return "<MeiElement {0}:{1}>".format(self.__name, self.__id)
     
-    def getvalue(self):
+    def _value(self):
+        lg.debug("Updating value")
+        
+    def _tail(self):
+        lg.debug("Updating tail")
+        
+    def updatecls(self):
+        lg.debug("Updating the class.")
+
+    @property
+    def value(self):
+        lg.debug("getting value")
         return self.__value
-    
-    def setvalue(self, value):
+    @value.setter
+    def value(self, value):
         value = value.strip()
         self.__value = value
-    value = property(getvalue, setvalue, doc="Get and set the text value for the element")
+
+    # value = property(getvalue, setvalue, doc="Get and set the text value for the element")
     
-    def getsvalue(self):
+    @property
+    def svalue(self):
+        """
+            Get and set the full stripped value for the element. 
+            The stripped value is the text value with any inline tags 
+            stripped out.
+        """
         return self.__svalue
-        
-    def setsvalue(self, value):
+    @svalue.setter
+    def svalue(self, value):
         self.__svalue = value
-    svalue = property(getsvalue, setsvalue, doc="Get and set the full stripped value for the element. The stripped value is the text value with any inline tags stripped out.")
     
-    def gettail(self):
-        return self.__tail
-        
-    def settail(self, value):
+    @property
+    def tail(self):
+        """ Get and set the text tail for the element. """
+        return self.__tail    
+    @tail.setter
+    def tail(self, value):
         # get rid of any pesky newlines. XML shouldn't be newline or white
         # space sensitive anyway.
         value = value.strip()
         self.__tail = value
-    tail = property(gettail, settail, doc="Get and set the text tail for the element.")
     
-    def getchildren(self):
+    @property
+    def children(self):
+        """ Get the direct children of this element """
         return self.__children
         
     def addchildren(self, children, pnt=None):
@@ -83,7 +103,11 @@ class MeiElement(object):
             self.__children.append(c)
             if not isinstance(pnt, types.NoneType):
                 c.parent = pnt
-    children = property(getchildren, addchildren, doc="Get the direct children of this element")
+
+    def remove_child(self, child):
+        if child not in self.__children:
+            return None
+        self.__children.remove(child)
     
     def has_child(self, childname):
         if [c for c in self.children if c.name == childname]:
@@ -98,6 +122,15 @@ class MeiElement(object):
         if not res:
             return None
         return res
+        
+    def remove_children(self, child_name):
+        if not self.has_child(child_name):
+            return None
+        to_remove = [c for c in self.__children if c.name == child_name]
+        for child in to_remove:
+            if child.name == child_name:
+                lg.debug("Removing {0}".format(child_name))                
+                self.__children.remove(child)
     
     
     def descendents_by_name(self, desc_name):
@@ -121,11 +154,12 @@ class MeiElement(object):
             return None
         else:
             return res[0]
-    
-    def getattributes(self):
+
+    @property
+    def attributes(self):
         return self.__attributes
-        
-    def setattributes(self, value):
+    @attributes.setter
+    def attributes(self, value):
         if not isinstance(value, types.DictType):
             raise MeiAttributeError("You must supply a dictionary of attributes.")
             
@@ -144,7 +178,6 @@ class MeiElement(object):
             # update this object's id if we have a xml:id attribute.
             if str(k) == "xml:id":
                 self.__id = v
-    attributes = property(getattributes, setattributes, doc="Get the element attributes")
     
     def remove_attribute(self, attr_name):
         """
@@ -176,32 +209,32 @@ class MeiElement(object):
             return True
         else:
             return False
-            
-    def getname(self):
+    
+    @property
+    def name(self):
+        """ Gets the name. Read-only, please! """
         return self.__name
-        
-    name = property(getname, doc = "Gets the name. Read-only, please!")
     
-    def getprefix(self):
+    @property
+    def prefix(self):
         return self.__prefix
-    
-    def setprefix(self, value):
+    @prefix.setter
+    def prefix(self, value):
         self.__prefix = value
-    prefix = property(getprefix, setprefix, doc="Get and set the prefix for the element")
     
-    def getnamespace(self):
+    @property
+    def namespace(self):
         return self.__xmlns
-    
-    def setnamespace(self, value):
+    @namespace.setter
+    def namespace(self, value):
         self.__xmlns = value
-    xmlns = property(getnamespace, setnamespace, doc="Get and set the XML namespace for the element")
     
-    def getparent(self):
+    @property    
+    def parent(self):
         return self.__parent
-    
-    def setparent(self, value):
+    @parent.setter
+    def parent(self, value):
         self.__parent = value
-    parent = property(getparent, setparent, doc="Get and set the parent element for this element")
     
     def ancestor_by_name(self, ancestor_name):
         """ 
@@ -225,17 +258,17 @@ class MeiElement(object):
             return plist[0]
         else:
             return None
-            
-    def getid(self):
+
+    @property
+    def id(self):
         return self.__id
-        
-    def setid(self, value):
+    @id.setter
+    def id(self, value):
         self.__id = value
-    id = property(getid, setid, doc="Get and set the id for this element.")
     
-    def getpeers(self):
+    @property
+    def peers(self):
         return self.parent.children
-    peers = property(getpeers, doc="Get adjacent elements.")
     
     def as_xml_object(self):
         self._xml()
@@ -257,6 +290,12 @@ class MeiElement(object):
         return self.__dictionary
     
     # protected
+    def _value(self):
+        lg.debug("Updating value")
+    
+    def _tail(self):
+        lg.debug("Updating tail")
+    
     def _xml(self):
         from lxml import etree
         
