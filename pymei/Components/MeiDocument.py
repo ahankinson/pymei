@@ -95,7 +95,8 @@ class MeiDocument(object):
         # there should only be one toplevel element
         if not self.__flattened_elements:
             self.__flattened_elements = flatten(self.gettoplevel())
-        return (o for o in self.__flattened_elements if o.name == searchterm)
+            
+        return [o for o in self.__flattened_elements if o.name == searchterm]
     
     def get_by_id(self, id):
         """ Gets a document object by ID. """

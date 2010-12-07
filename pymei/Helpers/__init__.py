@@ -22,10 +22,18 @@ def flatten(mei_obj):
     """ 
         Flattens the nested descendent elements into a single list.
     """
-    def __fl(ls):            
-        for ch in ls.getchildren():
-            if len(ch.getchildren()) > 0:
+    def __fl(ls):
+        for ch in ls.children:
+            if ch.children:
                 for cd in __fl(ch):
                     yield cd
             yield ch
-    return tuple(__fl(mei_obj))
+    return list(__fl(mei_obj))
+    
+    # def __fl(ls):
+    #     for ch in ls.children:
+    #         if ch.children:
+    #             for cd in __fl(ch):
+    #                 yield cd
+    #         yield ch
+    # return list(__fl(mei_obj))

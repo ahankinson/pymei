@@ -12,43 +12,43 @@ class abbr_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"abbr", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class accid_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"accid", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class address_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"address", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class addressline_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"addressline", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
             
 class annot_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"annot", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class appinfo_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"appinfo", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class artic_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"artic", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
         self.__articulation = None
     
     def get_articulation(self):
@@ -72,205 +72,205 @@ class barline_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"barline", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class bibl_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"bibl", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class body_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"body", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class caption_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"caption", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class chord_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"chord", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class clef_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"clef", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class clefchange_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"clefchange", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class custos_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"custos", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class date_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"date", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class dir_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"dir", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class dot_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"dot", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class dynam_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"dynam", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class edition_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"edition", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class ending_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"ending", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class expan_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"expan", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class expansion_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"expansion", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class fw_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"fw", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class group_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"group", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class grpsym_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"grpsym", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class identifier_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"identifier", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class instrdef_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"instrdef", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class instrgrp_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"instrgrp", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class keyaccid_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"keyaccid", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class keychange_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"keychange", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class keysig_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"keysig", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class label_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"label", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class layer_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"layer", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class layerdef_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"layerdef", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class lb_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"lb", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class mdiv_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"mdiv", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class mei_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"mei", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class music_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"music", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class name_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"name", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class note_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"note", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
         self.__pitchname = None
         self.__pitch = [] # [pitchname, accid...]
         self.__duration = None # see also __is_dotted.
@@ -512,91 +512,91 @@ class num_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"num", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class p_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"p", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class pad_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"pad", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class part_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"part", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class parts_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"parts", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class pb_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"pb", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class pgdesc_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"pgdesc", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class pgfoot1_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"pgfoot1", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class pgfoot2_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"pgfoot2", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class pghead1_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"pghead1", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class pghead2_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"pghead2", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class phrase_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"phrase", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class rend_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"rend", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class repository_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"repository", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class rest_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"rest", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
         self.__duration = None
         self.__is_dotted = False
         self.__dots = None
@@ -650,49 +650,49 @@ class sb_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"sb", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class score_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"score", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class scoredef_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"scoredef", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class section_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"section", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class space_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"space", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class stack_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"stack", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class staff_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"staff", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class staffdef_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"staffdef", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
     
     def get_clef_array(self):
         # returns an array of clef-related attributes.
@@ -709,29 +709,29 @@ class staffgrp_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"staffgrp", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class syl_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"syl", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class tempo_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"tempo", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class title_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"title", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class titlepage_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"titlepage", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 

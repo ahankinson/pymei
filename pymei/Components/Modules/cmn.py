@@ -5,79 +5,79 @@ class arpeg_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"arpeg", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class beam_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"beam", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class beamspan_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"beamspan", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class beatrpt_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"beatrpt", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class bend_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"bend", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class breath_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"breath", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class btrem_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"btrem", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class fermata_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"fermata", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class gliss_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"gliss", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class hairpin_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"hairpin", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class halfmrpt_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"halfmrpt", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class harppedal_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"harppedal", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class measure_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"measure", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
         self.__measure_number = None
         self.__barline = None
         self.__has_barline = False
@@ -139,7 +139,7 @@ class mrest_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"mrest", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
         # measure rests can have all sorts of possible durations, depending
         # on their measure context. We'll just set up a placeholder attribute
         # for duration, but won't actually compute the duration from its context. 
@@ -150,61 +150,61 @@ class mrpt_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"mrpt", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class mrpt2_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"mrpt2", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class mspace_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"mspace", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class multirest_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"multirest", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class multirpt_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"multirpt", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class octave_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"octave", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class ossia_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"ossia", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class pedal_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"pedal", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class reh_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"reh", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class slur_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"slur", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
         self.__startid = None
         self.__endid = None
         self.__staff = None # staff that the tie is attached to.
@@ -262,7 +262,7 @@ class tie_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"tie", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
         self.__startid = None
         self.__endid = None
         self.__staff = None # staff that the tie is attached to.
@@ -320,11 +320,11 @@ class tuplet_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"tuplet", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
 class tupletspan_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"tupletspan", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 

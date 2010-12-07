@@ -46,13 +46,13 @@ def _xml_to_mei(el):
         for n in el.itertext():
             tx += " ".join(n.split())
             tx += " "
-        obj.setsvalue(tx)
+        obj.svalue = tx
     
     if el.text is not None:
-        obj.setvalue(el.text)
+        obj.value = el.text
     
     if el.tail is not None:
-        obj.settail(el.tail)
+        obj.tail = el.tail
     
     # set the attributes
     d = {}
@@ -69,11 +69,12 @@ def _xml_to_mei(el):
     if "xml:id" not in d.keys():
         d['xml:id'] = str(uuid.uuid4())
         
-    obj.setattributes(d)
+    obj.attributes = d
     
     # add any children.
     c = list(el)
     if len(c) > 0:
+        lg.debug("Adding children: {0}".format(tagname))
         # loopdy-loopdy! This calls itself for any children components found.
         m = map(_xml_to_mei, c)
         #lg.debug('Object: {0}; children {1}'.format(obj, m))

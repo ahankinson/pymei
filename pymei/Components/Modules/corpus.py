@@ -5,5 +5,5 @@ class meicorpus_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"meicorpus", value=value, parent=parent)
         if attrs:
-            self.setattributes(attrs)
+            self.attributes = attrs
 
