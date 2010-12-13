@@ -51,7 +51,6 @@ class MeiElement(object):
     
     @property
     def value(self):
-        lg.debug("getting value")
         return self.__value
     @value.setter
     def value(self, value):
@@ -117,7 +116,6 @@ class MeiElement(object):
         to_remove = (c for c in self.__children if c.name == child_name)
         for child in to_remove:
             if child.name == child_name:
-                lg.debug("Removing {0}".format(child_name))                
                 self.__children.remove(child)
     
     
@@ -279,11 +277,11 @@ class MeiElement(object):
         return self.__dictionary
     
     # protected
-    def _value(self):
-        lg.debug("Updating value")
-    
-    def _tail(self):
-        lg.debug("Updating tail")
+    # def _value(self):
+    #     lg.debug("Updating value")
+    # 
+    # def _tail(self):
+    #     lg.debug("Updating tail")
     
     def _xml(self):
         from lxml import etree
@@ -308,18 +306,18 @@ class MeiElement(object):
         
         d = {self.name:[]}
         if self.attributes is not None:
-            el_attb = {"@attributes": {}}
+            el_attb = {"@a": {}}
             for at in self.attributes:
                 if at.name is "namespace":
                     continue
-                el_attb["@attributes"][at.name] = at.value
-            if el_attb["@attributes"].values():
+                el_attb["@a"][at.name] = at.value
+            if el_attb["@a"].values():
                 d[self.name].append(el_attb)
         if self.value is not None:
             if self.value.strip() != "":
-                d[self.name].append({"@value": self.value})
+                d[self.name].append({"@v": self.value})
         if self.tail is not None:
             if self.tail.strip() != "":
-                d[self.name].append({"@tail": self.tail})
+                d[self.name].append({"@t": self.tail})
         self.__dictionary = d
         self.__json_str = json.dumps(d)

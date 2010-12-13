@@ -38,13 +38,13 @@ def _json_to_mei(el):
         return el
     
     # attributes have a special attribute dictionary key.
-    if isinstance(el, types.DictType) and "@attributes" in el.keys():
+    if isinstance(el, types.DictType) and "@a" in el.keys():
         return el
     
-    if isinstance(el, types.DictType) and "@tail" in el.keys():
+    if isinstance(el, types.DictType) and "@t" in el.keys():
         return el
     
-    if isinstance(el, types.DictType) and "@value" in el.keys():
+    if isinstance(el, types.DictType) and "@v" in el.keys():
         return el
         
     # don't pop from an empty dict!
@@ -64,16 +64,16 @@ def _json_to_mei(el):
         # our map operation will return a number of things. Depending on what 
         # is in our map result, we put that it the MeiElement object accordingly.
         for d in m:                
-            if isinstance(d, types.DictType) and "@attributes" in d.keys():
-                if u"xml:id" not in d['@attributes'].keys():
-                    d['@attributes'][u'xml:id'] = str(uuid.uuid4())
-                obj.attributes = d['@attributes']
+            if isinstance(d, types.DictType) and "@a" in d.keys():
+                if u"xml:id" not in d['@a'].keys():
+                    d['@a'][u'xml:id'] = str(uuid.uuid4())
+                obj.attributes = d['@a']
             
-            elif isinstance(d, types.DictType) and "@tail" in d.keys():
-                obj.tail = d['@tail']
+            elif isinstance(d, types.DictType) and "@t" in d.keys():
+                obj.tail = d['@t']
             
-            elif isinstance(d, types.DictType) and "@value" in d.keys():
-                obj.value = d['@value']
+            elif isinstance(d, types.DictType) and "@v" in d.keys():
+                obj.value = d['@v']
                 
             else:
                 obj.addchildren([d])

@@ -13,10 +13,7 @@ lg = logging.getLogger('pymei')
 def meitoxml(meidocument, filename=None):
     """ Prints XML to the screen, or writes out an MeiDocument object to a file."""
     r = meidocument.gettoplevel()
-    t1 = time.time()
     d = _mei_to_xml(r)
-    t2 = time.time()
-    lg.debug("Time taken: {0}".format(t2 - t1))
     
     d.set('xmlns', MEI_NS)
     t = etree.ElementTree(d)
