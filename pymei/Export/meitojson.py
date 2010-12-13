@@ -1,5 +1,6 @@
 import json
 import types
+import codecs
 
 import logging
 lg = logging.getLogger('pymei')
@@ -14,7 +15,7 @@ def meitojson(meidocument, filename=None, prettyprint=True):
         j = json.dumps(d)
         
     if not isinstance(filename, types.NoneType):
-        f = open(filename, 'w')
+        f = codecs.open(filename, 'w', encoding='utf-8')
         f.write(j)
         f.close()
     else:

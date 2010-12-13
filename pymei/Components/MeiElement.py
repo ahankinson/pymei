@@ -7,7 +7,7 @@
 #   http://trac.defuze.org/browser/oss/atomixlib/
 #
 #   Author:     Andrew Hankinson
-#   License:    BSD
+#   License:    MIT
 #
 # ================================================================
 
@@ -49,15 +49,6 @@ class MeiElement(object):
     def __str__(self):
         return "<MeiElement {0}:{1}>".format(self.__name, self.__id)
     
-    def _value(self):
-        lg.debug("Updating value")
-        
-    def _tail(self):
-        lg.debug("Updating tail")
-        
-    def updatecls(self):
-        lg.debug("Updating the class.")
-
     @property
     def value(self):
         lg.debug("getting value")
@@ -66,8 +57,6 @@ class MeiElement(object):
     def value(self, value):
         value = value.strip()
         self.__value = value
-
-    # value = property(getvalue, setvalue, doc="Get and set the text value for the element")
     
     @property
     def svalue(self):
@@ -116,7 +105,6 @@ class MeiElement(object):
             return False
     
     def children_by_name(self, child_name):
-        #r = itertools.ifilter(lambda c: c.name == child_name, self.children)
         r = (c for c in self.children if c.name == child_name)
         res = list(r)
         if not res:
@@ -126,7 +114,7 @@ class MeiElement(object):
     def remove_children(self, child_name):
         if not self.has_child(child_name):
             return None
-        to_remove = [c for c in self.__children if c.name == child_name]
+        to_remove = (c for c in self.__children if c.name == child_name)
         for child in to_remove:
             if child.name == child_name:
                 lg.debug("Removing {0}".format(child_name))                
@@ -135,7 +123,6 @@ class MeiElement(object):
     
     def descendents_by_name(self, desc_name):
         """ Gets all sub-elements that match a query name """
-        #r = itertools.ifilter(lambda d: d.name == desc_name, flatten(self))
         r = (d for d in flatten(self) if d.name == desc_name)
         res = tuple(r)
         if not res:
@@ -144,7 +131,6 @@ class MeiElement(object):
         
     def descendent_by_id(self, desc_id):
         """ Get a descendent element by that element's unique id """
-        #r = itertools.ifilter(lambda d: d.id == desc_id, flatten(self))
         r = (d for d in flatten(self) if d.id == desc_id)
         res = tuple(r)
         if not res:
@@ -171,12 +157,12 @@ class MeiElement(object):
                 # we already have this attribute set. Since
                 # we can only have one attribute per name, we'll just update 
                 # the existing one.
-                self.attribute_by_name(k).value = str(v)
+                self.attribute_by_name(k).value = unicode(v)
             else:
-                MeiAttribute(name=str(k), value=str(v), element=self)
+                MeiAttribute(name=unicode(k), value=unicode(v), element=self)
             
             # update this object's id if we have a xml:id attribute.
-            if str(k) == "xml:id":
+            if k == "xml:id":
                 self.__id = v
     
     def remove_attribute(self, attr_name):
@@ -191,7 +177,6 @@ class MeiElement(object):
         
     def attribute_by_name(self, attribute):
         """ Gets the value of an element attribute by name. """
-        # res = itertools.ifilter(lambda a: a.getname() == attribute, self.attributes)
         r = (a for a in self.attributes if a.name == attribute)
         res = tuple(r)
         
@@ -212,7 +197,9 @@ class MeiElement(object):
     
     @property
     def name(self):
-        """ Gets the name. Read-only, please! """
+        """ Gets the name. Read-only, please! This will be set
+            by the specific element sub-class, e.g., "note" or "measure".
+        """
         return self.__name
     
     @property
@@ -238,15 +225,17 @@ class MeiElement(object):
     
     def ancestor_by_name(self, ancestor_name):
         """ 
-            Looks for the existence of <ancestor_name> in the element's parents, and their parents parents, 
-            etc.
+            Looks for the existence of <ancestor_name> in the element's parents, 
+            and their parents parents, etc.
             
             Returns the first ancestor found that matches; otherwise returns None.
         """
         def __anc(nm, meiobj, lst):
             if isinstance(meiobj.parent, types.NoneType):
+                # if we've reached a point where there is no parent, we 
+                # have failed in our quest.
                 return None
-            if str(meiobj.name) == str(nm):
+            if meiobj.name == nm:
                 lst.append(meiobj)
             else:
                 __anc(nm, meiobj.parent, lst)
@@ -304,7 +293,7 @@ class MeiElement(object):
             filtname = prefix_to_ns(at.name)
             if filtname is "namespace":
                 continue
-            a[str(filtname)] = str(at.value)
+            a[filtname] = at.value
             
         el = etree.Element(self.__name, **a)
         if self.value is not None:

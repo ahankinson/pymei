@@ -6,7 +6,7 @@
 #   are any discrepancies. Mostly used for debugging purposes
 #
 #   Author:     Andrew Hankinson
-#   License:    BSD
+#   License:    MIT
 #
 # ================================================================
 

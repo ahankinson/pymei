@@ -3,6 +3,7 @@ import time
 from lxml import etree #AH
 #from lxml import objectify #AH
 import uuid
+import codecs
 
 from pymei.Components import MeiDocument, MeiElement
 from pymei.Components import Modules as mod
@@ -16,7 +17,7 @@ lg = logging.getLogger('pymei')
 
 def xmltomei(meifile):
     """ Open and parse a MEI XML file to a MeiDocument object. """
-    f = open(meifile, 'r')
+    f = codecs.open(meifile, 'r', encoding='utf-8')
     p = etree.XMLParser(ns_clean=True, remove_comments=True, no_network=False)
     t = etree.parse(f, p)
     f.close()
@@ -74,7 +75,7 @@ def _xml_to_mei(el):
     # add any children.
     c = list(el)
     if len(c) > 0:
-        lg.debug("Adding children: {0}".format(tagname))
+        # lg.debug("Adding children: {0}".format(tagname))
         # loopdy-loopdy! This calls itself for any children components found.
         m = map(_xml_to_mei, c)
         #lg.debug('Object: {0}; children {1}'.format(obj, m))

@@ -14,9 +14,9 @@ def prefix_to_ns(att):
     if len(att.split(":")) > 1:
         p = PREFIX_TO_NS[att.split(":")[0]]
         a = "{{{0}}}{1}".format(p, att.split(":")[-1])
-        return str(a)
+        return a
     else:
-        return str(att)
+        return att
 
 def flatten(mei_obj):
     """ 

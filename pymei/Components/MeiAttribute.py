@@ -4,7 +4,7 @@
 #   An abstract class representing an MEI attribute.
 #
 #   Author:     Andrew Hankinson
-#   License:    BSD
+#   License:    MIT
 #
 # ================================================================
 
@@ -20,28 +20,35 @@ class MeiAttribute(object):
             element.attributes.append(self)
     
     def __repr__(self):
-        return "<MeiAttribute {0}:{1}>".format(self.__name, self.__value)
+        return "<MeiAttribute {0}>".format(self.__name)
     
-    def getname(self):
-        return self.__name
-    
-    def setname(self, value):
-        self.__name = value
-    name = property(getname, setname, doc="Get and set the attribute name")
-    
-    def getvalue(self):
-        return self.__value
-    
-    def setvalue(self, value):
-        self.__value = value
-    value = property(getvalue, setvalue, doc="Get and set the attribute value")
-    
-    def getelement(self):
-        return self.__element
+    def __str__(self):
+        return "<MeiAttribute {0}>".format(self.__name)
         
-    def setelement(self, value):
+    def __unicode__(self):
+        return u"<MeiAttribute {0}>".format(self.__name)
+    
+    @property
+    def name(self):
+        return self.__name
+    @name.setter
+    def name(self, value):
+        self.__name = unicode(value)
+    
+    @property
+    def value(self):
+        return self.__value
+    @value.setter
+    def value(self, value):
+        self.__value = unicode(value)
+    
+    # the element this attribute is attached to.
+    @property
+    def element(self):
+        return self.__element
+    @element.setter
+    def element(self, value):
         self.__element = value
-    element = property(getelement, setelement, doc="Get and set the element for this attribute")
 
 # class MeiAttribute(XMLAttribute):
 #     def __init__(self, name=None, value=None, element=None, prefix=None):

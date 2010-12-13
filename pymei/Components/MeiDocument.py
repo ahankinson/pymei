@@ -6,7 +6,7 @@
 #   objects as children.
 #
 #   Author:     Andrew Hankinson
-#   License:    BSD
+#   License:    MIT
 #
 # ================================================================
 

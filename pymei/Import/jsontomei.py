@@ -2,6 +2,7 @@ from lxml import etree #AH
 from lxml import objectify #AH
 import json
 import uuid
+import codecs
 # import lxml #GVM
 
 from pymei.Components import MeiAttribute, MeiElement, MeiDocument
@@ -17,7 +18,7 @@ def jsontomei(meifile):
         
         Requires that you pass it a name.
     """
-    f = open(meifile, 'r')
+    f = codecs.open(meifile, 'r', encoding='utf-8')
     js = f.read()
     f.close()
     jsn = json.loads(js) # convert the JSON to python dicts/arrays.
@@ -66,13 +67,13 @@ def _json_to_mei(el):
             if isinstance(d, types.DictType) and "@attributes" in d.keys():
                 if u"xml:id" not in d['@attributes'].keys():
                     d['@attributes'][u'xml:id'] = str(uuid.uuid4())
-                obj.setattributes(d['@attributes'])
+                obj.attributes = d['@attributes']
             
             elif isinstance(d, types.DictType) and "@tail" in d.keys():
-                obj.settail(d['@tail'])
+                obj.tail = d['@tail']
             
             elif isinstance(d, types.DictType) and "@value" in d.keys():
-                obj.setvalue(d['@value'])
+                obj.value = d['@value']
                 
             else:
                 obj.addchildren([d])

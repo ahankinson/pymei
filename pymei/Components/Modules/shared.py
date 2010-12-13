@@ -51,13 +51,14 @@ class artic_(MeiElement):
             self.attributes = attrs
         self.__articulation = None
     
-    def get_articulation(self):
+    @property
+    def articulation(self):
         self._articulation()
         return self.__articulation
-    def set_articulation(self, value):
+    @articulation.setter
+    def articulation(self, value):
         self.attributes = {'artic': value}
         self._articulation()
-    articulation = property(get_articulation, set_articulation, doc="Get and set the articulation value.")
     
     # protected
     def _articulation(self):
