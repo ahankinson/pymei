@@ -1,5 +1,8 @@
 from pymei import NS_TO_PREFIX, PREFIX_TO_NS
 
+import logging
+lg = logging.getLogger('pymei')
+
 def ns_to_prefix(att):
     """ Helper function to convert a full namespace into its prefix."""
     if att.startswith("{"):
@@ -28,12 +31,4 @@ def flatten(mei_obj):
                 for cd in __fl(ch):
                     yield cd
             yield ch
-    return list(__fl(mei_obj))
-    
-    # def __fl(ls):
-    #     for ch in ls.children:
-    #         if ch.children:
-    #             for cd in __fl(ch):
-    #                 yield cd
-    #         yield ch
-    # return list(__fl(mei_obj))
+    return tuple(__fl(mei_obj))

@@ -603,29 +603,31 @@ class rest_(MeiElement):
         self.__dots = None
         
     # public
-    def get_duration(self):
+    @property
+    def duration(self):
         self._duration()
         return self.__duration
-    def set_duration(self, duration):
+    @duration.setter
+    def duration(self, duration):
         self.attributes = {'dur': duration}
         # update the duration state of this object.
         self._duration()
-    duration = property(get_duration, set_duration, doc = "Gets and Sets a rest's duration.")
     
-    def get_dots(self):
+    @property
+    def dots(self):
         # we'll do the full duration update, instead of just the
         # dot update.
         self._duration()
         return self.__dots
-    def set_dots(self, dotnum):
+    @dots.setter
+    def dots(self, dotnum):
         self.attributes = {'dots': dotnum}
         self._duration()
-    dots = property(get_dots, set_dots, doc = "Number of dots attached to this note.")
     
-    def get_is_dotted(self):
+    @property
+    def is_dotted(self):
         self._duration()
         return self.__is_dotted
-    is_dotted = property(get_is_dotted, doc = "True if dotted; false if not.")
     
     #protected 
     def _duration(self):
