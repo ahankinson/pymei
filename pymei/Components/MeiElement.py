@@ -291,8 +291,9 @@ class MeiElement(object):
             filtname = prefix_to_ns(at.name)
             if filtname is "namespace":
                 continue
-            a[filtname] = at.value
-            
+            a[str(filtname)] = at.value
+        
+        lg.debug(a)
         el = etree.Element(self.__name, **a)
         if self.value is not None:
             el.text = self.value
