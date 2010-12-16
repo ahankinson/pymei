@@ -294,7 +294,7 @@ class note_(MeiElement):
         return self.__pitchname
     @pitchname.setter
     def pitchname(self, value):
-        self.__pitchname = value
+        self.attributes = {'pname': value}
         self._pitchname()
     @pitchname.deleter
     def pitchname(self):
@@ -303,12 +303,20 @@ class note_(MeiElement):
     
     @property
     def pitch(self):
+        """ The pitch is composed of the pitch name and accidentals. We won't
+            allow anyone to set it directly.
+        """
+        self._pitch()
         return self.__pitch
     
-    def get_accidentals(self):
+    @property
+    def accidentals(self):
         self._accidentals()
         return self.__accidentals
-    accidentals = property(get_accidentals, doc = "A note's accidental list.")
+    @accidentals.setter
+    def accidentals(self, value):
+        self.attributes = {'accid': value}
+        self._accidentals()
     
     def has_accidentals(self):
         """ Returns True if the note has an accidental; False otherwise"""
@@ -319,42 +327,53 @@ class note_(MeiElement):
             # no accidental.
             return False
     
-    def get_duration(self):
+    @property
+    def duration(self):
         self._duration()
         return self.__duration
-    duration = property(get_duration, doc="Gets the base duration")
+    @duration.setter
+    def duration(self, value):
+        self.attributes = {'dur': value}
+        self._duration()
     
-    def get_is_dotted(self):
+    @property
+    def is_dotted(self):
         """ Returns True if dotted; False if not"""
         # the existence of dots is computed when we check the duration. 
         # therefore, if there is no duration, we may also have not checked
         # for dots yet. We'll double check now.
         self._duration()
         return self.__is_dotted
-    is_dotted = property(get_is_dotted, doc="True if dotted; False if not")
-    
-    def get_dots(self):
+
+    @property
+    def dots(self):
         self._duration()
         return self.__dots
-    def set_dots(self, value):
+    @dots.setter
+    def dots(self, value):
         self.attributes = {'dots': value}
         self._duration()
-    dots = property(get_dots, set_dots, doc = "Number of dots attached to this note.")
     
-    def get_octave(self):
+    @property
+    def octave(self):
         self._octave()
         return self.__octave
-    octave = property(get_octave, doc = "Gets the note's octave.")
+    @octave.setter
+    def octave(self, value):
+        self.attributes = {'oct': value}
+        self._octave()
     
-    def get_stemdir(self):
+    @property
+    def stemdir(self):
         self._stemdir()
         return self.__stemdir
-    def set_stemdir(self, value):
+    @stemdir.setter
+    def stemdir(self, value):
         self.attributes = {'stem.dir': value}
         self._stemdir()
-    stemdir = property(get_stemdir, set_stemdir, doc = "Gets the note's stem direction")
     
-    def get_pitch_octave(self):
+    @property
+    def pitch_octave(self):
         """ 
             Returns the sounding pitch and octave representation, e.g. C4, F#2, B-5.
             Sets a default "B" pitch and "4" octave if neither are present, chosen
@@ -364,25 +383,25 @@ class note_(MeiElement):
         self._octave()
         # for now, we'll just grab the first accidental., 
         return "{0}{1}".format("".join(self.__pitch[0:2]), self.__octave)
-    pitch_octave = property(get_pitch_octave, doc = "Gets the pitch and octave representation")
     
     # Return values for ties can be i(nitial), m(edial), and t(erminal). Note
     # that this only works if the note has a tie attribute! Tie *elements* are
     # dealt with separately.
-    def get_tie(self):
+    @property
+    def tie(self):
         self._tie()
         return self.__tie
-    def set_tie(self, val):
+    @tie.setter
+    def tie(self, val):
         if val not in ('i', 'm', 't'):
             raise MeiAttributeError("Tie values must be one of i, m or t.")
         self.attributes = {'tie': val}
         self._tie()
-    tie = property(get_tie, set_tie, doc="Gets and sets this note's tie values.")
     
-    def get_is_tied(self):
+    @property
+    def is_tied(self):
         self._tie() # make sure we have the latest update.
         return self.__is_tied
-    is_tied = property(get_is_tied, doc="True if the note is part of a tied group.")
     
     @property
     def articulations(self):
