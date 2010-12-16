@@ -293,7 +293,6 @@ class MeiElement(object):
                 continue
             a[str(filtname)] = at.value
         
-        lg.debug(a)
         el = etree.Element(self.__name, **a)
         if self.value is not None:
             el.text = self.value
