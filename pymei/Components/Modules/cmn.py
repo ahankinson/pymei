@@ -1,6 +1,10 @@
 from pymei.Components.MeiElement import MeiElement
 from pymei.Components.MeiAttribute import MeiAttribute
 
+import logging
+lg = logging.getLogger('pymei')
+
+
 class arpeg_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"arpeg", value=value, parent=parent)
@@ -83,34 +87,36 @@ class measure_(MeiElement):
         self.__has_barline = False
         self.__repeat = False
     
-    def get_measure_number(self):
+    @property
+    def measure_number(self):
         self._measure_number()
         return self.__measure_number
-    def set_measure_number(self, value):
+    @measure_number.setter
+    def measure_number(self, value):
         self.attributes = {'n': value}
         self._measure_number()
-    measure_number = property(get_measure_number, set_measure_number, doc="Gets the measure's number")
     
-    def get_barline(self):
+    @property
+    def barline(self):
         self._barline()
         return self.__barline
-    def set_barline(self, value):
+    @barline.setter
+    def barline(self, value):
         self.attribute = {'right': value}
         self._barline()
-    barline = property(get_barline, set_barline, doc="Gets the measure's barline")
     
-    def get_has_barline(self):
+    @property
+    def has_barline(self):
         self._barline()
         return self.__has_barline
-    has_barline = property(get_barline, doc="Does this measure have a barline?")
     
-    def get_is_repeat(self):
+    @property
+    def is_repeat(self):
         # repeat gets set when we check for the barline.
         # we'll make sure it's set.
         if not self.__barline:
             self._barline()
         return self.__repeat
-    is_repeat = property(get_is_repeat, doc="Does this measure have a repeat sign?")
     
     # protected
     def _measure_number(self):
@@ -122,11 +128,13 @@ class measure_(MeiElement):
             self.remove_attribute('n')
         
     def _barline(self):
-        bline = filter(lambda b: b.name=="right", self.attributes)
-        if len(bline) > 0:
+        bline = [b for b in self.attributes if b.name == "right"]
+        if bline:
             self.__barline = bline[0].value
             self.__has_barline = True
-            if self.__barline in ('rptstart, rptend, rptboth'):
+            lg.debug(self.__barline)
+            if self.__barline in ('rptstart', 'rptend', 'rptboth'):
+                lg.debug("Setting repeat.")
                 self.__repeat = True
         else:
             self.__barline = None
