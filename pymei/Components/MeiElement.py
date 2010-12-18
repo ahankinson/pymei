@@ -119,7 +119,7 @@ class MeiElement(object):
                 self.__children.remove(child)
     
     
-    def descendents_by_name(self, desc_name):
+    def descendants_by_name(self, desc_name):
         """ Gets all sub-elements that match a query name """
         r = (d for d in flatten(self) if d.name == desc_name)
         res = tuple(r)
@@ -127,8 +127,8 @@ class MeiElement(object):
             return None
         return res
         
-    def descendent_by_id(self, desc_id):
-        """ Get a descendent element by that element's unique id """
+    def descendant_by_id(self, desc_id):
+        """ Get a descendant element by that element's unique id """
         r = (d for d in flatten(self) if d.id == desc_id)
         res = tuple(r)
         if not res:

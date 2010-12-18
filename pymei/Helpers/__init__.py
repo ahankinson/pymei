@@ -23,7 +23,7 @@ def prefix_to_ns(att):
 
 def flatten(mei_obj):
     """ 
-        Flattens the nested descendent elements into a single list.
+        Flattens the nested descendant elements into a single list.
     """
     def __fl(ls):
         for ch in ls.children:
