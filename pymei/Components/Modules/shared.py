@@ -8,6 +8,8 @@ import uuid
 import logging
 lg = logging.getLogger('pymei')
 
+import pdb
+
 class abbr_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"abbr", value=value, parent=parent)
@@ -98,6 +100,78 @@ class chord_(MeiElement):
         MeiElement.__init__(self, name=u"chord", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
+        self.__duration = None
+        self.__is_dotted = False
+        self.__dots = None
+        self.__stemdir = None
+
+    @property
+    def duration(self):
+        self._duration()
+        return self.__duration
+    @duration.setter
+    def duration(self, value):
+        self.attributes = {'dur': value}
+        self._duration()
+        
+    @property
+    def is_dotted(self):
+        """ Returns True if dotted; False if not"""
+        # the existence of dots is computed when we check the duration. 
+        # therefore, if there is no duration, we may also have not checked
+        # for dots yet. We'll double check now.
+        self._duration()
+        return self.__is_dotted
+
+    @property
+    def dots(self):
+        self._duration()
+        return self.__dots
+    @dots.setter
+    def dots(self, value):
+        self.attributes = {'dots': value}
+        self._duration()
+        
+    @property
+    def stemdir(self):
+        self._stemdir()
+        return self.__stemdir
+    @stemdir.setter
+    def stemdir(self, value):
+        self.attributes = {'stem.dir': value}
+        self._stemdir()
+    
+    # protected
+    def _duration(self):
+        dur = [d for d in self.attributes if d.name == 'dur']
+        if len(dur) > 0:
+            self.__duration = dur[0].value
+        else:
+            self.__duration = None
+            self.remove_attribute('dur')
+        # a dot can affect the duration. We won't compute the absolute duration,
+        # but rather we'll just set a flag that this note is dotted.
+        self._is_dotted()
+    
+    def _is_dotted(self):
+        if self.has_attribute('dots') and self.attribute_by_name('dots').value is not '0':
+            self.__is_dotted = True
+            self.__dots = self.attribute_by_name('dots').value
+        else:
+            self.__is_dotted = False
+            self.__dots = None
+            self.remove_attribute('dots')
+    
+    def _stemdir(self):
+        stmdir = [s for s in self.attributes if s.name == 'stem.dir']
+        if len(stmdir) > 0:
+            self.__stemdir = stmdir[0].value
+        else:
+            self.__stemdir = None
+            self.remove_attribute('stem.dir')
+
+    
+
 
 class clef_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
@@ -285,6 +359,9 @@ class note_(MeiElement):
         self.__dots = None # 1-4 dots.
         self.__tie = None
         self.__is_tied = False # is this note part of a tied group?
+        
+        self.__tuplet = None # tuplet value
+        self.__is_tuplet = False # is this note part of a tuplet group?
         self.__articulations = [] # may be many articulation on a single note.
         
     # some convenience methods specific to notes. 
@@ -321,7 +398,7 @@ class note_(MeiElement):
     def has_accidentals(self):
         """ Returns True if the note has an accidental; False otherwise"""
         # accidentals can be attributes or child attributes.
-        if self.has_attribute('accid') or self.has_child('accid'):
+        if self.has_attribute('accid') or self.has_child('accid') or self.has_attribute('accid.ges'):
             return True
         else:
             # no accidental.
@@ -382,6 +459,8 @@ class note_(MeiElement):
         self._pitch()
         self._octave()
         # for now, we'll just grab the first accidental., 
+        # if self.id == "d1e38008":
+        #     pdb.set_trace()
         return "{0}{1}".format("".join(self.__pitch[0:2]), self.__octave)
     
     # Return values for ties can be i(nitial), m(edial), and t(erminal). Note
@@ -451,6 +530,8 @@ class note_(MeiElement):
         if self.has_accidentals():
             if self.has_attribute('accid'):
                 self.__accidentals = [self.attribute_by_name('accid').value]
+            elif self.has_attribute('accid.ges'):
+                self.__accidentals = [self.attribute_by_name('accid.ges').value]
             elif self.has_child('accid'):
                 a = []
                 children = self.children_by_name('accid')
@@ -479,7 +560,7 @@ class note_(MeiElement):
             self.remove_attribute('dots')
     
     def _octave(self):
-        octv = filter(lambda o: o.name == 'oct', self.attributes)
+        octv = [o for o in self.attributes if o.name == 'oct']
         if len(octv) > 0:
             self.__octave = octv[0].value
         else:
@@ -487,7 +568,7 @@ class note_(MeiElement):
             self.remove_attribute('oct')
     
     def _stemdir(self):
-        stmdir = filter(lambda s: s.getname() == 'stem.dir', self.attributes)
+        stmdir = [s for s in self.attributes if s.name == 'stem.dir']
         if len(stmdir) > 0:
             self.__stemdir = stmdir[0].value
         else:
@@ -526,6 +607,16 @@ class note_(MeiElement):
             self.remove_children('artic')
             self.remove_attribute('artic')
             self.__articulations = []
+    
+    def _tuplet(self):
+        tuplet = [t for t in self.attributes if t.name == 'tuplet']
+        if tuplet:
+            self.__tuplet = tuplet[0].value
+            self.__is_tuplet = True
+        else:
+            self.__tuplet = None
+            self.__is_tuplet = False
+            self.remove_attribute('tuplet')
             
     
 class num_(MeiElement):
