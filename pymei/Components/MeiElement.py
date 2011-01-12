@@ -245,7 +245,14 @@ class MeiElement(object):
             return plist[0]
         else:
             return None
-
+    
+    def has_ancestor(self, ancestor_name):
+        # convenience wrapper for the ancestor_by_name() method.
+        if self.ancestor_by_name(ancestor_name):
+            return True
+        else:
+            return False
+    
     @property
     def id(self):
         return self.__id

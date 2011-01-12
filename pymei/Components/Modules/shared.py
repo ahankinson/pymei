@@ -398,7 +398,7 @@ class note_(MeiElement):
     def has_accidentals(self):
         """ Returns True if the note has an accidental; False otherwise"""
         # accidentals can be attributes or child attributes.
-        if self.has_attribute('accid') or self.has_child('accid') or self.has_attribute('accid.ges'):
+        if self.has_attribute('accid') or self.has_child('accid'):
             return True
         else:
             # no accidental.
@@ -530,8 +530,6 @@ class note_(MeiElement):
         if self.has_accidentals():
             if self.has_attribute('accid'):
                 self.__accidentals = [self.attribute_by_name('accid').value]
-            elif self.has_attribute('accid.ges'):
-                self.__accidentals = [self.attribute_by_name('accid.ges').value]
             elif self.has_child('accid'):
                 a = []
                 children = self.children_by_name('accid')

@@ -16,7 +16,17 @@ class beam_(MeiElement):
         MeiElement.__init__(self, name=u"beam", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
-
+    
+    @property
+    def first_child(self):
+        if len(self.children) > 0:
+            return self.children[0]
+    
+    @property
+    def last_child(self):
+        if len(self.children) > 0:
+            return self.children[-1]
+            
 class beamspan_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"beamspan", value=value, parent=parent)
