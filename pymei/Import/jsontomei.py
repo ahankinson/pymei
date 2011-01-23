@@ -27,6 +27,13 @@ def jsontomei(meifile):
     doc.addelement(j)
     return doc
 
+def jsonstringtomei(string):
+    jsn = json.loads(string)
+    doc = MeiDocument.MeiDocument('jsonstream')
+    j = _json_to_mei(jsn)
+    doc.addelement(j)
+    return doc
+
 def _json_to_mei(el):
     """ Takes a JSON-structured MEI file and converts it to a set of nested Python
         MEI objects.
