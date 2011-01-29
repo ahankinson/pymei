@@ -19,3 +19,9 @@ class uneume_(MeiElement):
         if attrs:
             self.attributes = attrs
 
+# this is not in the MEI standard yet.
+class division_(MeiElement):
+    def __init__(self, value=None, parent=None, **attrs):
+        MeiElement.__init__(self, name=u"division", value=value, parent=parent)
+        if attrs:
+            self.attributes = attrs
