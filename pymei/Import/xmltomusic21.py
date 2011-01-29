@@ -63,7 +63,7 @@ def _xml_to_music21(el):
         notelen = int(d['dur']) # this will break if it encounters "long" or "breve!"
         n.duration = duration.Duration(notelen)
         
-        lg.debug("{0}".format(dir(n)))
+        # lg.debug("{0}".format(dir(n)))
         
         return n
     

@@ -79,7 +79,7 @@ def _xml_to_mei(el):
         # loopdy-loopdy! This calls itself for any children components found.
         m = map(_xml_to_mei, c)
         #lg.debug('Object: {0}; children {1}'.format(obj, m))
-        obj.addchildren(m, obj)
+        obj.addchildren(m)
         
     return obj
 

@@ -85,12 +85,13 @@ class MeiElement(object):
         """ Get the direct children of this element """
         return self.__children
         
-    def addchildren(self, children, pnt=None):
+    def addchildren(self, children):
         """ Adds the child elements and, if necessary, the parent. """
         for c in children:
             self.__children.append(c)
-            if not isinstance(pnt, types.NoneType):
-                c.parent = pnt
+            # if not isinstance(pnt, types.NoneType):
+            #     c.parent = pnt
+            c.parent = self
 
     def remove_child(self, child):
         if child not in self.__children:

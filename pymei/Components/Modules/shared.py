@@ -393,7 +393,7 @@ class note_(MeiElement):
     @accidentals.setter
     def accidentals(self, value):
         if isinstance(value, types.ListType):
-            self.addchildren(value, self)
+            self.addchildren(value)
         else:
             self.attributes = {'accid': value}
         
@@ -601,7 +601,7 @@ class note_(MeiElement):
                 a.id = uuid.uuid4() # give it an id.
                 a.attributes = {'artic': art}
                 artc.append(a)
-            self.addchildren(artc, self)
+            self.addchildren(artc)
         elif len(self.__articulations) == 1:
             # create an attribute & clean up any children
             self.attributes = {'artic': self.__articulations[0]}
