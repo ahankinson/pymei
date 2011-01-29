@@ -26,7 +26,7 @@ def xmltomei(meifile):
     doc = MeiDocument.MeiDocument()
     doc.addelement(d)
     return doc
-    
+
 def _xml_to_mei(el):
     """ Helper function for converting etree-parsed XML objects to a nested 
         set of MeiElements.
