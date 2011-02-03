@@ -15,9 +15,13 @@ import types
 import uuid
 import itertools
 
+#deal with deprecated code.
+import warnings
+warnings.simplefilter('once')
+
 from pymei import MEI_NS, MEI_PREFIX
 from pymei.Components.MeiAttribute import MeiAttribute
-from pymei.Components.MeiExceptions import MeiAttributeError
+from pymei.Components.MeiExceptions import *
 from pymei.Helpers import flatten, prefix_to_ns
 
 import logging
@@ -84,15 +88,59 @@ class MeiElement(object):
     def children(self):
         """ Get the direct children of this element """
         return self.__children
-        
-    def addchildren(self, children):
-        """ Adds the child elements and, if necessary, the parent. """
+    @children.setter
+    def children(self, children):
+        """ Adds the child elements and, if necessary, the parent. 
+            
+            Note: This property APPENDS children, it does not overwrite them.
+            You should call element.delete_children() to clear the list of
+            child elements.
+            
+            It may not make much sense to use a property to append instead of set,
+            so the convenience methods add_children() and add_child() have been
+            added.
+
+        """
+        if not isinstance(children, types.ListType):
+            raise MeiChildError("You must supply a list of child elements.")
         for c in children:
             self.__children.append(c)
-            # if not isinstance(pnt, types.NoneType):
-            #     c.parent = pnt
             c.parent = self
-
+    
+    def add_child(self, child):
+        """ 
+            Appends a single child element to this element. May make more sense
+            to call:
+            
+            foo.add_child(child) (where 'child' is a single object)
+            
+            than:
+            
+            foo.add_children([child])
+            
+            or
+            
+            foo.children = child
+        """
+        self.children = [child]
+        
+    def add_children(self, children):
+        """ Convenience method. May make more sense than the form:
+            
+            foo.children = [c1, c2, c3]
+            
+            especially since we handle children by APPENDING to an existing list.
+        """
+        self.children = children
+    
+    def addchildren(self, children):
+        warnings.warn('Addchildren() has been renamed add_children()', DeprecationWarning)
+        self.children = children
+    
+    def delete_children(self):
+        """ Completely removes all child elements from this element."""
+        self.__children = []
+        
     def remove_child(self, child):
         if child not in self.__children:
             return None
@@ -260,6 +308,7 @@ class MeiElement(object):
     @id.setter
     def id(self, value):
         self.__id = value
+        self.attributes = {'xml:id': value}
     
     @property
     def peers(self):
@@ -283,6 +332,13 @@ class MeiElement(object):
         """ Returns a representation as a python dictionary. """
         self._dictionary()
         return self.__dictionary
+    
+    @property
+    def facs(self):
+        return self.attribute_by_name('facs').value
+    @facs.setter
+    def facs(self, value):
+        self.attributes = {'facs': value}
     
     # protected
     # def _value(self):

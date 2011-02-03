@@ -11,3 +11,4 @@ class MeiSchemaNotValidError(MeiError): pass
 class MeiNotYetImplementedError(MeiError): pass
 class MeiXMLParsingError(MeiError): pass
 class MeiInvalidDataTypeError(MeiError): pass
+class MeiChildError(MeiError): pass

@@ -49,11 +49,3 @@ class MeiAttribute(object):
     @element.setter
     def element(self, value):
         self.__element = value
-
-# class MeiAttribute(XMLAttribute):
-#     def __init__(self, name=None, value=None, element=None, prefix=None):
-#         XMLAttribute.__init__(self, name, value, element, prefix)
-#         if element:
-#             self.prefix = element.prefix
-    
-    
