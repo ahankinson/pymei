@@ -9,7 +9,7 @@ def meitojson(meidocument, filename=None, prettyprint=True):
     r = meidocument.gettoplevel()
     d = _mei_to_json(r)
 
-    if prettyprint is True:
+    if prettyprint:
         j = json.dumps(d, sort_keys=True, indent=2)
     else:
         j = json.dumps(d)

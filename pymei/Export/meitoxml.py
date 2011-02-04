@@ -1,10 +1,6 @@
-# helper functions to output to various representations.
-import time
-
-import types
+# helper functions to output to XML
 from lxml import etree
-
-from pymei import MEI_NS
+from pymei import MEI_NS, XLINK_NS
 from pymei.Helpers import prefix_to_ns
 
 import logging
@@ -16,9 +12,11 @@ def meitoxml(meidocument, filename=None):
     d = _mei_to_xml(r)
     
     d.set('xmlns', MEI_NS)
+    d.set('xmlns:xlink', XLINK_NS)
+    
     t = etree.ElementTree(d)
     
-    if not isinstance(filename, types.NoneType):
+    if not filename:
         t.write(filename, 
                 pretty_print=True, 
                 xml_declaration=True,
@@ -32,7 +30,6 @@ def meitoxml(meidocument, filename=None):
                 standalone=meidocument.getstandalone()))
 
 def _mei_to_xml(el):
-    t1 = time.time()
     el_x = el.as_xml_object()
     if len(el.children) > 0:
         children = map(_mei_to_xml, el.children)
