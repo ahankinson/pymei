@@ -1,5 +1,5 @@
 __all__ = ['cmn', 'cmnOrnaments', 'corpus', 'critapp', 'edittrans', 'facsimile', 'figtable', 'harmony', 'header',
-            'linkalign', 'lyrics', 'mensural', 'midi', 'namesdates', 'neumes', 'ptrref', 'shared', 'text', 'usersymbols']
+            'linkalign', 'lyrics', 'mensural', 'midi', 'namesdates', 'neumes', 'ptrref', 'shared', 'text', 'usersymbols', 'ax_layout']
             
 from pymei.Components.Modules.cmn import *
 from pymei.Components.Modules.cmnOrnaments import *
@@ -20,3 +20,4 @@ from pymei.Components.Modules.ptrref import *
 from pymei.Components.Modules.shared import *
 from pymei.Components.Modules.text import *
 from pymei.Components.Modules.usersymbols import *
+from pymei.Components.Modules.ax_layout import *
