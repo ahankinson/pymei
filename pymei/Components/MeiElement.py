@@ -341,12 +341,6 @@ class MeiElement(object):
         self.attributes = {'facs': value}
     
     # protected
-    # def _value(self):
-    #     lg.debug("Updating value")
-    # 
-    # def _tail(self):
-    #     lg.debug("Updating tail")
-    
     def _xml(self):
         from lxml import etree
         
