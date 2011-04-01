@@ -193,18 +193,6 @@ class notesstmt_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class num_(MeiElement):
-    def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"num", value=value, parent=parent)
-        if attrs:
-            self.attributes = attrs
-
-class octave_(MeiElement):
-    def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"octave", value=value, parent=parent)
-        if attrs:
-            self.attributes = attrs
-
 class physdesc_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"physdesc", value=value, parent=parent)
