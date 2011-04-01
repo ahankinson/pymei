@@ -2,6 +2,8 @@ from pymei.Components.MeiElement import MeiElement
 from pymei.Components.MeiAttribute import MeiAttribute
 from pymei.Components.MeiExceptions import MeiAttributeError
 
+from pymei.Components.Types import PitchedElementType, DurationElementType
+
 import types
 import uuid
 
@@ -95,42 +97,12 @@ class caption_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class chord_(MeiElement):
+class chord_(MeiElement, DurationElementType):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"chord", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
-        self.__duration = None
-        self.__is_dotted = False
-        self.__dots = None
         self.__stemdir = None
-
-    @property
-    def duration(self):
-        self._duration()
-        return self.__duration
-    @duration.setter
-    def duration(self, value):
-        self.attributes = {'dur': value}
-        self._duration()
-        
-    @property
-    def is_dotted(self):
-        """ Returns True if dotted; False if not"""
-        # the existence of dots is computed when we check the duration. 
-        # therefore, if there is no duration, we may also have not checked
-        # for dots yet. We'll double check now.
-        self._duration()
-        return self.__is_dotted
-
-    @property
-    def dots(self):
-        self._duration()
-        return self.__dots
-    @dots.setter
-    def dots(self, value):
-        self.attributes = {'dots': value}
-        self._duration()
         
     @property
     def stemdir(self):
@@ -140,28 +112,7 @@ class chord_(MeiElement):
     def stemdir(self, value):
         self.attributes = {'stem.dir': value}
         self._stemdir()
-    
-    # protected
-    def _duration(self):
-        dur = [d for d in self.attributes if d.name == 'dur']
-        if len(dur) > 0:
-            self.__duration = dur[0].value
-        else:
-            self.__duration = None
-            self.remove_attribute('dur')
-        # a dot can affect the duration. We won't compute the absolute duration,
-        # but rather we'll just set a flag that this note is dotted.
-        self._is_dotted()
-    
-    def _is_dotted(self):
-        if self.has_attribute('dots') and self.attribute_by_name('dots').value is not '0':
-            self.__is_dotted = True
-            self.__dots = self.attribute_by_name('dots').value
-        else:
-            self.__is_dotted = False
-            self.__dots = None
-            self.remove_attribute('dots')
-    
+        
     def _stemdir(self):
         stmdir = [s for s in self.attributes if s.name == 'stem.dir']
         if len(stmdir) > 0:
@@ -169,9 +120,6 @@ class chord_(MeiElement):
         else:
             self.__stemdir = None
             self.remove_attribute('stem.dir')
-
-    
-
 
 class clef_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
@@ -341,22 +289,12 @@ class name_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class note_(MeiElement):
+class note_(MeiElement, PitchedElementType, DurationElementType):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"note", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
-        self.__pitchname = None
-        self.__pitch = [] # [pitchname, accid...]
-        self.__duration = None # see also __is_dotted.
-        self.__octave = None
         self.__stemdir = None
-        # a note may have multiple accidentals. This is *not* the same as
-        # double-sharps, etc. The MEI spec allows for multiple <accid> child
-        # elements on a note.
-        self.__accidentals = []
-        self.__is_dotted = False
-        self.__dots = None # 1-4 dots.
         self.__tie = None
         self.__is_tied = False # is this note part of a tied group?
         
@@ -364,86 +302,6 @@ class note_(MeiElement):
         self.__is_tuplet = False # is this note part of a tuplet group?
         self.__articulations = [] # may be many articulation on a single note.
         
-    # some convenience methods specific to notes. 
-    @property
-    def pitchname(self):
-        self._pitchname()
-        return self.__pitchname
-    @pitchname.setter
-    def pitchname(self, value):
-        self.attributes = {'pname': value}
-        self._pitchname()
-    @pitchname.deleter
-    def pitchname(self):
-        self.__pitchname = None
-        self._pitchname()
-    
-    @property
-    def pitch(self):
-        """ The pitch is composed of the pitch name and accidentals. We won't
-            allow anyone to set it directly.
-        """
-        self._pitch()
-        return self.__pitch
-    
-    @property
-    def accidentals(self):
-        self._accidentals()
-        return self.__accidentals
-    @accidentals.setter
-    def accidentals(self, value):
-        if isinstance(value, types.ListType):
-            self.addchildren(value)
-        else:
-            self.attributes = {'accid': value}
-        
-        self._accidentals()
-    
-    def has_accidentals(self):
-        """ Returns True if the note has an accidental; False otherwise"""
-        # accidentals can be attributes or child attributes.
-        if self.has_attribute('accid') or self.has_child('accid') or self.has_attribute('accid.ges'):
-            return True
-        else:
-            # no accidental.
-            return False
-    
-    @property
-    def duration(self):
-        self._duration()
-        return self.__duration
-    @duration.setter
-    def duration(self, value):
-        self.attributes = {'dur': value}
-        self._duration()
-    
-    @property
-    def is_dotted(self):
-        """ Returns True if dotted; False if not"""
-        # the existence of dots is computed when we check the duration. 
-        # therefore, if there is no duration, we may also have not checked
-        # for dots yet. We'll double check now.
-        self._duration()
-        return self.__is_dotted
-
-    @property
-    def dots(self):
-        self._duration()
-        return self.__dots
-    @dots.setter
-    def dots(self, value):
-        self.attributes = {'dots': value}
-        self._duration()
-    
-    @property
-    def octave(self):
-        self._octave()
-        return self.__octave
-    @octave.setter
-    def octave(self, value):
-        self.attributes = {'oct': value}
-        self._octave()
-    
     @property
     def stemdir(self):
         self._stemdir()
@@ -452,20 +310,6 @@ class note_(MeiElement):
     def stemdir(self, value):
         self.attributes = {'stem.dir': value}
         self._stemdir()
-    
-    @property
-    def pitch_octave(self):
-        """ 
-            Returns the sounding pitch and octave representation, e.g. C4, F#2, B-5.
-            Sets a default "B" pitch and "4" octave if neither are present, chosen
-            simply because this is the middle line on the treble clef.
-        """
-        self._pitch()
-        self._octave()
-        # for now, we'll just grab the first accidental., 
-        # if self.id == "d1e38008":
-        #     pdb.set_trace()
-        return "{0}{1}".format("".join(self.__pitch[0:2]), self.__octave)
     
     # Return values for ties can be i(nitial), m(edial), and t(erminal). Note
     # that this only works if the note has a tie attribute! Tie *elements* are
@@ -507,69 +351,6 @@ class note_(MeiElement):
         self.__articulations.remove(value)
         self._articulations()
         
-    
-    ## protected 
-    # These methods are responsible for setting the note's properties.
-    def _pitchname(self):
-        pname = [p for p in self.attributes if p.name == 'pname']
-        # there should only every be one pitch name per note
-        if len(pname) > 0:
-            self.__pitchname = pname[0].value
-        else:
-            self.__pitchname = None
-            self.remove_attribute('pname')
-
-    def _pitch(self):
-        """ Gets a note's pitch *value*. This is the actual value of the pitch,
-            and is returned as a list, containing the pitch name and any accidentals.
-        """
-        # make sure we check for the required properties first!
-        self._pitchname()
-        self._accidentals()
-            
-        self.__pitch = [self.__pitchname]
-        self.__pitch.extend(self.__accidentals)
-    
-    def _accidentals(self):
-        if self.has_accidentals():
-            if self.has_attribute('accid'):
-                self.__accidentals = [self.attribute_by_name('accid').value]
-            elif self.has_attribute('accid.ges'):
-                self.__accidentals = [self.attribute_by_name('accid.ges').value]
-            elif self.has_child('accid'):
-                a = []
-                children = self.children_by_name('accid')
-                for child in children:
-                    a.append(child.attribute_by_name('accid').value)
-                self.__accidentals = a
-    
-    def _duration(self):
-        dur = filter(lambda d: d.name == 'dur', self.attributes)
-        if len(dur) > 0:
-            self.__duration = dur[0].value
-        else:
-            self.__duration = None
-            self.remove_attribute('dur')
-        # a dot can affect the duration. We won't compute the absolute duration,
-        # but rather we'll just set a flag that this note is dotted.
-        self._is_dotted()
-    
-    def _is_dotted(self):
-        if self.has_attribute('dots') and self.attribute_by_name('dots').value is not '0':
-            self.__is_dotted = True
-            self.__dots = self.attribute_by_name('dots').value
-        else:
-            self.__is_dotted = False
-            self.__dots = None
-            self.remove_attribute('dots')
-    
-    def _octave(self):
-        octv = [o for o in self.attributes if o.name == 'oct']
-        if len(octv) > 0:
-            self.__octave = octv[0].value
-        else:
-            self.__octave = None
-            self.remove_attribute('oct')
     
     def _stemdir(self):
         stmdir = [s for s in self.attributes if s.name == 'stem.dir']
@@ -707,61 +488,11 @@ class repository_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class rest_(MeiElement):
+class rest_(MeiElement, DurationElementType):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"rest", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
-        self.__duration = None
-        self.__is_dotted = False
-        self.__dots = None
-        
-    # public
-    @property
-    def duration(self):
-        self._duration()
-        return self.__duration
-    @duration.setter
-    def duration(self, duration):
-        self.attributes = {'dur': duration}
-        # update the duration state of this object.
-        self._duration()
-    
-    @property
-    def dots(self):
-        # we'll do the full duration update, instead of just the
-        # dot update.
-        self._duration()
-        return self.__dots
-    @dots.setter
-    def dots(self, dotnum):
-        self.attributes = {'dots': dotnum}
-        self._duration()
-    
-    @property
-    def is_dotted(self):
-        self._duration()
-        return self.__is_dotted
-    
-    #protected 
-    def _duration(self):
-        dur = [d for d in self.attributes if d.name == 'dur']
-        if len(dur) > 0:
-            self.__duration = dur[0].value
-        else:
-            self.__duration = None
-            self.remove_attribute('dur')
-        self._is_dotted()
-    
-    def _is_dotted(self):
-        if self.has_attribute('dots') and self.attribute_by_name('dots').value is not '0':
-            self.__is_dotted = True
-            self.__dots = self.attribute_by_name('dots').value
-        else:
-            self.__is_dotted = False
-            self.__dots = None
-            self.remove_attribute('dots')
-            
         
 class sb_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
