@@ -333,13 +333,6 @@ class MeiElement(object):
         self._dictionary()
         return self.__dictionary
     
-    @property
-    def facs(self):
-        return self.attribute_by_name('facs').value
-    @facs.setter
-    def facs(self, value):
-        self.attributes = {'facs': value}
-    
     # protected
     # def _value(self):
     #     lg.debug("Updating value")

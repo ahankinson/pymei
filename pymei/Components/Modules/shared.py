@@ -2,7 +2,7 @@ from pymei.Components.MeiElement import MeiElement
 from pymei.Components.MeiAttribute import MeiAttribute
 from pymei.Components.MeiExceptions import MeiAttributeError
 
-from pymei.Components.Types import PitchedElementType, DurationElementType
+from pymei.Components.Types import PitchedElementType, DurationElementType, SpatialElementType
 
 import types
 import uuid
@@ -73,7 +73,7 @@ class artic_(MeiElement):
             self.__articulation = None
             self.remove_attribute('artic')
     
-class barline_(MeiElement):
+class barline_(MeiElement, SpatialElementType):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"barline", value=value, parent=parent)
         if attrs:
@@ -97,7 +97,7 @@ class caption_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class chord_(MeiElement, DurationElementType):
+class chord_(MeiElement, DurationElementType, SpatialElementType):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"chord", value=value, parent=parent)
         if attrs:
@@ -121,7 +121,7 @@ class chord_(MeiElement, DurationElementType):
             self.__stemdir = None
             self.remove_attribute('stem.dir')
 
-class clef_(MeiElement):
+class clef_(MeiElement, SpatialElementType):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"clef", value=value, parent=parent)
         if attrs:
@@ -133,7 +133,7 @@ class clefchange_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class custos_(MeiElement):
+class custos_(MeiElement, SpatialElementType):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"custos", value=value, parent=parent)
         if attrs:
@@ -289,7 +289,7 @@ class name_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class note_(MeiElement, PitchedElementType, DurationElementType):
+class note_(MeiElement, PitchedElementType, DurationElementType, SpatialElementType):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"note", value=value, parent=parent)
         if attrs:
@@ -488,7 +488,7 @@ class repository_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class rest_(MeiElement, DurationElementType):
+class rest_(MeiElement, DurationElementType, SpatialElementType):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"rest", value=value, parent=parent)
         if attrs:
@@ -530,7 +530,7 @@ class stack_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class staff_(MeiElement):
+class staff_(MeiElement, SpatialElementType):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"staff", value=value, parent=parent)
         if attrs:

@@ -49,7 +49,7 @@ class page_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class staff_(MeiElement):
+class staff_(MeiElement, SpatialElementType):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"staff", value=value, parent=parent)
         if attrs:
