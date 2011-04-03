@@ -3,10 +3,12 @@ This is a temporary class for the purposes of adding layout information to
 an MEI file.
 
 Assuming a structure like this:
-
-<graphic>
-    <zone xml:id="098" ulx=1, uly=2, lrx=3, lry=4 />
-</graphic>
+<facsimile>
+    <surface>
+        <graphic xlink:href="foo.tiff" />
+        <zone xml:id="098" ulx=1, uly=2, lrx=3, lry=4 />
+    </surface>
+</facsimile>
 
 <mdiv>
     <score>
