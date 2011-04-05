@@ -103,4 +103,13 @@ class MeiDocument(object):
         if not self.__flattened_elements:
             self.__flattened_elements = flatten(self.gettoplevel())
         return (o for o in self.__flattened_elements if o.id == id)
+    
+    def flat(self):
+        """ Returns a flattened list of the elements in this document. Useful
+            for searching and doing document-wide operations on many related
+            elements in different places in the document.
+        """
+        if not self.__flattened_elements:
+            self.__flattened_elements = flatten(self.gettoplevel())
+        return self.__flattened_elements
             

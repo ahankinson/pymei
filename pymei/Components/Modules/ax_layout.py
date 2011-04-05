@@ -3,10 +3,12 @@ This is a temporary class for the purposes of adding layout information to
 an MEI file.
 
 Assuming a structure like this:
-
-<graphic>
-    <zone xml:id="098" ulx=1, uly=2, lrx=3, lry=4 />
-</graphic>
+<facsimile>
+    <surface>
+        <graphic xlink:href="foo.tiff" />
+        <zone xml:id="098" ulx=1, uly=2, lrx=3, lry=4 />
+    </surface>
+</facsimile>
 
 <mdiv>
     <score>
@@ -36,6 +38,7 @@ Assuming a structure like this:
 """
 from pymei.Components.MeiElement import MeiElement
 from pymei.Components.MeiAttribute import MeiAttribute
+from pymei.Components.Types import SpatialElementType
 
 class layout_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
@@ -49,8 +52,8 @@ class page_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class staff_(MeiElement):
-    def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"staff", value=value, parent=parent)
-        if attrs:
-            self.attributes = attrs
+# class staff_(MeiElement, SpatialElementType):
+#     def __init__(self, value=None, parent=None, **attrs):
+#         MeiElement.__init__(self, name=u"staff", value=value, parent=parent)
+#         if attrs:
+#             self.attributes = attrs
