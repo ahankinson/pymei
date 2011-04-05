@@ -16,7 +16,7 @@ def meitoxml(meidocument, filename=None):
     
     t = etree.ElementTree(d)
     
-    if not filename:
+    if filename:
         t.write(filename, 
                 pretty_print=True, 
                 xml_declaration=True,
