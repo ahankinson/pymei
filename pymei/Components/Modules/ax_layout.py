@@ -38,6 +38,7 @@ Assuming a structure like this:
 """
 from pymei.Components.MeiElement import MeiElement
 from pymei.Components.MeiAttribute import MeiAttribute
+from pymei.Components.Types import SpatialElementType
 
 class layout_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
@@ -51,8 +52,8 @@ class page_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class staff_(MeiElement, SpatialElementType):
-    def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"staff", value=value, parent=parent)
-        if attrs:
-            self.attributes = attrs
+# class staff_(MeiElement, SpatialElementType):
+#     def __init__(self, value=None, parent=None, **attrs):
+#         MeiElement.__init__(self, name=u"staff", value=value, parent=parent)
+#         if attrs:
+#             self.attributes = attrs
