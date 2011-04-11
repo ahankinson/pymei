@@ -19,6 +19,7 @@ Assuming a structure like this:
                 <note>
                 <note>
                 <note>
+                
                 <sb xml:id="" />
                 <note>
                 <note>
@@ -46,14 +47,14 @@ class layout_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class page_(MeiElement):
+class page_(MeiElement, SpatialElementType):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"page", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
-# class staff_(MeiElement, SpatialElementType):
-#     def __init__(self, value=None, parent=None, **attrs):
-#         MeiElement.__init__(self, name=u"staff", value=value, parent=parent)
-#         if attrs:
-#             self.attributes = attrs
+class system_(MeiElement, SpatialElementType):
+    def __init__(self, value=None, parent=None, **attrs):
+        MeiElement.__init__(self, name=u"system", value=value, parent=parent)
+        if attrs:
+            self.attributes = attrs
