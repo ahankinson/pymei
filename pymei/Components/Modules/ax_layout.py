@@ -29,8 +29,8 @@ Assuming a structure like this:
 </mdiv>
 
 <layout>
-    <page corresp="789">
-        <system corresp="123 456" facs="098" />
+    <page pbref="789">
+        <system sbref="123 456" facs="098" />
     </page>
 </layout>
 
