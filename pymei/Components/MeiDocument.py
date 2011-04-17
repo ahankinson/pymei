@@ -81,10 +81,6 @@ class MeiDocument(object):
             Searches an MEI Document for an object name that matches the
             search term.
             
-            Note: Returns a generator object, and not the actual list of elements,
-            with the assumption that you will either want to loop through all 
-            the things found in the search, or you can cast it to a list or tuple.
-            
             @TODO:
             Passing in args will narrow down the search by only retrieving
             objects with that attribute.
@@ -108,7 +104,7 @@ class MeiDocument(object):
         """ Returns the facs element for a given element's ID """
         if not self.__flattened_elements:
             self.__flattened_elements = flatten(self.gettoplevel())
-        return (f for f in self.__flattened_elements if f.name == "facs" and f.facs == facsid)
+        return [f for f in self.__flattened_elements if f.name == "zone" and f.id == facsid]
     
     def flat(self):
         """ Returns a flattened list of the elements in this document. Useful

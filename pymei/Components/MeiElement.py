@@ -14,12 +14,13 @@
 import types
 import uuid
 import itertools
+from lxml import etree
 
 #deal with deprecated code.
 import warnings
 warnings.simplefilter('once')
 
-from pymei import MEI_NS, MEI_PREFIX
+from pymei import MEI_NS, MEI_PREFIX, PREFIX_TO_NS
 from pymei.Components.MeiAttribute import MeiAttribute
 from pymei.Components.MeiExceptions import *
 from pymei.Helpers import flatten, prefix_to_ns
@@ -155,8 +156,6 @@ class MeiElement(object):
     def children_by_name(self, child_name):
         r = (c for c in self.children if c.name == child_name)
         res = list(r)
-        if not res:
-            return None
         return res
         
     def remove_children(self, child_name):
@@ -166,7 +165,6 @@ class MeiElement(object):
         for child in to_remove:
             if child.name == child_name:
                 self.__children.remove(child)
-    
     
     def descendants_by_name(self, desc_name):
         """ Gets all sub-elements that match a query name """
@@ -335,8 +333,6 @@ class MeiElement(object):
     
     # protected
     def _xml(self):
-        from lxml import etree
-        
         a = {}
         for at in self.attributes:
             filtname = prefix_to_ns(at.name)

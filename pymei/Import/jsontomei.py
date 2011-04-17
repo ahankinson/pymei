@@ -73,7 +73,7 @@ def _json_to_mei(el):
         for d in m:                
             if isinstance(d, types.DictType) and "@a" in d.keys():
                 if u"xml:id" not in d['@a'].keys():
-                    d['@a'][u'xml:id'] = str(uuid.uuid4())
+                    d['@a'][u'xml:id'] = generate_mei_id()
                 obj.attributes = d['@a']
             
             elif isinstance(d, types.DictType) and "@t" in d.keys():
@@ -83,5 +83,5 @@ def _json_to_mei(el):
                 obj.value = d['@v']
                 
             else:
-                obj.addchildren([d])
+                obj.add_children([d])
     return obj

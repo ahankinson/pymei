@@ -3,6 +3,7 @@ from pymei.Components.MeiAttribute import MeiAttribute
 from pymei.Components.MeiExceptions import MeiAttributeError
 
 from pymei.Components.Types import PitchedElementType, DurationElementType, SpatialElementType
+from pymei.Helpers import generate_mei_id
 
 import types
 import uuid
@@ -379,10 +380,10 @@ class note_(MeiElement, PitchedElementType, DurationElementType, SpatialElementT
             artc = []
             for art in self.__articulations:
                 a = artic_()
-                a.id = uuid.uuid4() # give it an id.
+                a.id = generate_mei_id() # give it an id.
                 a.attributes = {'artic': art}
                 artc.append(a)
-            self.addchildren(artc)
+            self.add_children(artc)
         elif len(self.__articulations) == 1:
             # create an attribute & clean up any children
             self.attributes = {'artic': self.__articulations[0]}
