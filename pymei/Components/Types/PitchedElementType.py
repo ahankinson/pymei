@@ -39,7 +39,7 @@ class PitchedElementType(object):
     @accidentals.setter
     def accidentals(self, value):
         if isinstance(value, types.ListType):
-            self.addchildren(value)
+            self.add_children(value)
         else:
             self.attributes = {'accid': value}
 

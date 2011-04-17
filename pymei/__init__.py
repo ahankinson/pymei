@@ -1,5 +1,4 @@
-from lxml import etree #AH   
-# import lxml #GVM
+from lxml import etree #AH
 
 import os
 
@@ -48,6 +47,8 @@ NS_TO_PREFIX = {XML_NS: XML_PREFIX,
 
 PREFIX_TO_NS = dict([v,k] for k,v in NS_TO_PREFIX.iteritems())
 
+for k,v in PREFIX_TO_NS.iteritems():
+    etree.register_namespace(k, v)
 
 ENCODING = "UTF-8"
 

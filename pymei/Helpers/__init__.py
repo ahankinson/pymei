@@ -1,3 +1,4 @@
+import uuid
 from pymei import NS_TO_PREFIX, PREFIX_TO_NS
 
 import logging
@@ -20,6 +21,9 @@ def prefix_to_ns(att):
         return a
     else:
         return att
+        
+def generate_mei_id():
+    return "{0}-{1}".format('m', str(uuid.uuid4()))
 
 def flatten(mei_obj):
     """ 

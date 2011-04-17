@@ -7,7 +7,7 @@ import codecs
 
 from pymei.Components import MeiDocument, MeiElement
 from pymei.Components import Modules as mod
-from pymei.Helpers import ns_to_prefix
+from pymei.Helpers import ns_to_prefix, generate_mei_id
 
 #from pymei import NS_TO_PREFIX
 
@@ -68,7 +68,7 @@ def _xml_to_mei(el):
     # We set them as an attribute to support their existence as an XML attribute, but
     # the MeiElement catches this and also sets it to that item's ID.
     if "xml:id" not in d.keys():
-        d['xml:id'] = str(uuid.uuid4())
+        d['xml:id'] = generate_mei_id()
         
     obj.attributes = d
     
@@ -79,7 +79,7 @@ def _xml_to_mei(el):
         # loopdy-loopdy! This calls itself for any children components found.
         m = map(_xml_to_mei, c)
         #lg.debug('Object: {0}; children {1}'.format(obj, m))
-        obj.addchildren(m)
+        obj.add_children(m)
         
     return obj
 
