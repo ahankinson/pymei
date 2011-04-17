@@ -104,6 +104,12 @@ class MeiDocument(object):
             self.__flattened_elements = flatten(self.gettoplevel())
         return (o for o in self.__flattened_elements if o.id == id)
     
+    def get_by_facs(self, facsid):
+        """ Returns the facs element for a given element's ID """
+        if not self.__flattened_elements:
+            self.__flattened_elements = flatten(self.gettoplevel())
+        return (f for f in self.__flattened_elements if f.name == "facs" and f.facs == facsid)
+    
     def flat(self):
         """ Returns a flattened list of the elements in this document. Useful
             for searching and doing document-wide operations on many related
