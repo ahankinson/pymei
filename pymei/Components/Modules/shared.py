@@ -115,9 +115,9 @@ class chord_(MeiElement, DurationElementType, SpatialElementType):
         self._stemdir()
         
     def _stemdir(self):
-        stmdir = [s for s in self.attributes if s.name == 'stem.dir']
-        if len(stmdir) > 0:
-            self.__stemdir = stmdir[0].value
+        stmdir = self.attribute_by_name("stem.dir")
+        if stmdir:
+            self.__stemdir = stmdir.value
         else:
             self.__stemdir = None
             self.remove_attribute('stem.dir')
@@ -354,17 +354,17 @@ class note_(MeiElement, PitchedElementType, DurationElementType, SpatialElementT
         
     
     def _stemdir(self):
-        stmdir = [s for s in self.attributes if s.name == 'stem.dir']
-        if len(stmdir) > 0:
-            self.__stemdir = stmdir[0].value
+        stmdir = self.attribute_by_name("stem.dir")
+        if stmdir:
+            self.__stemdir = stmdir.value
         else:
             self.__stemdir = None
             self.remove_attribute('stem.dir')
     
     def _tie(self):
-        tie = [t for t in self.attributes if t.name == 'tie']
-        if len(tie) > 0:
-            self.__tie = tie[0].value
+        tie = self.attribute_by_name("tie")
+        if tie:
+            self.__tie = tie.value
             self.__is_tied = True
         else:
             self.__tie = None
@@ -395,9 +395,9 @@ class note_(MeiElement, PitchedElementType, DurationElementType, SpatialElementT
             self.__articulations = []
     
     def _tuplet(self):
-        tuplet = [t for t in self.attributes if t.name == 'tuplet']
+        tuplet = self.attribute_by_name("tuplet")
         if tuplet:
-            self.__tuplet = tuplet[0].value
+            self.__tuplet = tuplet.value
             self.__is_tuplet = True
         else:
             self.__tuplet = None

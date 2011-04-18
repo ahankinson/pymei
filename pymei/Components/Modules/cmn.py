@@ -1,6 +1,6 @@
 from pymei.Components.MeiElement import MeiElement
 from pymei.Components.MeiAttribute import MeiAttribute
-
+from pymei.Components.Types import PitchedElementType, DurationElementType, SpatialElementType, SpanningElementType
 import logging
 lg = logging.getLogger('pymei')
 
@@ -130,21 +130,20 @@ class measure_(MeiElement):
     
     # protected
     def _measure_number(self):
-        mnum = filter(lambda m: m.name == "n", self.attributes)
-        if len(mnum) > 0:
-            self.__measure_number = mnum[0].value
+        mnum = self.attribute_by_name("n")
+        if mnum:
+            self.__measure_number = mnum.value
         else:
             self.__measure_number = None
             self.remove_attribute('n')
         
     def _barline(self):
-        bline = [b for b in self.attributes if b.name == "right"]
+        bline = self.attribute_by_name("right")
         if bline:
             self.__barline = bline[0].value
             self.__has_barline = True
             lg.debug(self.__barline)
             if self.__barline in ('rptstart', 'rptend', 'rptboth'):
-                lg.debug("Setting repeat.")
                 self.__repeat = True
         else:
             self.__barline = None
@@ -218,128 +217,24 @@ class reh_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class slur_(MeiElement):
+class slur_(MeiElement, SpanningElementType):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"slur", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
-        self.__startid = None
-        self.__endid = None
-        self.__staff = None # staff that the tie is attached to.
-
-    def get_startid(self):
-        self._startid()
-        return self.__startid
-    def set_startid(self, start_id):
-        self.attributes = {'startid': start_id}
-        self._startid()
-    startid = property(get_startid, set_startid, doc="Gets and sets the starting id.")
-
-    def get_endid(self):
-        self._endid()
-        return self.__endid
-    def set_endid(self, end_id):
-        self.attributes = {'endid': end_id}
-        self._endid()
-    endid = property(get_startid, set_startid, doc="Gets and sets the ending id.")
-
-    def get_staff(self):
-        self._staff()
-        return self.__staff
-    def set_staff(self, stnum):
-        self.attributes = {'staff': stnum}
-        self._staff()
-    staff = property(get_staff, set_staff, doc="Gets and sets the staff to which this slur is attached.")
-
-    # protected
-    def _startid(self):
-        sid = [a for a in self.attributes if a.name == 'startid']
-        if len(sid) > 0:
-            self.__startid = sid[0].value
-        else:
-            self.__startid = None
-            self.remove_attribute('startid')
-
-    def _endid(self):
-        eid = [a for a in self.attributes if a.name == 'endid']
-        if len(eid) > 0:
-            self.__endid = eid[0].value
-        else:
-            self.__endid = None
-            self.remove_attribute('endid')
-
-    def _staff(self):
-        st = [a for a in self.attributes if a.name == 'staff']
-        if len(st) > 0:
-            self.__staff = st[0].value
-        else:
-            self.__staf = None
-            self.remove_attribute('staff')
-
-class tie_(MeiElement):
+            
+class tie_(MeiElement, SpanningElementType):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"tie", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
-        self.__startid = None
-        self.__endid = None
-        self.__staff = None # staff that the tie is attached to.
-    
-    def get_startid(self):
-        self._startid()
-        return self.__startid
-    def set_startid(self, start_id):
-        self.attributes = {'startid': start_id}
-        self._startid()
-    startid = property(get_startid, set_startid, doc="Gets and sets the starting id.")
-    
-    def get_endid(self):
-        self._endid()
-        return self.__endid
-    def set_endid(self, end_id):
-        self.attributes = {'endid': end_id}
-        self._endid()
-    endid = property(get_startid, set_startid, doc="Gets and sets the ending id.")
-    
-    def get_staff(self):
-        self._staff()
-        return self.__staff
-    def set_staff(self, stnum):
-        self.attributes = {'staff': stnum}
-        self._staff()
-    staff = property(get_staff, set_staff, doc="Gets and sets the staff this tie is attached to.")
-    
-    # protected
-    def _startid(self):
-        sid = [a for a in self.attributes if a.name == 'startid']
-        if len(sid) > 0:
-            self.__startid = sid[0].value
-        else:
-            self.__startid = None
-            self.remove_attribute('startid')
-    
-    def _endid(self):
-        eid = [a for a in self.attributes if a.name == 'endid']
-        if len(eid) > 0:
-            self.__endid = eid[0].value
-        else:
-            self.__endid = None
-            self.remove_attribute('endid')
-    
-    def _staff(self):
-        st = [a for a in self.attributes if a.name == 'staff']
-        if len(st) > 0:
-            self.__staff = st[0].value
-        else:
-            self.__staf = None
-            self.remove_attribute('staff')
-        
+            
 class tuplet_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"tuplet", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
-
+            
 class tupletspan_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"tupletspan", value=value, parent=parent)

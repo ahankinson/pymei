@@ -36,9 +36,9 @@ class DurationElementType(object):
         
     # protected
     def _duration(self):
-        dur = filter(lambda d: d.name == 'dur', self.attributes)
-        if len(dur) > 0:
-            self.__duration = dur[0].value
+        dur = self.attribute_by_name("dur")
+        if dur:
+            self.__duration = dur.value
         else:
             self.__duration = None
             self.remove_attribute('dur')

@@ -80,10 +80,10 @@ class PitchedElementType(object):
     ## protected 
     # These methods are responsible for setting the note's properties.
     def _pitchname(self):
-        pname = [p for p in self.attributes if p.name == 'pname']
+        pname = self.attribute_by_name("pname")
         # there should only every be one pitch name per note
-        if len(pname) > 0:
-            self.__pitchname = pname[0].value
+        if pname:
+            self.__pitchname = pname.value
         else:
             self.__pitchname = None
             self.remove_attribute('pname')
@@ -113,9 +113,9 @@ class PitchedElementType(object):
                 self.__accidentals = a
 
     def _octave(self):
-        octv = [o for o in self.attributes if o.name == 'oct']
-        if len(octv) > 0:
-            self.__octave = octv[0].value
+        octv = self.attribute_by_name("oct")
+        if octv:
+            self.__octave = octv.value
         else:
             self.__octave = None
             self.remove_attribute('oct')
