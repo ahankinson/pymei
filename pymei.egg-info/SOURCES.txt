@@ -1,6 +1,0 @@
-README
-setup.py
-pymei.egg-info/PKG-INFO
-pymei.egg-info/SOURCES.txt
-pymei.egg-info/dependency_links.txt
-pymei.egg-info/top_level.txt
