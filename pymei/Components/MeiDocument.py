@@ -98,13 +98,55 @@ class MeiDocument(object):
         """ Gets a document object by ID. """
         if not self.__flattened_elements:
             self.__flattened_elements = flatten(self.gettoplevel())
-        return (o for o in self.__flattened_elements if o.id == id)
+        # return (o for o in self.__flattened_elements if o.id == id)
+        return self.get_by_id_ref("xml:id", id)
     
     def get_by_facs(self, facsid):
         """ Returns the facs element for a given element's ID """
+        return self.get_by_id_ref("facs", facsid, "zone")
+        
+    def get_by_id_ref(self, attrref, attrvalue, tagfilter=None):
+        """ Generic function by pointer references within the document to get all
+            other tags that contain this ID. For example, given:
+            
+                ...
+                <system sbref="123" />
+                ...
+                <sb xml:id="123" />
+                ...
+            
+            The call:
+            
+            get_by_id_ref("sbref", "123")
+            
+            will return a pointer to the <system /> element in the tree.
+            
+            If tagfilter is not None, it will only return the attribute values on
+            a specific tag, e.g., 
+            
+            get_by_id_ref("sbref", "123", "system").
+            
+            This is useful if you have multiple possible places where an attribute is being
+            used in the document.
+            
+            Returns a list of MeiElements that match.
+        """
         if not self.__flattened_elements:
             self.__flattened_elements = flatten(self.gettoplevel())
-        return [f for f in self.__flattened_elements if f.name == "zone" and f.id == facsid]
+        
+        def __idfilt(ob, ar=attrref, av=attrvalue, tf=tagfilter):
+            try:
+                if ob.attribute_by_name(ar).value == av:
+                    if not tf:
+                        return ob
+                    else:
+                        if ob.name == tf:
+                            return ob
+            except AttributeError, e:
+                return None
+                        
+        return [f for f in self.__flattened_elements if __idfilt(f)]
+        
     
     def flat(self):
         """ Returns a flattened list of the elements in this document. Useful
