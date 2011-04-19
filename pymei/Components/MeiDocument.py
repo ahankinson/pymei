@@ -102,8 +102,8 @@ class MeiDocument(object):
         return self.get_by_id_ref("xml:id", id)
     
     def get_by_facs(self, facsid):
-        """ Returns the facs element for a given element's ID """
-        return self.get_by_id_ref("facs", facsid, "zone")
+        """ Returns the zone element for a given element's facs attribute"""
+        return self.get_by_id_ref("xml:id", facsid, "zone")
         
     def get_by_id_ref(self, attrref, attrvalue, tagfilter=None):
         """ Generic function by pointer references within the document to get all
