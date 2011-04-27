@@ -222,14 +222,11 @@ class MeiElement(object):
         
     def attribute_by_name(self, attribute):
         """ Gets the value of an element attribute by name. """
-        r = (a for a in self.attributes if a.name == attribute)
-        res = tuple(r)
-        
-        if len(res) == 0:
+        if not self.has_attribute(attribute):
             return None
-        elif len(res) > 1:
+        res = [a for a in self.attributes if a.name == attribute]
+        if len(res) > 1:
             raise MeiAttributeError("More than one attribute has that name. That's unpossible!")
-            return None
         else:
             return res[0]
     
