@@ -12,7 +12,7 @@ def meitoxml(meidocument, filename=None):
     d = _mei_to_xml(r)
     
     d.set('xmlns', MEI_NS)
-    d.set('xlink', XLINK_NS)
+    # d.set('xlink', XLINK_NS)
     
     t = etree.ElementTree(d)
     
