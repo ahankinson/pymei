@@ -154,8 +154,7 @@ class MeiElement(object):
             return False
     
     def children_by_name(self, child_name):
-        r = (c for c in self.children if c.name == child_name)
-        res = list(r)
+        res = [c for c in self.children if c.name == child_name]
         return res
         
     def remove_children(self, child_name):
