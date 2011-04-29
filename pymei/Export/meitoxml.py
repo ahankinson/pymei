@@ -2,6 +2,7 @@
 from lxml import etree
 from pymei import MEI_NS, XLINK_NS
 from pymei.Helpers import prefix_to_ns
+from pymei.Components import MeiComment
 
 import logging
 lg = logging.getLogger('pymei')
@@ -31,6 +32,9 @@ def meitoxml(meidocument, filename=None):
 
 def _mei_to_xml(el):
     el_x = el.as_xml_object()
+    if isinstance(el, MeiComment.MeiComment):
+        return el_x
+        
     if len(el.children) > 0:
         children = map(_mei_to_xml, el.children)
         

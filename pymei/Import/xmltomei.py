@@ -5,7 +5,7 @@ from lxml import etree #AH
 import uuid
 import codecs
 
-from pymei.Components import MeiDocument, MeiElement
+from pymei.Components import MeiDocument, MeiElement, MeiComment
 from pymei.Components import Modules as mod
 from pymei.Helpers import ns_to_prefix, generate_mei_id
 
@@ -18,7 +18,7 @@ lg = logging.getLogger('pymei')
 def xmltomei(meifile):
     """ Open and parse a MEI XML file to a MeiDocument object. """
     f = codecs.open(meifile, 'r', encoding='utf-8')
-    p = etree.XMLParser(ns_clean=True, remove_comments=True, no_network=False)
+    p = etree.XMLParser(ns_clean=True, no_network=False)
     t = etree.parse(f, p)
     f.close()
     r = t.getroot()
@@ -34,6 +34,10 @@ def _xml_to_mei(el):
     
     # etree automatically appends the namespace to every element. We need to 
     # strip that off.
+    if isinstance(el, etree._Comment):
+        obj = MeiComment.MeiComment(el.text)
+        return obj
+    
     ns_tag = el.tag.split('}')
     tagname = ns_tag[-1]
     ns = ns_tag[0].strip('{')
