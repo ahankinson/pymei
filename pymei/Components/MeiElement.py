@@ -332,7 +332,7 @@ class MeiElement(object):
         a = {}
         for at in self.attributes:
             filtname = prefix_to_ns(at.name)
-            if filtname is "namespace":
+            if filtname == "namespace":
                 continue
             a[str(filtname)] = at.value
         
@@ -342,7 +342,7 @@ class MeiElement(object):
         if self.tail is not None:
             el.tail = self.tail
         self.__xml_obj = el
-        self.__xml_str = etree.tostring(el)
+        self.__xml_str = etree.tostring(el, pretty_print=True)
     
     def _dictionary(self):
         import json
