@@ -337,3 +337,83 @@ class userestrict_(MeiElement):
         if attrs:
             self.attributes = attrs
 
+# added in MEI 2011
+class plate_(MeiElement):
+    def __init__(self, value=None, parent=None, **attrs):
+        MeiElement.__init__(self, name=u"plate", value=value, parent=parent)
+        if attrs:
+            self.attributes = attrs
+
+class termlist_(MeiElement):
+    def __init__(self, value=None, parent=None, **attrs):
+        MeiElement.__init__(self, name=u"termlist", value=value, parent=parent)
+        if attrs:
+            self.attributes = attrs
+
+class watermark_(MeiElement):
+    def __init__(self, value=None, parent=None, **attrs):
+        MeiElement.__init__(self, name=u"watermark", value=value, parent=parent)
+        if attrs:
+            self.attributes = attrs
+
+class relateditem_(MeiElement):
+    def __init__(self, value=None, parent=None, **attrs):
+        MeiElement.__init__(self, name=u"relateditem", value=value, parent=parent)
+        if attrs:
+            self.attributes = attrs
+            
+class contents_(MeiElement):
+    def __init__(self, value=None, parent=None, **attrs):
+        MeiElement.__init__(self, name=u"relateditem", value=value, parent=parent)
+        if attrs:
+            self.attributes = attrs
+
+class work_(MeiElement):
+    def __init__(self, value=None, parent=None, **attrs):
+        MeiElement.__init__(self, name=u"work", value=value, parent=parent)
+        if attrs:
+            self.attributes = attrs
+
+class perfmedium_(MeiElement):
+    def __init__(self, value=None, parent=None, **attrs):
+        MeiElement.__init__(self, name=u"perfmedium", value=value, parent=parent)
+        if attrs:
+            self.attributes = attrs
+
+class workdesc_(MeiElement):
+    def __init__(self, value=None, parent=None, **attrs):
+        MeiElement.__init__(self, name=u"workdesc", value=value, parent=parent)
+        if attrs:
+            self.attributes = attrs
+
+class instrvoice_(MeiElement):
+    def __init__(self, value=None, parent=None, **attrs):
+        MeiElement.__init__(self, name=u"titlepage", value=value, parent=parent)
+        if attrs:
+            self.attributes = attrs
+
+class performer_(MeiElement):
+    def __init__(self, value=None, parent=None, **attrs):
+        MeiElement.__init__(self, name=u"titlepage", value=value, parent=parent)
+        if attrs:
+            self.attributes = attrs
+
+class key_(MeiElement):
+    def __init__(self, value=None, parent=None, **attrs):
+        MeiElement.__init__(self, name=u"key", value=value, parent=parent)
+        if attrs:
+            self.attributes = attrs
+
+class ensemble_(MeiElement):
+    def __init__(self, value=None, parent=None, **attrs):
+        MeiElement.__init__(self, name=u"ensemble", value=value, parent=parent)
+        if attrs:
+            self.attributes = attrs
+
+class history_(MeiElement):
+    def __init__(self, value=None, parent=None, **attrs):
+        MeiElement.__init__(self, name=u"history", value=value, parent=parent)
+        if attrs:
+            self.attributes = attrs
+
+

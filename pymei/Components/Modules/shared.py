@@ -584,3 +584,43 @@ class titlepage_(MeiElement):
         if attrs:
             self.attributes = attrs
 
+# added in MEI 2011
+class castitem_(MeiElement):
+    def __init__(self, value=None, parent=None, **attrs):
+        MeiElement.__init__(self, name=u"castitem", value=value, parent=parent)
+        if attrs:
+            self.attributes = attrs
+            
+            
+class roledesc_(MeiElement):
+    def __init__(self, value=None, parent=None, **attrs):
+        MeiElement.__init__(self, name=u"roledesc", value=value, parent=parent)
+        if attrs:
+            self.attributes = attrs
+
+class actor_(MeiElement):
+    def __init__(self, value=None, parent=None, **attrs):
+        MeiElement.__init__(self, name=u"actor", value=value, parent=parent)
+        if attrs:
+            self.attributes = attrs
+
+class role_(MeiElement):
+    def __init__(self, value=None, parent=None, **attrs):
+        MeiElement.__init__(self, name=u"role", value=value, parent=parent)
+        if attrs:
+            self.attributes = attrs
+
+class castlist_(MeiElement):
+    def __init__(self, value=None, parent=None, **attrs):
+        MeiElement.__init__(self, name=u"castlist", value=value, parent=parent)
+        if attrs:
+            self.attributes = attrs
+
+class castgrp_(MeiElement):
+    def __init__(self, value=None, parent=None, **attrs):
+        MeiElement.__init__(self, name=u"castgrp", value=value, parent=parent)
+        if attrs:
+            self.attributes = attrs
+
+
+
