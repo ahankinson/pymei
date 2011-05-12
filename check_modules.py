@@ -38,6 +38,9 @@ if __name__ == "__main__":
     t = etree.parse(f)
     f.close()
     els = set([dict(e.items()).values()[0] for e in t.xpath("/r:grammar//r:element", namespaces={'r':'http://relaxng.org/ns/structure/1.0'})])
+    num_els = len(els)
+    
+    print "The number of elements was {0}".format(els)
     
     if not els.issubset(v):
         problems = True

@@ -134,7 +134,7 @@ class clefchange_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class custos_(MeiElement, SpatialElementType):
+class custos_(MeiElement, SpatialElementType, PitchedElementType):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"custos", value=value, parent=parent)
         if attrs:
