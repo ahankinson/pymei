@@ -156,4 +156,19 @@ class MeiDocument(object):
         if not self.__flattened_elements:
             self.__flattened_elements = flatten(self.gettoplevel())
         return self.__flattened_elements
+    
+    def get_system(self, element):
+        """ Returns the 'n' attribute of the system break immediately preceding the given MEI Element. 
+            If the element is not found, None will be returned. If the element occurs before the first system break,
+            -1 will be returned.
+        """
+        current_system = -1
+        if not self.__flattened_elements:
+            self.__flattened_elements = flatten(self.gettoplevel())
+        for e in self.__flattened_elements:
+            if e.name == 'sb':
+                current_system = int(e.attribute_by_name('n').value)
+            if e.id == element.id:
+                return current_system      
+        return None
             
