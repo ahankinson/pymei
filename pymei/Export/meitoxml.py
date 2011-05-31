@@ -1,6 +1,6 @@
 # helper functions to output to XML
 from lxml import etree
-from pymei import MEI_NS, XLINK_NS
+from pymei import MEI_NS, XLINK_NS, MEI_VERSION
 from pymei.Helpers import prefix_to_ns
 from pymei.Components import MeiComment
 
@@ -13,7 +13,7 @@ def meitoxml(meidocument, filename=None):
     d = _mei_to_xml(r)
     
     d.set('xmlns', MEI_NS)
-    d.set('namespace', MEI_NS)
+    d.set('meiversion', MEI_VERSION)
     # d.set('xlink', XLINK_NS)
     
     t = etree.ElementTree(d)
