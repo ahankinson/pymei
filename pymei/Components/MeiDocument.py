@@ -139,7 +139,6 @@ class MeiDocument(object):
             return [f for f in filt_elements if f.has_attribute(attrref) and f.attribute_by_name(attrref).value == attrvalue]
         else:
             return [f for f in self.__flattened_elements if f.has_attribute(attrref) and f.attribute_by_name(attrref).value == attrvalue]
-        
     
     def flat(self):
         """ Returns a flattened list of the elements in this document. Useful
