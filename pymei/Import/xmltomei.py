@@ -18,7 +18,7 @@ lg = logging.getLogger('pymei')
 def xmltomei(meifile):
     """ Open and parse a MEI XML file to a MeiDocument object. """
     f = codecs.open(meifile, 'r', encoding='utf-8')
-    p = etree.XMLParser(ns_clean=True, no_network=False)
+    p = etree.XMLParser(ns_clean=True, no_network=False, encoding="utf-8")
     t = etree.parse(f, p)
     f.close()
     
