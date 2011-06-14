@@ -133,19 +133,12 @@ class MeiDocument(object):
         """
         if not self.__flattened_elements:
             self.__flattened_elements = flatten(self.gettoplevel())
-        
-        def __idfilt(ob, ar=attrref, av=attrvalue, tf=tagfilter):
-            try:
-                if ob.attribute_by_name(ar).value == av:
-                    if not tf:
-                        return ob
-                    else:
-                        if ob.name == tf:
-                            return ob
-            except AttributeError, e:
-                return None
-                        
-        return [f for f in self.__flattened_elements if __idfilt(f)]
+            
+        if tagfilter:
+            filt_elements = self.search(tagfilter)
+            return [f for f in filt_elements if f.has_attribute(attrref) and f.attribute_by_name(attrref).value == attrvalue]
+        else:
+            return [f for f in self.__flattened_elements if f.has_attribute(attrref) and f.attribute_by_name(attrref).value == attrvalue]
         
     
     def flat(self):
