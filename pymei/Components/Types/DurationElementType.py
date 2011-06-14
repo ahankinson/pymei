@@ -2,15 +2,18 @@
     All elements that have a duration should inherit from this class.
 """
 class DurationElementType(object):
-    def __init__():
-        self.__duration = None
-        self.__is_dotted = False
-        self.__dots = None
+    duration_attr = None
+    is_dotted_attr = None
+    dots_attr = None
     
+    def __init__():
+        # raise a warning if this is inited directly.
+        pass
+        
     @property
     def duration(self):
         self._duration()
-        return self.__duration
+        return self.duration_attr
     @duration.setter
     def duration(self, value):
         self.attributes = {'dur': value}
@@ -23,12 +26,12 @@ class DurationElementType(object):
         # therefore, if there is no duration, we may also have not checked
         # for dots yet. We'll double check now.
         self._duration()
-        return self.__is_dotted
+        return self.is_dotted_attr
 
     @property
     def dots(self):
         self._duration()
-        return self.__dots
+        return self.dots_attr
     @dots.setter
     def dots(self, value):
         self.attributes = {'dots': value}
@@ -38,9 +41,9 @@ class DurationElementType(object):
     def _duration(self):
         dur = self.attribute_by_name("dur")
         if dur:
-            self.__duration = dur.value
+            self.duration_attr = dur.value
         else:
-            self.__duration = None
+            self.duration_attr = None
             self.remove_attribute('dur')
         # a dot can affect the duration. We won't compute the absolute duration,
         # but rather we'll just set a flag that this note is dotted.
@@ -48,10 +51,10 @@ class DurationElementType(object):
 
     def _is_dotted(self):
         if self.has_attribute('dots') and self.attribute_by_name('dots').value is not '0':
-            self.__is_dotted = True
-            self.__dots = self.attribute_by_name('dots').value
+            self.is_dotted_attr = True
+            self.dots_ = self.attribute_by_name('dots').value
         else:
-            self.__is_dotted = False
-            self.__dots = None
+            self.is_dotted_attr = False
+            self.dots_attr = None
             self.remove_attribute('dots')
 

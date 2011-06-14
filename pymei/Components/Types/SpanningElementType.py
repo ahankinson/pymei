@@ -2,15 +2,17 @@
     All elements that have a startid and endid attribute.
 """
 class SpanningElementType(object):
-    def __init_(self):
-        self.__startid = None
-        self.__endid = None
-        self.__staff = None # staff that the tie is attached to.
+    startid_attr = None
+    endid_attr = None
+    staff_attr = None
     
+    def __init_(self):
+        pass
+        
     @property
     def startid(self):
         self._startid()
-        return self.__startid
+        return self.startid_attr
     @startid.setter
     def startid(self, value):
         self.attributes = {'startid': value}
@@ -19,7 +21,7 @@ class SpanningElementType(object):
     @property
     def endid(self):
         self._endid()
-        return self.__endid
+        return self.endid_attr
     @endid.setter
     def endid(self, value):
         self.attributes = {'endid': value}
@@ -28,7 +30,7 @@ class SpanningElementType(object):
     @property
     def staff(self):
         self._staff()
-        return self.__staff
+        return self.staff_attr
     @staff.setter
     def staff(self, value):
         self.attributes = {'staff': value}
@@ -38,23 +40,23 @@ class SpanningElementType(object):
     def _startid(self):
         sid = self.attribute_by_name("startid")
         if sid:
-            self.__startid = sid.value
+            self.startid_attr = sid.value
         else:
-            self.__startid = None
+            self.startid_attr = None
             self.remove_attribute('startid')
 
     def _endid(self):
         eid = self.attribute_by_name("endid")
         if eid:
-            self.__endid = eid.value
+            self.endid_attr = eid.value
         else:
-            self.__endid = None
+            self.endid_attr = None
             self.remove_attribute('endid')
 
     def _staff(self):
         st = self.attribute_by_name("staff")
         if len(st) > 0:
-            self.__staff = st[0].value
+            self.staff_attr = st[0].value
         else:
-            self.__staf = None
+            self.staff_attr = None
             self.remove_attribute('staff')

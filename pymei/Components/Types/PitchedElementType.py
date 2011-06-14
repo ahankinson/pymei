@@ -2,26 +2,27 @@
     All elements that have pitches should inherit from this class.    
 """
 class PitchedElementType(object):
-    def __init__():
-        self.__pitchname = None
-        self.__pitch = None
-        self.__octave = None
-        # a note may have multiple accidentals. This is *not* the same as
-        # double-sharps, etc. The MEI spec allows for multiple <accid> child
-        # elements on a note.
-        self.__accidentals = []
+    pitchname_attr = None
+    pitch_attr = None
+    octave_attr = None
+    accidentals_attr = []
+    
+    def __init__(self):
+        # this should probably raise some sort of warning that it shouldn't
+        # be instantiated directly.
+        pass
     
     @property
     def pitchname(self):
         self._pitchname()
-        return self.__pitchname
+        return self.pitchname_attr
     @pitchname.setter
     def pitchname(self, value):
         self.attributes = {'pname': value}
         self._pitchname()
     @pitchname.deleter
     def pitchname(self):
-        self.__pitchname = None
+        self.pitchname_attr = None
         self._pitchname()
 
     @property
@@ -30,12 +31,12 @@ class PitchedElementType(object):
             allow anyone to set it directly.
         """
         self._pitch()
-        return self.__pitch
+        return self.pitch_attr
 
     @property
     def accidentals(self):
         self._accidentals()
-        return self.__accidentals
+        return self.accidentals_attr
     @accidentals.setter
     def accidentals(self, value):
         if isinstance(value, types.ListType):
@@ -57,7 +58,7 @@ class PitchedElementType(object):
     @property
     def octave(self):
         self._octave()
-        return self.__octave
+        return self.octave_attr
     @octave.setter
     def octave(self, value):
         self.attributes = {'oct': value}
@@ -75,7 +76,7 @@ class PitchedElementType(object):
         # for now, we'll just grab the first accidental., 
         # if self.id == "d1e38008":
         #     pdb.set_trace()
-        return "{0}{1}".format("".join(self.__pitch[0:2]), self.__octave)
+        return "{0}{1}".format("".join(self.pitch_attr[0:2]), self.octave_attr)
 
     ## protected 
     # These methods are responsible for setting the note's properties.
@@ -83,9 +84,9 @@ class PitchedElementType(object):
         pname = self.attribute_by_name("pname")
         # there should only every be one pitch name per note
         if pname:
-            self.__pitchname = pname.value
+            self.pitchname_attr = pname.value
         else:
-            self.__pitchname = None
+            self.pitchname_attr = None
             self.remove_attribute('pname')
 
     def _pitch(self):
@@ -96,27 +97,27 @@ class PitchedElementType(object):
         self._pitchname()
         self._accidentals()
 
-        self.__pitch = [self.__pitchname]
-        self.__pitch.extend(self.__accidentals)
+        self.pitch_attr = [self.pitchname_attr]
+        self.pitch_attr.extend(self.accidentals_attr)
 
     def _accidentals(self):
         if self.has_accidentals():
             if self.has_attribute('accid'):
-                self.__accidentals = [self.attribute_by_name('accid').value]
+                self.accidentals_attr = [self.attribute_by_name('accid').value]
             elif self.has_attribute('accid.ges'):
-                self.__accidentals = [self.attribute_by_name('accid.ges').value]
+                self.accidentals_attr = [self.attribute_by_name('accid.ges').value]
             elif self.has_child('accid'):
                 a = []
                 children = self.children_by_name('accid')
                 for child in children:
                     a.append(child.attribute_by_name('accid').value)
-                self.__accidentals = a
+                self.accidentals_attr = a
 
     def _octave(self):
         octv = self.attribute_by_name("oct")
         if octv:
-            self.__octave = octv.value
+            self.octave_attr = octv.value
         else:
-            self.__octave = None
+            self.octave_attr = None
             self.remove_attribute('oct')
 
