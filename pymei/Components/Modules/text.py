@@ -1,5 +1,6 @@
 from pymei.Components.MeiElement import MeiElement
 from pymei.Components.MeiAttribute import MeiAttribute
+from pymei.Components.Types import SpatialElementType
 
 class back_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
@@ -43,7 +44,7 @@ class item_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class l_(MeiElement):
+class l_(MeiElement, SpatialElementType):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"l", value=value, parent=parent)
         if attrs:
