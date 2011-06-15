@@ -4,9 +4,7 @@ from pymei.Components.MeiExceptions import MeiAttributeError
 
 from pymei.Components.Types import PitchedElementType, DurationElementType, SpatialElementType
 from pymei.Helpers import generate_mei_id
-
 import types
-import uuid
 
 import logging
 lg = logging.getLogger('pymei')
