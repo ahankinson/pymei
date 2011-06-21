@@ -12,8 +12,6 @@
 # ================================================================
 
 import types
-import uuid
-import itertools
 from lxml import etree
 
 #deal with deprecated code.
