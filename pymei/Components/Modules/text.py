@@ -26,12 +26,6 @@ class front_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class ftrem_(MeiElement):
-    def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"ftrem", value=value, parent=parent)
-        if attrs:
-            self.attributes = attrs
-
 class head_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"head", value=value, parent=parent)

@@ -63,6 +63,12 @@ class fermata_(MeiElement):
         if attrs:
             self.attributes = attrs
 
+class ftrem_(MeiElement):
+    def __init__(self, value=None, parent=None, **attrs):
+        MeiElement.__init__(self, name=u"ftrem", value=value, parent=parent)
+        if attrs:
+            self.attributes = attrs
+
 class gliss_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"gliss", value=value, parent=parent)
