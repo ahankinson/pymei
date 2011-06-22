@@ -3,7 +3,7 @@ lg = logging.getLogger('pymei')
 
 
 def meitotext(meidocument, filename=None):
-    r = meidocument.gettoplevel()
+    r = meidocument.root
     
 def _mei_to_text(el):
     el_name = el.getname()

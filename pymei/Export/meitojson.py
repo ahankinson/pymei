@@ -6,7 +6,7 @@ import logging
 lg = logging.getLogger('pymei')
 
 def meitojson(meidocument, filename=None, prettyprint=True):
-    r = meidocument.gettoplevel()
+    r = meidocument.root
     d = _mei_to_json(r)
 
     if prettyprint:
