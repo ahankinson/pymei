@@ -33,6 +33,7 @@ class MeiDocument(object):
         self.__xml_version = "1.0"
         self.__name = docname
         self.elements = []
+        self.__root = None
         self.__flattened_elements = None
     
     def __repr__(self):
@@ -44,19 +45,29 @@ class MeiDocument(object):
     def __unicode__(self):
         return u"<MeiDocument {0}>".format(self.__name)
     
+    @property
+    def root(self):
+        return self.__root
+    @root.setter
+    def root(self, value):
+        self.__root = value
+    @root.deleter
+    def root(self):
+        del self.__root
+    
     def addelement(self, element):
-        warnings.warn('Addelement() has been renamed add_element()', DeprecationWarning)
-        self.add_element(element)
+        warnings.warn('Addelement is no longer used. Use foo.root = bar instead.', DeprecationWarning)
+        self.root = element
     
     def add_element(self, element):
-        self.elements.append(element)
+        self.root = element
     
     def delelement(self, element):
-        warnings.warn('Delelement() has been renamed del_element()', DeprecationWarning)
-        self.del_element(element)
+        warnings.warn('Delelement is no longer used. Use del foo.root instead.', DeprecationWarning)
+        del self.root
     
     def del_element(self, element):
-        del element
+        del self.root
     
     def getencoding(self):
         warnings.warn('Getencoding() is now a @property decorator. Use foo.encoding now.', DeprecationWarning)
@@ -76,10 +87,6 @@ class MeiDocument(object):
     def gettoplevel(self):
         warnings.warn('GetTopLevel() has been renamed to root. Use foo.root to get the first element.', DeprecationWarning)    
         return self.root
-    
-    @property
-    def root(self):
-        return self.elements[0]
     
     @property
     def default_namespace(self):
