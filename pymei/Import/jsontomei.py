@@ -24,14 +24,14 @@ def jsontomei(meifile):
     jsn = json.loads(js) # convert the JSON to python dicts/arrays.
     doc = MeiDocument.MeiDocument('jsonstream')
     j = _json_to_mei(jsn)
-    doc.addelement(j)
+    doc.root = j
     return doc
 
 def jsonstringtomei(string):
     jsn = json.loads(string)
     doc = MeiDocument.MeiDocument('jsonstream')
     j = _json_to_mei(jsn)
-    doc.addelement(j)
+    doc.root = j
     return doc
 
 def _json_to_mei(el):
@@ -83,5 +83,5 @@ def _json_to_mei(el):
                 obj.value = d['@v']
                 
             else:
-                obj.add_children([d])
+                obj.add_child(d)
     return obj

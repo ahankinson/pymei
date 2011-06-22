@@ -26,7 +26,7 @@ def xmltomei(meifile):
     r = t.getroot()
     d = _xml_to_mei(r)
     doc = MeiDocument.MeiDocument()
-    doc.addelement(d)
+    doc.root = d
     return doc
 
 def _xml_to_mei(el):

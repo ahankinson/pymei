@@ -125,14 +125,14 @@ class MeiDocument(object):
         """
         # there should only be one toplevel element
         if not self.__flattened_elements:
-            self.__flattened_elements = flatten(self.gettoplevel())
+            self.__flattened_elements = flatten(self.root)
             
         return [o for o in self.__flattened_elements if o.name == searchterm]
     
     def get_by_id(self, id):
         """ Gets a document object by ID. """
         if not self.__flattened_elements:
-            self.__flattened_elements = flatten(self.gettoplevel())
+            self.__flattened_elements = flatten(self.root)
         # return (o for o in self.__flattened_elements if o.id == id)
         return self.get_by_id_ref("xml:id", id)
     
@@ -167,7 +167,7 @@ class MeiDocument(object):
             Returns a list of MeiElements that match.
         """
         if not self.__flattened_elements:
-            self.__flattened_elements = flatten(self.gettoplevel())
+            self.__flattened_elements = flatten(self.root)
             
         if tagfilter:
             filt_elements = self.search(tagfilter)
@@ -181,7 +181,7 @@ class MeiDocument(object):
             elements in different places in the document.
         """
         if not self.__flattened_elements:
-            self.__flattened_elements = flatten(self.gettoplevel())
+            self.__flattened_elements = flatten(self.root)
         return self.__flattened_elements
     
     def get_system(self, element):
