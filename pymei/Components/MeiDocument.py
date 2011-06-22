@@ -110,6 +110,13 @@ class MeiDocument(object):
     def xmlversion(self):
         return self.__xml_version
     
+    @property
+    def meiversion(self):
+        if not self.__root:
+            raise MeiDocumentRootNotSetError("You must set the root element before getting the version number.")
+        if not self.__root.has_attribute("meiversion"):
+            raise MeiDocumentRootVersionError("The meiversion attribute is requried, but not present on the root element.")
+        return self.__root.attribute_by_name("meiversion").value
     
     def search(self, searchterm, *args, **kwargs):
         """ 
