@@ -15,8 +15,14 @@ import itertools
 from pymei import ENCODING, MEI_PREFIX, MEI_NS
 from pymei.Helpers import flatten
 
+#deal with deprecated code.
+import warnings
+warnings.simplefilter('once')
+
 import logging
 lg = logging.getLogger('pymei')
+
+import time
 
 class MeiDocument(object):
     def __init__(self, docname="Untitled", encoding=ENCODING):
@@ -39,42 +45,64 @@ class MeiDocument(object):
         return u"<MeiDocument {0}>".format(self.__name)
     
     def addelement(self, element):
+        warnings.warn('Addelement() has been renamed add_element()', DeprecationWarning)
+        self.add_element(element)
+    
+    def add_element(self, element):
         self.elements.append(element)
     
     def delelement(self, element):
+        warnings.warn('Delelement() has been renamed del_element()', DeprecationWarning)
+        self.del_element(element)
+    
+    def del_element(self, element):
         del element
     
     def getencoding(self):
-        return self.__encoding
+        warnings.warn('Getencoding() is now a @property decorator. Use foo.encoding now.', DeprecationWarning)
+        return self.encoding
     
     def setencoding(self, value):
+        warnings.warn('SetEncoding() is now an @property decorator. use foo.encoding = bar now', DeprecationWarning)
+        self.encoding = value
+    
+    @property
+    def encoding(self):
+        return self.__encoding
+    @encoding.setter
+    def encoding(self, value):
         self.__encoding = value
-        
-    encoding = property(getencoding, setencoding, doc="Get and set a document's encoding")
     
     def gettoplevel(self):
+        warnings.warn('GetTopLevel() has been renamed to root. Use foo.root to get the first element.', DeprecationWarning)    
+        return self.root
+    
+    @property
+    def root(self):
         return self.elements[0]
     
-    def getdefaultnamespace(self):
+    @property
+    def default_namespace(self):
         return self.__default_namespace
-    
-    def setdefaultnamespace(self, value):
+    @default_namespace.setter
+    def default_namespace(self, value):
         self.__default_namespace = value
-    
-    default_namespace = property(getdefaultnamespace, setdefaultnamespace, doc="Get and set a document's default namespace")
-    
-    def getdefaultprefix(self):
+        
+    @property
+    def default_prefix(self):
         return self.__default_prefix
-    
-    def setdefaultprefix(self, value):
+    @default_prefix.setter
+    def default_prefix(self, value):
         self.__default_prefix = value
-    default_prefix = property(getdefaultprefix, setdefaultprefix, doc = "Get and set a document's default namespace")
     
-    def getstandalone(self):
+    @property
+    def standalone(self):
         return self.__standalone
     
-    def getxmlversion(self):
+    @property
+    def xmlversion(self):
         return self.__xml_version
+    
     
     def search(self, searchterm, *args, **kwargs):
         """ 
@@ -156,12 +184,11 @@ class MeiDocument(object):
         """
         current_system = -1
         if not self.__flattened_elements:
-            self.__flattened_elements = flatten(self.gettoplevel())
+            self.__flattened_elements = flatten(self.root)
+        
         for e in self.__flattened_elements:
             if e.name == 'sb':
-                current_system = int(e.attribute_by_name('n').value)
                 current_system = e.attribute_by_name('n').value
             if e.id == element.id:
-                return current_system      
+                return current_system
         return None
-            
