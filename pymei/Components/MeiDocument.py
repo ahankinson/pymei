@@ -160,6 +160,7 @@ class MeiDocument(object):
         for e in self.__flattened_elements:
             if e.name == 'sb':
                 current_system = int(e.attribute_by_name('n').value)
+                current_system = e.attribute_by_name('n').value
             if e.id == element.id:
                 return current_system      
         return None
