@@ -8,13 +8,13 @@ class back_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class blockquote_(MeiElement):
+class blockquote_(MeiElement, SpatialElementType):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"blockquote", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
-class div_(MeiElement):
+class div_(MeiElement, SpatialElementType):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"div", value=value, parent=parent)
         if attrs:
@@ -50,7 +50,7 @@ class lg_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class list_(MeiElement):
+class list_(MeiElement, SpatialElementType):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"list", value=value, parent=parent)
         if attrs:

@@ -21,7 +21,7 @@ class division_(MeiElement, SpatialElementType):
         if attrs:
             self.attributes = attrs
 
-class episema_(MeiElement):
+class episema_(MeiElement, SpatialElementType):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"episema", value=value, parent=parent)
         if attrs:

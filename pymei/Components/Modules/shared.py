@@ -17,7 +17,7 @@ class abbr_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class accid_(MeiElement):
+class accid_(MeiElement, SpatialElementType):
     def __init__(self, value=None, parent=None, **attrs):
         MeiElement.__init__(self, name=u"accid", value=value, parent=parent)
         if attrs:
