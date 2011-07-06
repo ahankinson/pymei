@@ -12,4 +12,5 @@ class MeiNotYetImplementedError(MeiError): pass
 class MeiXMLParsingError(MeiError): pass
 class MeiInvalidDataTypeError(MeiError): pass
 class MeiChildError(MeiError): pass
-
+class MeiDocumentRootNotSetError(MeiError): pass
+class MeiDocumentRootVersionError(MeiError): pass
