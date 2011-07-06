@@ -7,9 +7,9 @@ class accessdesc_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class acqsource_(MeiElement):
+class acqSource_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"acqsource", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"acqSource", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
             
@@ -37,15 +37,15 @@ class change_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class changedesc_(MeiElement):
+class changeDesc_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"changedesc", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"changeDesc", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
-class classcode_(MeiElement):
+class classCode_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"classcode", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"classCode", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
@@ -60,6 +60,12 @@ class condition_(MeiElement):
         MeiElement.__init__(self, name=u"condition", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
+
+class contentItem_(MeiElement):
+	def __init__(self, value=None, parent=None, **attrs):
+		MeiElement.__init__(self, name=u"contentItem", value=value, parent=parent)
+		if attrs:
+			self.attributes = attrs
 
 class correction_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
@@ -79,21 +85,21 @@ class dimensions_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class editionstmt_(MeiElement):
+class editionStmt_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"editionstmt", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"editionStmt", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
-class editorialdecl_(MeiElement):
+class editorialDecl_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"editorialdecl", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"editorialDecl", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
-class encodingdesc_(MeiElement):
+class encodingDesc_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"encodingdesc", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"encodingDesc", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
@@ -103,15 +109,15 @@ class event_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class eventlist_(MeiElement):
+class eventList_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"eventlist", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"eventList", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
-class exhibithist_(MeiElement):
+class exhibHist_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"exhibithist", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"exhibHist", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
@@ -121,9 +127,9 @@ class extent_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class filedesc_(MeiElement):
+class fileDesc_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"filedesc", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"fileDesc", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
@@ -139,11 +145,17 @@ class hand_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class handlist_(MeiElement):
+class handList_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"handlist", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"handList", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
+
+class incipCode_(MeiElement):
+	def __init__(self, value=None, parent=None, **attrs):
+		MeiElement.__init__(self, name=u"incipCode", value=value, parent=parent)
+		if attrs:
+			self.attributes = attrs
 
 class inscription_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
@@ -169,9 +181,9 @@ class language_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class langusage_(MeiElement):
+class langUsage_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"langusage", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"langUsage", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
@@ -187,27 +199,27 @@ class normalization_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class notesstmt_(MeiElement):
+class notesStmt_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"notesstmt", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"notesStmt", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
-class physdesc_(MeiElement):
+class physDesc_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"physdesc", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"physDesc", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
-class physloc_(MeiElement):
+class physLoc_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"physloc", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"physLoc", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
-class physmedium_(MeiElement):
+class physMedium_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"physmedium", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"physMedium", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
@@ -223,9 +235,9 @@ class price_(MeiElement):
         if attrs:
             self.attributes = attrs
             
-class projectdesc_(MeiElement):
+class projectDesc_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"projectdesc", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"projectDesc", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
@@ -235,9 +247,9 @@ class provenance_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class pubstmt_(MeiElement):
+class pubStmt_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"pubstmt", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"pubStmt", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
@@ -247,21 +259,21 @@ class resp_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class respstmt_(MeiElement):
+class respStmt_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"respstmt", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"respStmt", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
-class revisiondesc_(MeiElement):
+class revisionDesc_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"revisiondesc", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"revisionDesc", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
-class samplingdecl_(MeiElement):
+class samplingDecl_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"samplingdecl", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"samplingDecl", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
@@ -271,9 +283,9 @@ class segmentation_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class seriesstmt_(MeiElement):
+class seriesStmt_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"seriesstmt", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"seriesStmt", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
@@ -283,21 +295,21 @@ class source_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class sourcedesc_(MeiElement):
+class sourceDesc_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"sourcedesc", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"sourceDesc", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
-class stdvals_(MeiElement):
+class stdVals_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"stdvals", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"stdVals", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
-class sysreq_(MeiElement):
+class sysReq_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"sysreq", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"sysReq", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
@@ -307,21 +319,21 @@ class term_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class titlestmt_(MeiElement):
+class titleStmt_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"titlestmt", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"titleStmt", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
-class treatmenthist_(MeiElement):
+class treatHist_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"treatmenthist", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"treatHist", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
-class treatmentsched_(MeiElement):
+class treatSched_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"treatmentsched", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"treatSched", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
@@ -331,9 +343,9 @@ class unpub_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class userestrict_(MeiElement):
+class useRestrict_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"userestrict", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"useRestrict", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
@@ -344,9 +356,9 @@ class plate_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class termlist_(MeiElement):
+class termList_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"termlist", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"termList", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
@@ -356,15 +368,15 @@ class watermark_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class relateditem_(MeiElement):
+class relatedItem_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"relateditem", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"relatedItem", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
             
 class contents_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"relateditem", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"contents", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
@@ -374,29 +386,35 @@ class work_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class perfmedium_(MeiElement):
+class perfMedium_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"perfmedium", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"perfMedium", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
-class workdesc_(MeiElement):
+class workDesc_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"workdesc", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"workDesc", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
-class instrvoice_(MeiElement):
+class instrVoice_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"titlepage", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"instrVoice", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
 class performer_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"titlepage", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"performer", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
+
+class plateNum_(MeiElement):
+	def __init__(self, value=None, parent=None, **attrs):
+		MeiElement.__init__(self, name=u"plateNum", value=value, parent=parent)
+		if attrs:
+			self.attributes = attrs
 
 class key_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):

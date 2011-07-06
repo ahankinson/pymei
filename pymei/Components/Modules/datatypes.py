@@ -46,7 +46,7 @@ class data_FRET(MeiDataType):
     """ In a guitar chord diagram, the fret where the finger should
       be placed. Since guitar chord diagrams are limited to the range of frets
       that fall under the hand, the value here is also limited. The pos
-      (position) attribute on the chorddef element must be used to indicate at
+      (position) attribute on the chordDef element must be used to indicate at
       which fret this range begins. """
     validation = r'^(1|2|3|4|5)(?!.)'
 
@@ -338,7 +338,7 @@ class data_KEYSIGNATURE(MeiDataType):
       key is in the circle of fifths. Mixed key signatures, e.g. those
       consisting of a mixture of flats and sharps, and key signatures with
       unorthodox placement of the accidentals (Read, p. 143) must be indicated
-      by setting the key.sig attribute to 'mixed' and providing explicit keysig
+      by setting the key.sig attribute to 'mixed' and providing explicit keySig
       info in the key.sig.mixed attribute."""
     validation = r'^(mixed|0|[1-7][f|s])$'
 

@@ -27,15 +27,15 @@ class beam_(MeiElement):
         if len(self.children) > 0:
             return self.children[-1]
             
-class beamspan_(MeiElement):
+class beamSpan_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"beamspan", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"beamSpan", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
-class beatrpt_(MeiElement):
+class beatRpt_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"beatrpt", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"beatRpt", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
@@ -51,9 +51,9 @@ class breath_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class btrem_(MeiElement):
+class bTrem_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"btrem", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"bTrem", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
@@ -75,15 +75,15 @@ class hairpin_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class halfmrpt_(MeiElement):
+class halfmRpt_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"halfmrpt", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"halfmRpt", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
-class harppedal_(MeiElement):
+class harpPedal_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"harppedal", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"harpPedal", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
@@ -152,9 +152,9 @@ class measure_(MeiElement):
             self.remove_attribute('right')
         
 
-class mrest_(MeiElement):
+class mRest_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"mrest", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"mRest", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
         # measure rests can have all sorts of possible durations, depending
@@ -163,33 +163,33 @@ class mrest_(MeiElement):
         # That will be left as an exercise to the reader.
         self.duration = None
 
-class mrpt_(MeiElement):
+class mRpt_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"mrpt", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"mRpt", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
-class mrpt2_(MeiElement):
+class mRpt2_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"mrpt2", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"mRpt2", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
-class mspace_(MeiElement):
+class mSpace_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"mspace", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"mSpace", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
-class multirest_(MeiElement):
+class multiRest_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"multirest", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"multiRest", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
-class multirpt_(MeiElement):
+class multiRpt_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"multirpt", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"multiRpt", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
@@ -235,9 +235,9 @@ class tuplet_(MeiElement):
         if attrs:
             self.attributes = attrs
             
-class tupletspan_(MeiElement):
+class tupletSpan_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"tupletspan", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"tupletSpan", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
