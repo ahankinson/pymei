@@ -22,14 +22,14 @@ def meitoxml(meidocument, filename=None):
         t.write(filename, 
                 pretty_print=True, 
                 xml_declaration=True,
-                encoding=meidocument.getencoding(),
-                standalone=meidocument.getstandalone())
+                encoding=meidocument.encoding,
+                standalone=meidocument.standalone)
     else:
         print(etree.tostring(t, 
                 pretty_print=True,
                 xml_declaration=True,
-                encoding=meidocument.getencoding(),
-                standalone=meidocument.getstandalone()))
+                encoding=meidocument.encoding,
+                standalone=meidocument.standalone))
 
 def _mei_to_xml(el):
     el_x = el.as_xml_object()
