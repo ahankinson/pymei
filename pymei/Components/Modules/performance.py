@@ -19,9 +19,9 @@ class performance_(MeiElement):
         if attrs:
             self.attributes = attrs
             
-class avfile_(MeiElement):
+class avFile_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"avfile", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"avFile", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 

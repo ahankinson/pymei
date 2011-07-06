@@ -7,9 +7,9 @@ class fig_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class figdesc_(MeiElement):
+class figDesc_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"figdesc", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"figDesc", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 

@@ -1,33 +1,33 @@
 from pymei.Components.MeiElement import MeiElement
 from pymei.Components.MeiAttribute import MeiAttribute
 
-class corpname_(MeiElement):
+class corpName_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"corpname", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"corpName", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
-class geogname_(MeiElement):
+class geogName_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"geogname", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"geogName", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
-class periodname_(MeiElement):
+class periodName_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"periodname", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"periodName", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
-class persname_(MeiElement):
+class persName_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"persname", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"persName", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
-class stylename_(MeiElement):
+class styleName_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"stylename", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"styleName", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 

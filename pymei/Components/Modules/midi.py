@@ -13,9 +13,9 @@ class chan_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class chanpr_(MeiElement):
+class chanPr_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"chanpr", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"chanPr", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
@@ -43,9 +43,9 @@ class marker_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class metatext_(MeiElement):
+class metaText_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"metatext", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"metaText", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
@@ -56,15 +56,15 @@ class midi_(MeiElement):
             self.attributes = attrs
 
 
-class noteoff_(MeiElement):
+class noteOff_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"noteoff", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"noteOff", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
-class noteon_(MeiElement):
+class noteOn_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"noteon", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"noteOn", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
@@ -80,15 +80,15 @@ class prog_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class seqnum_(MeiElement):
+class seqNum_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"seqnum", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"seqNum", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
-class trkname_(MeiElement):
+class trkName_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"trkname", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"trkName", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
