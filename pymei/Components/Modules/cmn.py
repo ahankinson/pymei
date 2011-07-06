@@ -63,9 +63,9 @@ class fermata_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class ftrem_(MeiElement):
+class fTrem_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"ftrem", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"fTrem", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
