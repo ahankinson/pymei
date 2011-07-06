@@ -1,9 +1,9 @@
 from pymei.Components.MeiElement import MeiElement
 from pymei.Components.MeiAttribute import MeiAttribute
 
-class anchoredtext_(MeiElement):
+class anchoredText_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"anchoredtext", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"anchoredText", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
@@ -25,15 +25,15 @@ class symbol_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class symboldef_(MeiElement):
+class symbolDef_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"symboldef", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"symbolDef", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
-class symboltable_(MeiElement):
+class symbolTable_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"symboltable", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"symbolTable", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 

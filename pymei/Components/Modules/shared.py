@@ -29,9 +29,9 @@ class address_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class addressline_(MeiElement):
+class addrLine_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"addressline", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"addrLine", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
             
@@ -72,9 +72,9 @@ class artic_(MeiElement):
             self.__articulation = None
             self.remove_attribute('artic')
     
-class barline_(MeiElement, SpatialElementType):
+class barLine_(MeiElement, SpatialElementType):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"barline", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"barLine", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
@@ -126,9 +126,9 @@ class clef_(MeiElement, SpatialElementType):
         if attrs:
             self.attributes = attrs
 
-class clefchange_(MeiElement):
+class clefChange_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"clefchange", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"clefChange", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
@@ -198,9 +198,9 @@ class group_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class grpsym_(MeiElement):
+class grpSym_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"grpsym", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"grpSym", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
@@ -210,21 +210,21 @@ class identifier_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class instrdef_(MeiElement):
+class instrDef_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"instrdef", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"instrDef", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
-class instrgrp_(MeiElement):
+class instrGrp_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"instrgrp", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"instrGrp", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
-class keyaccid_(MeiElement):
+class keyAccid_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"keyaccid", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"keyAccid", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
@@ -234,9 +234,9 @@ class keychange_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class keysig_(MeiElement):
+class keySig_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"keysig", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"keySig", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
@@ -252,9 +252,9 @@ class layer_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class layerdef_(MeiElement):
+class layerDef_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"layerdef", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"layerDef", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
@@ -439,33 +439,33 @@ class pb_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class pgdesc_(MeiElement):
+class pgDesc_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"pgdesc", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"pgDesc", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
-class pgfoot1_(MeiElement):
+class pgFoot1_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"pgfoot1", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"pgFoot1", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
-class pgfoot2_(MeiElement):
+class pgFoot2_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"pgfoot2", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"pgFoot2", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
-class pghead1_(MeiElement):
+class pgHead1_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"pghead1", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"pgHead1", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
-class pghead2_(MeiElement):
+class pgHead2_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"pghead2", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"pgHead2", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
@@ -505,9 +505,9 @@ class score_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class scoredef_(MeiElement):
+class scoreDef_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"scoredef", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"scoreDef", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
@@ -535,9 +535,9 @@ class staff_(MeiElement, SpatialElementType):
         if attrs:
             self.attributes = attrs
 
-class staffdef_(MeiElement):
+class staffDef_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"staffdef", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"staffDef", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
     
@@ -552,9 +552,9 @@ class staffdef_(MeiElement):
     
     
 
-class staffgrp_(MeiElement):
+class staffGrp_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"staffgrp", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"staffGrp", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
@@ -576,23 +576,23 @@ class title_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class titlepage_(MeiElement):
+class titlePage_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"titlepage", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"titlePage", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
 # added in MEI 2011
-class castitem_(MeiElement):
+class castItem_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"castitem", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"castItem", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
             
             
-class roledesc_(MeiElement):
+class roleDesc_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"roledesc", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"roleDesc", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
@@ -608,15 +608,15 @@ class role_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class castlist_(MeiElement):
+class castList_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"castlist", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"castList", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
-class castgrp_(MeiElement):
+class castGrp_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"castgrp", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"castGrp", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 

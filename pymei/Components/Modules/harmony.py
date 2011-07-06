@@ -7,21 +7,21 @@ class barre_(MeiElement):
         if attrs:
             self.attributes = attrs
 
-class chorddef_(MeiElement):
+class chordDef_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"chorddef", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"chordDef", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
-class chordmember_(MeiElement):
+class chordMember_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"chordmember", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"chordMember", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
-class chordtable_(MeiElement):
+class chordTable_(MeiElement):
     def __init__(self, value=None, parent=None, **attrs):
-        MeiElement.__init__(self, name=u"chordtable", value=value, parent=parent)
+        MeiElement.__init__(self, name=u"chordTable", value=value, parent=parent)
         if attrs:
             self.attributes = attrs
 
