@@ -264,6 +264,8 @@ class MeiElement(object):
     @parent.setter
     def parent(self, value):
         self.__parent = value
+        if value:
+            self.__parent.children.append(self)
     
     def ancestor_by_name(self, ancestor_name):
         """ 
