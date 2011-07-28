@@ -29,6 +29,9 @@ lg = logging.getLogger('pymei')
 class MeiElement(object):
     def __init__(self, name=None, value=None, prefix=MEI_PREFIX, namespace=MEI_NS, parent=None):
         self.__parent = parent
+        if parent:
+            parent.children.append(self)
+            
         self.__prefix = prefix
         self.__xmlns = namespace
         self.__name = name
