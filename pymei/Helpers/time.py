@@ -1,3 +1,4 @@
+from pymei.Components.MeiExceptions import MeiError
 from pymei.Helpers import flatten
 
 def id_to_tstamp(event, base=None): 
@@ -16,6 +17,9 @@ def id_to_tstamp(event, base=None):
 		return rel_dur
 		
 	context = event.ancestor_by_name('layer')
+	if context == None:
+		raise MeiError('The current event must be in a mei:layer.')
+	
 	top = event.ancestor_by_name('music') # is there a better way to go up to the top? (say, root, without using MEIDocument?)
 	
 	#if base is not provided, get it from scoredef
@@ -32,7 +36,7 @@ def id_to_tstamp(event, base=None):
 		if scoredef != -1:
 			base = float(scoredef.attribute_by_name('meter.unit').value)
 		else:
-			print 'Could not find a score definition.'
+			raise MeiError('Could not find a score definition.')
 			
 	#get all events in context (notes + rests. Other events that should be considered?)
 	notes = context.descendants_by_name('note') 
