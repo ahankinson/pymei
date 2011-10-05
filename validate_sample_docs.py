@@ -2,7 +2,7 @@ import os
 import sys
 from optparse import OptionParser
 
-from pymei.Import import xmltomei
+# from pymei.Import import xmltomei
 from lxml import etree
 
 import logging
@@ -18,12 +18,19 @@ if __name__ == "__main__":
     p.add_option("-s", "--stop", action="store_true", help="Stop on errors.")
     (options, args) = p.parse_args()
     
+    print "Starting parsing..."
+    
     f = open(args[0], 'r')
     rdoc = etree.parse(f)
     relaxng = etree.RelaxNG(rdoc)
     
+    lg.debug("Walking through the directories.")
     for dp,dn,fn in os.walk(args[1]):
+        if dp.startswith("."):
+            print 'Skipping {0}'.format(dp)
+            continue
         for f in fn:
+            print "Processing {0}".format(f)
             if os.path.splitext(f)[-1] != ".mei":
                 continue
             try:
@@ -34,12 +41,12 @@ if __name__ == "__main__":
                 print "{0}: {1}".format(f, valid)
                 
             except Exception, e:
-                lg.debug("********************************************")
-                lg.debug("*** Failure on {0} ***".format(f))
-                lg.debug("The error was: {0}".format(e))
-                lg.debug("********************************************")
+                print "********************************************"
+                print "*** Failure on {0} ***".format(f)
+                print "The error was: {0}".format(e)
+                print "********************************************"
                 if options.stop:
-                    lg.debug("Stopping!")
+                    print "Stopping!"
                     sys.exit()
                 else:
                     continue
