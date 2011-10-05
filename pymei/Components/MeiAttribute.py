@@ -9,11 +9,11 @@
 # ================================================================
 
 class MeiAttribute(object):
-    def __init__(self, name=None, value=None, element=None, prefix=None):
+    def __init__(self, name=None, value=None, element=None):
         self.__element = element # the element this attribute is attached to.
         self.__name = name
         self.__value = value
-        self.__prefix = prefix
+        self.__ns = None
         
         # automatically add this object to the parent's attribute list.
         if element:
@@ -49,4 +49,18 @@ class MeiAttribute(object):
     @element.setter
     def element(self, value):
         self.__element = value
+    @element.deleter
+    def element(self):
+        self.__element = None
+    
+    @property
+    def namespace(self):
+        return self.__ns
+    @namespace.setter
+    def namespace(self, value):
+        self.__ns = value
+    @namespace.deleter
+    def namespace(self):
+        self.__ns = None
+
 
