@@ -23,7 +23,7 @@ def prefix_to_ns(att):
         return att
         
 def generate_mei_id():
-    return "{0}-{1}".format('m', str(uuid.uuid4()))
+    return "m-{1}".format(str(uuid.uuid4()))
 
 def flatten(mei_obj):
     """ 

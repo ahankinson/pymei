@@ -29,13 +29,11 @@ class MeiDocument(object):
         self.__encoding = ENCODING
         self.__version = MEI_VERSION
         self.__namespaces = [MEI_NS]
-        # self.__default_prefix = MEI_PREFIX
-        # self.__default_namespace = MEI_NS
         self.__standalone = False
         self.__xml_version = "1.0"
-        self.elements = []
         self.__root = None
-        self.__flattened_document = None
+        self.__flattened_tree = None
+        self.__idmap = {}
     
     def __repr__(self):
         return u"<MeiDocument {0}:{1}>".format(self.__version, self.__root.name)
@@ -74,13 +72,63 @@ class MeiDocument(object):
         self.__root = None
     
     def get_element_by_id(self, id):
-        pass
+        # ensure we're working with the latest info
+        self._update_document()
+
+        if id not in self.__idmap.keys():
+            return None
+        else:
+            return self.__idmap[id]
     
     def get_elements_by_name(self, name):
-        pass
+        self._update_document()
+        return [c for c in self.__flattened_tree if c.name == name]
     
-    def lookback(self, from, name):
-        pass
+    def get_position_in_document(self, element):
+        self._update_document()
+        if element.id not in self.__idmap.keys():
+            return None
+        else:
+            return self.__flattened_tree.index(element)
+
+
+    @property
+    def flattened_tree(self):
+        return self.__flattened_tree
+
+    def lookback(self, from_element, name):
+        self._update_document()
+
+        if from_element.id not in self.__idmap.keys():
+            return None
+        
+        idx = self.__flattened_tree.index(from_element)
+
+        # slice the list and reverse it so that we only 
+        # search the elements we need.
+        search_elements = self.__flattened_tree[:idx].reverse()
+
+        for el in search_elements:
+            if el.name == name:
+                return el
+
+        return None
+
+    
+    def _update_document(self):
+        """ 
+            Update both the list of all elements
+            as well as the {id,element} dictionary.
+
+            Protected since only the document should
+            be able to update itself.
+        """
+        self.__idmap = {} # unset any old element maps
+        self.__flattened_tree = flatten(self.__root)
+
+        for el in self.__flattened_tree:
+            self.__idmap[el.id] = el
+
 
 
     # @property

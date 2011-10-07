@@ -22,13 +22,13 @@ from pymei import MEI_NS, MEI_PREFIX, PREFIX_TO_NS
 from pymei.Components.MeiAttribute import MeiAttribute
 from pymei.Components.MeiNamespace import MeiNamespace
 from pymei.Components.MeiExceptions import *
-from pymei.Helpers import flatten, prefix_to_ns
+from pymei.Helpers import flatten, prefix_to_ns, generate_mei_id
 
 import logging
 lg = logging.getLogger('pymei')
 
 class MeiElement(object):
-    def __init__(self, name=None, value=None, prefix=MEI_PREFIX, namespace=MEI_NS, parent=None):
+    def __init__(self, name=None, value=None, id=None, namespace=MEI_NS, parent=None):
         self.__parent = parent
         if parent:
             parent.children.append(self)
@@ -43,11 +43,11 @@ class MeiElement(object):
         self.__svalue = None
         self.__id = None
         self.__document = None
-        # self.__xml_obj = None
-        # self.__xml_str = None
-        # self.__json_str = None
-        # self.__dictionary = None
 
+        if id not None:
+            self.__id = id
+        else:
+            self.__id = generate_mei_id()
         # TODO: Autogen ID
 
     
@@ -127,13 +127,7 @@ class MeiElement(object):
     def document(self):
         del self.__document
         self.__document = None
-    
-    def add_child(self, child):
-        pass
-    
-    def add_child_before(self, before, child):
-        pass
-    
+        
     @property
     def children(self):
         return self.__children
@@ -145,37 +139,78 @@ class MeiElement(object):
         del self.__children
         self.__children = None
     
+    def add_child(self, child):
+        self.__children.append(child)
+    
+    def add_child_before(self, before, child):
+        place = self.__children.index(before)
+        idx = place - 1 if place < 0 else 0
+        self.__children.insert(idx, child)
+
     def get_children_by_name(self, name):
-        pass
+        return [c for c in self.__children if c.name == name]
     
     def remove_children_with_name(self, name):
-        pass
+        self.__children = [c for c in self.__children if c.name != name]
     
-    def remove_child(self, name):
-        pass
+    def remove_child(self, meiobj):
+        self.__children.remove(meiobj)
     
     def has_children(self, name=None):
-        pass
+        return bool(self.__children)
 
     def get_ancestor(self, name):
-        pass
+        """ 
+            Looks for the existence of <ancestor_name> in the element's parents, 
+            and their parents parents, etc.
+            
+            Returns the first ancestor found that matches; otherwise returns None.
+        """
+        def __anc(nm, meiobj, lst):
+            if isinstance(meiobj.parent, types.NoneType):
+                # if we've reached a point where there is no parent, we 
+                # have failed in our quest.
+                return None
+            if meiobj.name == nm:
+                lst.append(meiobj)
+            else:
+                __anc(nm, meiobj.parent, lst)
+
+        pnt = self.parent
+        plist = []
+        __anc(name, pnt, plist)
+
+        if plist:
+            return plist[0]
+        else:
+            return None
+
+    def has_ancestor(self, name):
+        return bool(self.get_ancestor(name))
+
+    def get_descendants(self):
+        """ Returns a tuple of all descendants of this element """
+        return tuple(flatten(self))
     
-    def get_descendents(self):
-        pass
+    def get_descendants_by_name(self, name):
+        """ Returns a tuple of all descendants of this element
+            if they match <name>; Returns an empty tuple if none
+            are found.
+        """
+        return (d for d in flatten(self) if d.name == name)
     
     def get_peers(self):
-        pass
+        return self.parent.children
     
     def get_position_in_document(self):
-        pass
+        # if we don't have document set, return None
+        if not self.__document:
+            return None
+        return self.__document.get_position_in_document(self)
+
     
     def lookback(self, name):
         pass
-    
-    def flatten(self):
-        pass
-
-
 
     # @property
     # def value(self):

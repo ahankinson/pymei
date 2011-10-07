@@ -32,14 +32,36 @@ def meitoxml(meidocument, filename=None):
                 standalone=meidocument.standalone))
 
 def _mei_to_xml(el):
-    el_x = el.as_xml_object()
+    el_x = toxmlobj(el)
     if isinstance(el, MeiComment.MeiComment):
         return el_x
         
     if len(el.children) > 0:
-        children = map(_mei_to_xml, el.children)
+        children = [_mei_to_xml(c) for c in el.children]
         
         for child in children:
             el_x.append(child)
     return el_x
+
+def __toxml(meielement):
+    a = {}
+    for at in meielement.attributes:
+        filtname = prefix_to_ns(at.name)
+        if filtname == "namespace":
+            continue
+        a[str(filtname)] = at.value
+    el = etree.Element(meielement.name, **a)
+    if meielement.value is not None:
+        el.text = meielement.value
+    if meielement.tail is not None:
+        el.tail = meielement.tail
+    return el
+
+def toxmlobj(meielement):
+    return __toxml(meielement)
+
+def toxmlstr(meielement):
+    obj = __toxml(meielement)
+    return etree.tostring(obj, pretty_print=True)
+
     
