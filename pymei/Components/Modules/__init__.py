@@ -22,5 +22,6 @@ from pymei.Components.Modules.ptrref import *
 from pymei.Components.Modules.shared import *
 from pymei.Components.Modules.text import *
 from pymei.Components.Modules.usersymbols import *
+from pymei.Components.Modules.layout import *
 # added in MEI 2011
 from pymei.Components.Modules.performance import *
