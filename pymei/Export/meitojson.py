@@ -18,8 +18,9 @@ def meitojson(meidocument, filename=None, prettyprint=True):
         f = codecs.open(filename, 'w', encoding='utf-8')
         f.write(j)
         f.close()
+        return None
     else:
-        print(j)
+        return j
 
 def _mei_to_json(el):
     # at this point we're still working on a python dictionary.
