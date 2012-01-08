@@ -4,6 +4,7 @@ from lxml import etree #AH
 #from lxml import objectify #AH
 import uuid
 import codecs
+import StringIO
 
 from pymei.Components import MeiDocument, MeiElement, MeiComment
 from pymei.Components import Modules as mod
@@ -18,10 +19,20 @@ lg = logging.getLogger('pymei')
 def xmltomei(meifile):
     """ Open and parse a MEI XML file to a MeiDocument object. """
     f = codecs.open(meifile, 'r', encoding='utf-8')
+    doc = _xmlfhtomei(f)
+    f.close()
+    return doc
+
+def xmlstrtomei(meistr):
+    """ Parse a string containing an MEI XML document to an MeiDocument object. """
+    f = StringIO.StringIO(meistr)
+    return _xmlfhtomei(f)
+
+def _xmlfhtomei(f):
+    """ Parse an XML document that looks like a file handle. """
     p = etree.XMLParser(ns_clean=True, no_network=False, encoding="utf-8")
     t = etree.parse(f, p)
-    f.close()
-    
+
     t.xinclude() # run xinclude
     r = t.getroot()
     d = _xml_to_mei(r)
