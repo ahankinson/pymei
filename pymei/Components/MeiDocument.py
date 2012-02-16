@@ -137,12 +137,18 @@ class MeiDocument(object):
         return [o for o in self.__flattened_elements if o.name == searchterm]
     
     def get_by_id(self, id):
-        """ Gets a document object by ID. """
+        """ Gets a document object by ID. Returns None if the element
+            does not exist.
+        """
         if not self.__flattened_elements:
             self.__flattened_elements = flatten(self.root)
         # return (o for o in self.__flattened_elements if o.id == id)
-        return self.get_by_id_ref("xml:id", id)
-    
+        els = self.get_by_id_ref("xml:id", id)
+        if not els:
+            return None
+        else:
+            return els[0]
+
     def get_by_facs(self, facsid):
         """ Returns the zone element for a given element's facs attribute"""
         return self.get_by_id_ref("xml:id", facsid, "zone")
