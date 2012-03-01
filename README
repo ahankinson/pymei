@@ -1,14 +1,7 @@
-PyMEI README
+PyMEI is being deprecated.
 
-*************** WARNING ***************
+You can still find the last version of it in the "archive" branch, but it is no longer being maintained.
 
-This software is still very much in the alpha stages of development.
+LibMEI is the new hotness, but don't worry: You don't have to write awful icky C++. We've got shiny Python bindings for it, with instructions on how to build them available on the LibMEI wiki: https://github.com/DDMAL/libmei/wiki
 
-*************** WARNING ***************
-
-This is a Python library to read/write Music Encoding Initiative (MEI) files. While MEI is usually expressed in XML, this library abstracts the XML representation, parsing the MEI entities into Python objects. This is to allow for alternative representations to be output, e.g., a MEIXML file can be read in and converted to a JSON representation, or vice-versa.
-
-For more information about the structure of this library and how to use it, see the wiki on the development site at http://github.com/ahankinson/pymei
-
-
-
+All features of PyMEI have been ported over to LibMEI, so they are pretty much the same now. If there is something missing, please feel free to send a berating e-mail to andrew.hankinson@mail.mcgill.ca.
